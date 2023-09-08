@@ -1,0 +1,85 @@
+body {
+    background-color: #06050b;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Rubik Iso', Helvetica;
+    font-size: 8rem;
+    color: white;
+    margin-bottom: -10px;
+    margin-top: 0px;
+}
+
+#japanese-name {
+    font-family: 'Yuji Mai';
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+h2 {
+    text-align: center;
+    font-family: 'Josefin Sans', Helvetica, sans-serif;
+    color: white;
+}
+
+p, footer {
+    color: white;
+    margin-left: 15%;
+    margin-right: 15%;
+    font-family: 'Quicksand', 'Times New Roman', Times, serif;
+}
+
+    
+p.description {
+    margin-bottom: 2rem;
+}
+
+blockquote {
+    color: white;
+    margin-left: 15%;
+    margin-right: 15%;
+    display: block;
+    font-family: 'Quicksand', 'Times New Roman', Times, serif;
+    background-color: #1b1b1b;
+    border-radius: 5px;
+    padding: 1rem;
+}
+
+p.quoteSource {
+    margin-left:3% ;
+}
+
+li {
+    color:white;
+    margin-right: 15%;
+    margin-left: 15%;
+    font-family: 'Quicksand', 'Times New Roman', Times, serif;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+img#gameplay {
+    width:50%;
+}
+
+a:link {
+    color: whitesmoke;
+}
+
+a:visited {
+    color: #838996 ;
+}
+
+hr {
+    border: 1px white solid;
+    width: 70%;
+    border-radius: 3px;
+}
