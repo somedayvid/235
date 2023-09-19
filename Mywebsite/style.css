@@ -1,0 +1,62 @@
+/*Morning Espresso #332a1a #7c5b41 #efdcd3 #aa574b #541c13
+https://coolors.co/332a1a-7c5b41-efdcd3-aa574b-541c13
+Havana #f04720 #f4c273 #f7e8c4 #dd9bc6 #9f4282 #F2854A
+https://coolors.co/f04720-f2854a-f4c273-f7e8c4-dd9bc6-9f4282 */
+html {
+    background-color: #F4C273;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: #F7E8C4;
+    margin: 0 20%;
+    height: 100%;
+    border-radius: 30px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+p {
+    margin: 0 20%;
+}
+
+a {
+    display: block;
+    padding: 0;
+    text-decoration: none;
+}
+
+a:link {
+    color: #9D96B8 ;
+}
+
+a:visited {
+    color: #dd9bc6;
+}
+a:focus {
+    color: #F2854A
+}
+a:hover{
+    color: #9f4282;
+}
+a:active{
+    color: #f04720;
+}
+
+div#nav_bar {
+    display:flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    position: fixed;
+    top: 75px;
+    left: 350px;
+}
+
+a.nav_link {
+    margin:auto;
+}
+
+
