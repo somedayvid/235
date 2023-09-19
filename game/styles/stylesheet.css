@@ -1,0 +1,34 @@
+body {
+  background-color: #fdf0d5;
+  font-family: Arial, sans-serif;
+}
+h1, h2 {
+    color: #c1121f;
+    font-family: 'Erica One';
+}
+h1 {
+  border-bottom: 1px solid blue;
+}
+h2 {
+  margin-left: 100px;
+}
+p {
+  margin-left: 100px;
+}
+img {
+    border: 1px solid #c1121f;
+}
+img.side {
+  float:right; 
+  margin: 0 12px;
+}
+blockquote {
+  background-color: lightgray;
+  padding: 1rem;
+}
+li, ul {
+    background-color: #669bbc;
+}
+a {
+    color: #780000;
+}
