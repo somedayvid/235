@@ -59,4 +59,9 @@ a.nav_link {
     margin:auto;
 }
 
+div#contact_links {
+    display: flex;
+    flex-flow: row wrap;
+}
+
 
