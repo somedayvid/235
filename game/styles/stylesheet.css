@@ -1,10 +1,19 @@
 body {
-  background-color: #fdf0d5;
+  background-color: #202030;
   font-family: Arial, sans-serif;
 }
+
+main, header, footer {
+ border: 1px black solid;
+ margin: 0 auto;
+ width: 80vw;
+ padding: 1rem; 
+ background-color: #fdf0d5;
+}
+
 h1, h2 {
-    color: #c1121f;
-    font-family: 'Erica One';
+  color: #c1121f;
+  font-family: 'Erica One';
 }
 h1 {
   border-bottom: 1px solid blue;
@@ -16,19 +25,36 @@ p {
   margin-left: 100px;
 }
 img {
-    border: 1px solid #c1121f;
+  border: 1px solid #c1121f;
 }
 img.side {
   float:right; 
   margin: 0 12px;
+}
+img#manThisPictureIsTooBig {
+  width: 830.16px; 
+  height: 216.66px;
 }
 blockquote {
   background-color: lightgray;
   padding: 1rem;
 }
 li, ul {
-    background-color: #669bbc;
+  background-color: #669bbc;
 }
-a {
-    color: #780000;
+a:link {
+  color: #780000;
+}
+a:visited {
+  color: #3f3980;
+}
+
+a:focus {
+  color: #9ce320;
+} 
+a:hover {
+  color: #f291c4;
+}
+a:active {
+  color:#1b37ed;
 }
