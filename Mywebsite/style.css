@@ -34,6 +34,10 @@ a {
     text-decoration: none;
 }
 
+img#mememe {
+    margin: 0 35%;
+}
+
 a:link {
     color: #9D96B8 ;
 }
