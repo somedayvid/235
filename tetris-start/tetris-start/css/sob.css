@@ -1,0 +1,31 @@
+h2, h3 {
+    border-bottom: 1px red solid;
+}
+
+figure {
+    float: left;
+    width:40%;
+    margin-right: 1rem ;
+}
+
+figure img {
+    width:100%
+}
+
+h2 {
+    clear: left;
+}
+
+#tetlist {
+    border: 1px solid blue;
+    float: left;
+    width: 40%;
+}
+
+footer {
+    clear: left;
+    position: fixed;
+    top: 1px;
+    left: 150px;
+    z-index: -10;
+}

@@ -1,1 +1,24 @@
-/* Do everything in this file */
+figure {
+    max-width: 650px;
+    margin:auto;
+}
+
+figure img {
+    width: 100%;
+}
+
+header, main, footer {
+    width: 90vw;
+    margin: auto;
+}
+
+#tetlist {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.tet {
+    display: flex;
+    flex: 1 1 60%;
+    border: 1px solid black;
+}
