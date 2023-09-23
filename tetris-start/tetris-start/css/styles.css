@@ -17,8 +17,25 @@ header, main, footer {
     flex-flow: row wrap;
 }
 
-.tet {
+.tet, .tet long, .tet square {
     display: flex;
-    flex: 1 1 60%;
+    flex: 0 1 550px;
     border: 1px solid black;
+    text-align: center;
+}
+
+.tet img, .tet-long img, .tet-square img{
+    width: 60%;
+}
+
+span {
+    display: block;
+    margin: 5% 0;
+    font-weight: 600;
+    font-size: large;
+}
+
+div.aliases {
+    text-align: left;
+    margin: 1em;
 }
