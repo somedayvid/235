@@ -1,41 +1,44 @@
 figure {
     max-width: 650px;
-    margin:auto;
+    margin: 0 auto;
 }
 
 figure img {
-    width: 100%;
+    width:100%;
 }
 
 header, main, footer {
     width: 90vw;
-    margin: auto;
+    margin: 0 auto;
 }
 
 #tetlist {
     display: flex;
     flex-flow: row wrap;
+    justify-content: center;
 }
 
-.tet, .tet long, .tet square {
+#tetlist div {
     display: flex;
-    flex: 0 1 550px;
+    flex: 0 1 450px;
     border: 1px solid black;
     text-align: center;
-}
-
-.tet img, .tet-long img, .tet-square img{
-    width: 60%;
-}
-
-span {
-    display: block;
-    margin: 5% 0;
-    font-weight: 600;
-    font-size: large;
 }
 
 div.aliases {
     text-align: left;
     margin: 1em;
+}
+
+#tetlist img{
+    width: 60%;
+    height: 60%;
+    margin: auto 0;
+}
+
+span {
+    display: block;
+    margin: 1vw 0;
+    font-size: 2vw;
+    font-weight: 700;
 }
