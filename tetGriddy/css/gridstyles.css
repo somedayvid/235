@@ -70,7 +70,7 @@ ul.menu {
 }
 
 .menu li {
-    width: 25%;
+    width: 33.3334%;
 }
 
 @media screen and (max-width: 550px) {
@@ -106,6 +106,7 @@ ul.menu li:hover ul {
 
 #tetgrid {
     display: grid;
+    justify-self: center;
     grid-template-columns: repeat(6, 100px);
     grid-template-rows: repeat(6, 100px);
 }
