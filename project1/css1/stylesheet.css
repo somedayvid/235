@@ -1,0 +1,247 @@
+body {
+    margin-right: 15vw;
+    margin-left: 15vw;
+}
+h1 {
+    background: url(../media/logo.svg) no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+    text-indent:-9999px;
+}
+
+h2 {
+    font-weight: 400;
+    font-size:3vw ;
+    margin: 25px;
+    color: white;
+}
+
+h3{
+    font-family: 'Gabarito';
+    font-size: 1.5vw;
+    font-weight: bold;
+    margin-bottom: -1vw;
+    margin-top: -1vw;
+    margin-left: 2.5vw;
+}
+
+p, ul {
+    font-family: 'Comfortaa';
+    font-size:1.2vw;
+}
+
+div.text{
+    margin-top: 3vw;
+}
+
+div.text p{
+    margin-left: 2.5vw;
+}
+
+.whiteTxt{
+    color: white;
+}
+
+body {
+    display: grid;
+    grid-template-areas:
+    "logo" 
+    "intro"
+    "main"  
+    "footer";
+    height: auto;
+    width: 1fr;
+}
+
+div#intro {
+    grid-area: intro;
+    position: absolute;
+    top: 400px;
+    left: 200px;
+    width: 250px;
+    height: 250px;
+
+    z-index: 100;
+}
+
+div#introbox {
+    width: 100%;
+    height: 100%;
+    background-color: #d4455e;
+    opacity: .8;
+}
+
+#introimg{
+    width: 100%;
+    clip-path: polygon(37% 32%, 37% 0, 100% 0, 100% 76%, 64% 77%, 65% 100%, 0 100%, 0 33%);
+    margin-top: -100px;
+}
+
+a:link{
+    color: #1591d1;
+}
+
+h1#logo {
+    grid-area: logo;
+}
+
+div#main {
+    grid-area: main;
+    display: grid;
+    grid-template-areas:
+    "paid   paid  paid  cash  cash       cash    air     air    "
+    "any    any   flexy flexy flexy      charity charity charity"
+    "any    any   flexy flexy flexy      tuition tuition tuition"
+    "anysup stock stock stock flexysup   tuition tuition tuition"
+    "anysup stock stock stock flexysup   tuition tuition tuition"
+    "peer   stock stock stock well       well    well    well   "
+    "peer   match match match well       well    well    well   ";
+    grid-template-columns: 10fr 4fr 5fr 1fr 3fr 4fr 8fr 6fr;
+    grid-template-rows: 9fr 7fr 3fr 2fr 1fr 3fr 4fr;
+    gap: 1vw;
+    width: 70vw;
+    height: 51vw;
+}
+div#paid{
+    grid-area: paid;
+    background-color: #f8faf9;
+}
+
+div#paid img{
+    width: 35%;
+    float: left;
+    margin: 35px;
+}
+div#paid div.text{
+    margin-top:50px;
+}
+
+div#cash{
+    grid-area: cash;
+    background-color: #1591d1;
+    padding-top: 30%;
+}
+
+div#air{
+    grid-area: air;
+    background-color: #f8faf9;
+}
+
+div#air div.text{
+    position: absolute;
+    margin-top: 9%;
+    margin-left: 1%;
+}
+
+div#air img{
+    width: 40%;
+    float: right;
+}
+
+div#any{
+    grid-area: any;
+    background-color: #d4455e;
+    display: flexbox;
+    z-index: -1;
+}
+
+div#any img{
+    clip-path: polygon(0 0, 100% 1%, 100% 60%, 64% 57%, 64% 100%, 0 100%);
+    width: 100%;
+    transform: translateY(5.21vw);
+    overflow: hidden;
+}
+
+div#anysupport{
+    grid-area: anysup;
+    background-color: #d4455e;
+    margin-top: -1vw;
+    z-index: -2;
+}
+div#flexy{
+    grid-area: flexy;
+    background-color: #3ebcf6;
+}
+
+#flexy ul{
+    list-style-type: none;
+}
+
+div#flexysupport{
+    grid-area: flexysup;
+    background-color: #3ebcf6;
+    margin-top: -1vw;
+}
+div#tuition{
+    grid-area: tuition;
+    background-color: #d4455e;
+}
+div#tuition img{
+    float: left;
+    width: 30%;
+}
+
+div#charity{
+    grid-area: charity;
+    background-color: #1591d1;
+}
+div#stock{
+    grid-area: stock;
+    background-color: #1591d1;
+}
+div#well{
+    grid-area: well;
+    background-color: #f8faf9;
+}
+
+div#well img {
+    float: left;
+    height: 100%;
+    width: auto;
+    transform:translateX(-1vw);
+    clip-path: polygon(3.8% 0, 100% 0, 100% 100%, 3.8% 100%);
+}
+
+div#match{
+    grid-area: match;
+    background-color: #d4455e;
+}
+div#peer{
+    grid-area: peer;
+    background-color: #f8faf9;
+}
+div#peer img{
+    width: 70%; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer {
+    grid-area: footer;
+    font-family: 'Gabarito';
+}
+
+footer p{
+    float: right;
+}
+
+@media screen and (max-width: 780px){
+    div#main{
+        display: grid;
+        grid-template-areas:
+        "paid paid"
+        "cash air"
+        "any flexy"
+        "charity charity"
+        "tuition tuition"
+        "peer peer"
+        "match stock"
+        "well well";
+        grid-template-columns: repeat(2,1fr);
+        grid-template-rows: 1fr;
+        gap: 1vw;
+        width: 80vw;
+        height: 56vw;
+    }
+}
