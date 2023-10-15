@@ -5,8 +5,8 @@ body {
 h1 {
     background: url(../media/logo.svg) no-repeat;
     background-size: contain;
-    height: 100px;
-    width: 100px;
+    height: 10vw;
+    width: 10vw;
     text-indent:-9999px;
 }
 
@@ -51,31 +51,35 @@ body {
     "main"  
     "footer";
     height: auto;
-    width: 1fr;
+    width: 70%;
 }
 
 div#intro {
     grid-area: intro;
     position: absolute;
-    top: 400px;
-    left: 200px;
-    width: 250px;
-    height: 250px;
-
+    top: 40%;
+    left: 17.5%;
+    width: 22.5vw;
+    height: 22.5vw;
     z-index: 100;
-}
-
-div#introbox {
-    width: 100%;
-    height: 100%;
     background-color: #d4455e;
     opacity: .8;
+}
+
+h2 {
+    opacity: 1;
 }
 
 #introimg{
     width: 100%;
     clip-path: polygon(37% 32%, 37% 0, 100% 0, 100% 76%, 64% 77%, 65% 100%, 0 100%, 0 33%);
     margin-top: -100px;
+}
+
+p#introinfo{
+    height: 10vw;
+    width: 20vw;
+    float: right;
 }
 
 a:link{
@@ -91,7 +95,7 @@ div#main {
     display: grid;
     grid-template-areas:
     "paid   paid  paid  cash  cash       cash    air     air    "
-    "any    any   flexy flexy flexy      charity charity charity"
+    "any    any   flexy flexy flexy      charity charity deco"
     "any    any   flexy flexy flexy      tuition tuition tuition"
     "anysup stock stock stock flexysup   tuition tuition tuition"
     "anysup stock stock stock flexysup   tuition tuition tuition"
@@ -120,7 +124,6 @@ div#paid div.text{
 div#cash{
     grid-area: cash;
     background-color: #1591d1;
-    padding-top: 30%;
 }
 
 div#air{
@@ -142,12 +145,11 @@ div#air img{
 div#any{
     grid-area: any;
     background-color: #d4455e;
-    display: flexbox;
     z-index: -1;
 }
 
 div#any img{
-    clip-path: polygon(0 0, 100% 1%, 100% 60%, 64% 57%, 64% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0%, 100% 42.4%,68.2% 42.4%, 68.2% 100%, 0 100%);
     width: 100%;
     transform: translateY(5.21vw);
     overflow: hidden;
@@ -186,6 +188,11 @@ div#charity{
     grid-area: charity;
     background-color: #1591d1;
 }
+
+div#blueyellowdeco{
+    grid-area: deco;
+}
+
 div#stock{
     grid-area: stock;
     background-color: #1591d1;
@@ -213,18 +220,41 @@ div#peer{
 }
 div#peer img{
     width: 70%; 
-    margin-left: auto;
+    margin-left: 14%;
     margin-right: auto;
+    margin-bottom: -80px;
 }
 
 footer {
     grid-area: footer;
-    font-family: 'Gabarito';
 }
 
 footer p{
     float: right;
+    font-family: 'Gabarito';
 }
+
+a:link{
+    color: #1591d1;
+    text-decoration: none;
+}
+
+a:visited{
+    color: #6666ff;
+}
+
+a:focus{
+    color:#33adff
+}
+
+a:hover{
+    color: #80bfff;
+}
+
+a:active{
+    color:#00264d;
+}
+
 
 @media screen and (max-width: 780px){
     div#main{
@@ -239,7 +269,7 @@ footer p{
         "match stock"
         "well well";
         grid-template-columns: repeat(2,1fr);
-        grid-template-rows: 1fr;
+        grid-template-rows: repeat(8, auto);
         gap: 1vw;
         width: 80vw;
         height: 56vw;
