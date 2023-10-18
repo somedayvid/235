@@ -1,0 +1,293 @@
+
+nav{
+    display: flex;
+    justify-content: space-around;
+    position: sticky;
+    top: 0;
+    background-color: yellow;
+    margin: -10px 0 0 0;
+    z-index: 1000000;
+    width: 100%;
+}
+
+h1 {
+    background: url(../media/logo.svg) no-repeat;
+    background-size: contain;
+    height: 5vw;
+    width: 5vw;
+    text-indent:-9999px;
+}
+
+h2 {
+    font-weight: 400;
+    font-size:3vw ;
+    margin: 25px;
+    color: black;
+}
+
+h3{
+    font-family: 'Gabarito';
+    font-size: 1.5vw;
+    font-weight: bold;
+    margin-bottom: -1vw;
+    margin-top: -1vw;
+    margin-left: 2.5vw;
+}
+
+p, ul {
+    font-family: 'Comfortaa';
+    font-size:1.2vw;
+}
+
+div.text{
+    margin-top: 3vw;
+}
+
+div.text p{
+    margin-left: 2.5vw;
+}
+
+.whiteTxt{
+    color: white;
+}
+
+main {
+    display: grid;
+    grid-template-areas:
+    "intro"
+    "main" 
+    "main2" 
+    "footer";
+    grid-template-rows: repeat(5, auto);
+    grid-template-columns: 1fr;
+    width: 70%;
+    margin-left: 15vw;
+    margin-right: 15vw;
+}
+
+div#intro {
+    grid-area: intro;
+    position: absolute;
+    top: 40%;
+    left: 17.5%;
+    width: 22.5vw;
+    height: 22.5vw;
+    z-index: 100;
+    background-color: #d4455e;
+}
+
+h2 {
+    opacity: 1;
+}
+
+#introimg{
+    width: 100%;
+    clip-path: polygon(37% 32%, 37% 0, 100% 0, 100% 76%, 64% 77%, 65% 100%, 0 100%, 0 33%);
+    margin-top: -100px;
+}
+
+p#introinfo{
+    height: 10vw;
+    width: 20vw;
+    float: right;
+}
+
+a:link{
+    color: #1591d1;
+}
+
+div#main {
+    grid-area: main;
+    display: grid;
+    grid-template-areas:
+    "paid   paid  paid  cash  cash       cash    air     air    "
+    "any    any   flexy flexy flexy      charity charity deco"
+    "any    any   flexy flexy flexy      tuition tuition tuition"
+    "anysup stock stock stock flexysup   tuition tuition tuition"
+    "anysup stock stock stock flexysup   tuition tuition tuition"
+    "peer   stock stock stock well       well    well    well   "
+    "peer   match match match well       well    well    well   ";
+    grid-template-columns: 10fr 4fr 5fr 1fr 3fr 4fr 8fr 6fr;
+    grid-template-rows: 9fr 7fr 3fr 2fr 1fr 3fr 4fr;
+    gap: 1vw;
+    width: 70vw;
+    height: 51vw;
+}
+div#paid{
+    grid-area: paid;
+    background-color: #f8faf9;
+}
+
+div#paid img{
+    width: 35%;
+    float: left;
+    margin: 35px;
+}
+div#paid div.text{
+    margin-top:50px;
+}
+
+div#cash{
+    grid-area: cash;
+    background-color: #1591d1;
+}
+
+div#air{
+    grid-area: air;
+    background-color: #f8faf9;
+}
+
+div#air div.text{
+    position: absolute;
+    margin-top: 9%;
+    margin-left: 1%;
+}
+
+div#air img{
+    width: 40%;
+    float: right;
+}
+
+div#any{
+    grid-area: any;
+    background-color: #d4455e;
+    z-index: -1;
+}
+
+div#any img{
+    clip-path: polygon(0 0, 100% 0%, 100% 42.4%,68.2% 42.4%, 68.2% 100%, 0 100%);
+    width: 100%;
+    transform: translateY(5.21vw);
+    overflow: hidden;
+}
+
+div#anysupport{
+    grid-area: anysup;
+    background-color: #d4455e;
+    margin-top: -1vw;
+    z-index: -2;
+}
+div#flexy{
+    grid-area: flexy;
+    background-color: #3ebcf6;
+}
+
+#flexy ul{
+    list-style-type: none;
+}
+
+div#flexysupport{
+    grid-area: flexysup;
+    background-color: #3ebcf6;
+    margin-top: -1vw;
+}
+div#tuition{
+    grid-area: tuition;
+    background-color: #d4455e;
+}
+div#tuition img{
+    float: left;
+    width: 30%;
+}
+
+div#charity{
+    grid-area: charity;
+    background-color: #1591d1;
+}
+
+div#blueyellowdeco{
+    grid-area: deco;
+}
+
+div#stock{
+    grid-area: stock;
+    background-color: #1591d1;
+}
+div#well{
+    grid-area: well;
+    background-color: #f8faf9;
+}
+
+div#well img {
+    float: left;
+    height: 100%;
+    width: auto;
+    transform:translateX(-1vw);
+    clip-path: polygon(3.8% 0, 100% 0, 100% 100%, 3.8% 100%);
+}
+
+div#match{
+    grid-area: match;
+    background-color: #d4455e;
+}
+div#peer{
+    grid-area: peer;
+    background-color: #f8faf9;
+}
+div#peer img{
+    width: 70%; 
+    margin-left: 14%;
+    margin-right: auto;
+    margin-bottom: -80px;
+}
+
+footer {
+    grid-area: footer;
+
+}
+
+footer p{
+    float: right;
+    font-family: 'Gabarito';
+}
+
+a:link{
+    color: #1591d1;
+    text-decoration: none;
+}
+
+a:visited{
+    color: #6666ff;
+}
+
+a:focus{
+    color:#33adff
+}
+
+a:hover{
+    color: #80bfff;
+}
+
+a:active{
+    color:#00264d;
+}
+
+div#main2{
+    grid-area: main2;
+}
+
+section {
+    text-align: center;
+    margin-top: 50px;
+}
+
+
+@media screen and (max-width: 780px){
+    div#main{
+        display: grid;
+        grid-template-areas:
+        "paid paid"
+        "cash air"
+        "any flexy"
+        "charity charity"
+        "tuition tuition"
+        "peer peer"
+        "match stock"
+        "well well";
+        grid-template-columns: repeat(2,1fr);
+        grid-template-rows: repeat(8, auto);
+        gap: 1vw;
+        width: 80vw;
+        height: 56vw;
+    }
+}
