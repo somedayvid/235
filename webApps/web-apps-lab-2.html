@@ -25,12 +25,27 @@
     let h2first = h2List[0];
     let h2second = h2List[1];
     let h2third = h2List[2];
-    let body = document.querySelector("body");
+    let body = document.body;
+    let pList = document.querySelectorAll("p");
     
     h1.innerHTML = "My UFO Page";
     h2first.innerHTML = "My UFO Info";
     h2second.innerHTML = "My UFO Pictures";
-    body.style.font = "sans-serif";
+    h2third.innerHTML = "";
+    body.style.fontFamily = "sans-serif";
+    body.style.color = "#f3303f"
+    pList[0].innerHTML = "Report your UFO sightings here: <a href='http://www.nuforc.org'> http://www.nuforc.org</a>";
+    let p1style = pList[0].style;
+
+    p1style.color = "green";
+    p1style.fontWeight = "bold";
+    p1style.fontSize="2em";
+    p1style.textTransform="uppercase";
+    p1style.textShadow="3px 2px #A44";
+    pList[1].innerHTML = "";
+    pList[2].innerHTML = "<img src='ufo.png'>";
+
+    document.querySelector("footer").innerHTML = "Copyright &#169; 2023 David Gao"
 	
 	</script>
 </body>
