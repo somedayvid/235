@@ -1,6 +1,8 @@
 html, body{
     width: 100%;
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
 }
 body{
     background-color: #F7F7FF;
@@ -62,10 +64,6 @@ h2 {
     font-size:3vw ;
     margin: 25px;
     color: black;
-}
-
-h3{
-
 }
 
 h4{
@@ -194,7 +192,7 @@ div#paid{
 }
 
 div#paid img{
-    width: 35%;
+    width: 1vw;
     float: left;
     margin: 35px;
 }
@@ -248,11 +246,6 @@ div#flexy{
     list-style-type: none;
 }
 
-div#flexysupport{
-    grid-area: flexysup;
-    background-color: #3ebcf6;
-    margin-top: -1vw;
-}
 div#tuition{
     grid-area: tuition;
     background-color: #d4455e;
@@ -282,7 +275,7 @@ div#well{
 
 div#well img {
     float: left;
-    height: 100%;
+    height: 50%;
     width: auto;
     transform:translateX(-1vw);
     clip-path: polygon(3.8% 0, 100% 0, 100% 100%, 3.8% 100%);
@@ -369,7 +362,24 @@ section {
     }
 
     div#intro{
-        
+        grid-area: intro;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 11fr 3fr;
+        height: 35vw;
+    }
+
+    div#introbox{
+        grid-column: 1;
+        grid-row: 2;
+        width: 100%;
+        height: auto;
+        aspect-ratio: auto;
+    }
+
+    div#introtext{
+        grid-column: 1/3;
+        grid-row: ;
     }
 
     div#main{
@@ -377,15 +387,15 @@ section {
         grid-template-areas:
         "paid    paid    cash"
         "any     air     air"
-        "any     charity flex"
-        "tuition charity flex"
-        "well    well    flex"
+        "any     charity flexy"
+        "tuition charity flexy"
+        "well    well    flexy"
         "stock   peer    match";
         grid-template-columns: 40% 20% 30%;
         grid-template-rows: repeat(6, 1fr);
         gap: 1vw;
-        width: 80vw;
-        height: 56vw;
+        max-width: 80vw;
+        height: auto;
     }
 
     footer {
