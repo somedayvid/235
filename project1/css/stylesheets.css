@@ -3,10 +3,9 @@ html, body{
     overflow-x: hidden;
     margin: 0;
     padding: 0;
+    scroll-behavior: smooth;
 }
-body{
-    background-color: #F7F7FF;
-}
+body{ background-color: #F7F7FF; }
 
 nav{
     display: flex;
@@ -19,22 +18,13 @@ nav{
     width: 100vw;
 }
 
-div.navButton{
-    padding: 5px;
-}
+div.navButton{ padding: 5px; }
 
-a:link{
-    color: #1591d1;
-    text-decoration: none;
-}
+a:link{ color: #1591d1;  text-decoration: none; }
 
-a:visited{
-    color: #8585FF;
-}
+a:visited{ color: #8585FF; }
 
-a:focus{
-    color:#33adff
-}
+a:focus{ color: #33adff; }
 
 a:hover{
     background-color: #80bfff;
@@ -43,13 +33,9 @@ a:hover{
     size: 100rem;
 }
 
-a:active{
-    color:#00264d;
-}
+a:active{ color:#00264d; }
 
-nav a, nav h1{
-    justify-self: center;
-}
+nav a, nav h1{ justify-self: center; }
 
 h1 {
     background: url(../media/logo.svg) no-repeat;
@@ -60,10 +46,21 @@ h1 {
 }
 
 h2 {
+    font-family: 'Gabarito';
     font-weight: 400;
     font-size:3vw ;
     margin: 25px;
     color: black;
+}
+
+h2.whiteTxt{
+    font-size: 3.5vw;
+}
+
+h3{
+    font-family: 'Gabarito';
+    margin-left: 125px;
+    margin-right: 125px;
 }
 
 h4{
@@ -71,7 +68,6 @@ h4{
     font-size: 1.5vw;
     font-weight: bold;
     margin-bottom: -1vw;
-    margin-top: -1vw;
     margin-left: 2.5vw;
 }
 
@@ -80,23 +76,12 @@ p, ul {
     font-size:1.2vw;
 }
 
-div.text{
-    margin-top: 3vw;
-}
-
-div.text p{
-    margin-left: 2.5vw;
-}
-
-.whiteTxt{
-    color: #F7F7FF;
-}
+.whiteTxt{ color: #F7F7FF; }
 
 main {
     display: grid;
     grid-template-areas:
     "intro"
-    "supportingtext"
     "main" 
     "main2" 
     "footer";
@@ -105,19 +90,19 @@ main {
     width: 70%;
     margin-left: 15vw;
     margin-right: 15vw;
+    overflow-y: hidden;
 }
 
 div#intro {
     grid-area: intro;
     display: grid;
     grid-template-columns: 1fr 10fr 25fr;
-    grid-template-rows: 4fr 7fr 1fr;
-    height: 30vw;
+    grid-template-rows: 4fr 6fr 1fr 1fr;
+    height: 34.5vw;
+    overflow: hidden;
 }
 
-img#introimg, div#introbox, div#introtext{
-    grid-row: 1/2;
-}
+img#introimg, div#introbox, div#introtext{ grid-row: 1/2; }
 
 img#introimg{
     grid-column: 1/4;
@@ -142,16 +127,9 @@ div#introtext{
     z-index: 100;
 }
 
-div#introtext h2{
-    color: #F7F7FF;
-}
-
-div#infotext{
-    grid-area: supportingtext;
-}
-
-h2 {
-    opacity: 1;
+div#infotext{  
+    grid-column: 3;
+    grid-row: 3;
 }
 
 #introimg{
@@ -164,16 +142,12 @@ p#introinfo{
     float: right;
 }
 
-a:link{
-    color: #1591d1;
-}
-
-div#main {
+div#mainContent {
     grid-area: main;
     display: grid;
     grid-template-areas:
     "paid   paid  paid  cash  cash    cash    air     air"
-    "any    any   flexy flexy flexy   charity charity deco"
+    "any    any   flexy flexy flexy   charity charity charity"
     "any    any   flexy flexy flexy   tuition tuition tuition"
     "peer   stock stock stock stock   tuition tuition tuition"
     "peer   stock stock stock stock   tuition tuition tuition"
@@ -184,7 +158,13 @@ div#main {
     gap: 1vw;
     width: 70vw;
     height: 51vw;
+    overflow-y: hidden;
 }
+
+.relativePos{ position: relative; }
+.absolutePos { position: absolute; }
+
+div#mainContent div, img, h4{ border: 1px solid black;}
 
 div#paid{
     grid-area: paid;
@@ -192,12 +172,8 @@ div#paid{
 }
 
 div#paid img{
-    width: 1vw;
+    width: 10vw;
     float: left;
-    margin: 35px;
-}
-div#paid div.text{
-    margin-top:50px;
 }
 
 div#cash{
@@ -211,9 +187,9 @@ div#air{
 }
 
 div#air div.text{
-    position: absolute;
-    margin-top: 9%;
-    margin-left: 1%;
+    position:absolute;
+    left: 100px;
+    top:0px;   
 }
 
 div#air img{
@@ -224,25 +200,18 @@ div#air img{
 div#any{
     grid-area: any;
     background-color: #d4455e;
-    z-index: -1;
 }
 
 div#any img{
     width: 70%;
 }
 
-div#anysupport{
-    grid-area: anysup;
-    background-color: #d4455e;
-    margin-top: -1vw;
-    z-index: -2;
-}
 div#flexy{
     grid-area: flexy;
     background-color: #3ebcf6;
 }
 
-#flexy ul{
+ul{
     list-style-type: none;
 }
 
@@ -260,10 +229,6 @@ div#charity{
     background-color: #1591d1;
 }
 
-div#blueyellowdeco{
-    grid-area: deco;
-}
-
 div#stock{
     grid-area: stock;
     background-color: #1591d1;
@@ -277,23 +242,86 @@ div#well img {
     float: left;
     height: 50%;
     width: auto;
-    transform:translateX(-1vw);
-    clip-path: polygon(3.8% 0, 100% 0, 100% 100%, 3.8% 100%);
 }
 
 div#match{
     grid-area: match;
     background-color: #d4455e;
 }
+
 div#peer{
     grid-area: peer;
     background-color: #f8faf9;
 }
-div#peer img{
-    width: 70%; 
-    margin-left: 14%;
-    margin-right: auto;
-    margin-bottom: -80px;
+
+section#main2
+{
+    display: grid;
+    grid-area: main2;
+    text-align: left;
+    margin-top: 50px;
+    grid-template-areas: 
+    "title"
+    "about"
+    "generous"
+    "featured"
+    "testimonyContainer"
+    "careers";
+    overflow-y:hidden;
+    row-gap: 10vw;
+    width: 70vw;
+}
+section#main2 h2{
+    grid-area: title;
+    text-align: center;
+}
+
+div#about{
+    display: flex;
+    grid-area: about;
+    flex-flow: row wrap;
+}
+
+div#about div.text{
+    width: 50%;
+}
+div#about img{
+    width: auto;
+}
+
+div#generous{
+    display: flex;
+    grid-area: generous;
+    flex-flow:row wrap;
+}
+
+div#generous div.text{
+    grid-column: 2;
+}
+div#generous img{
+    grid-column: 1;
+}
+
+div#featured{
+    display: flex;
+    grid-area: featured;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+div#featured h3{
+    width: 100%;
+    text-align: center;
+}
+div#testimonyContainer{
+    display: grid;
+    grid-area:testimonyContainer;
+    justify-content: center;
+}
+div#careers{
+    display: grid;
+    grid-area: careers;
+    grid-template-columns: 1fr 1fr;
 }
 
 footer {
@@ -302,10 +330,12 @@ footer {
     background-color: #d8dcf3;
     width: 100vw;
     grid-template-areas: 
-    "about community customerService services careers"
-    "social social social social social"
+    "aboutCompany community customerService services footerLinks"
+    "line line line line line "
     "terms terms terms terms terms";
-
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr 1px 5vw;
+    overflow-y: hidden;
 }
 
 footer p{
@@ -313,7 +343,7 @@ footer p{
     font-family: 'Gabarito';
 }
 footer div#about{
-    grid-area: about;
+    grid-area: aboutCompany;
 }
 footer div#community{
     grid-area: community;
@@ -324,28 +354,42 @@ footer div#customerService{
 footer div#services{
     grid-area: services;
 }
-footer div#careers{
-    grid-area: careers;
+footer div#footerLinks{
+    grid-area: footerLinks;
 }
-footer div#footerlinks{
-    grid-area: social;
+footer hr{
+    grid-area:line;
+    width: 100%;
+    color: gray;
+}
+
+footer a:hover{
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    size: 0;
+    text-decoration: underline;
 }
 
 footer div#terms{
     grid-area: terms;
 }
 
-section#main2{
-    grid-area: main2;
-}
-
-section {
-    text-align: center;
-    margin-top: 50px;
+div#terms{
+    transform: translate(-520px);
 }
 
 @media screen and (max-width: 780px){
-
+    nav{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        background-color:  #141B41;
+        z-index: 1000000;
+        width: 100vw;
+    }
 
     main{
         display: grid;
@@ -354,49 +398,175 @@ section {
         "main" 
         "main2" 
         "footer";
-        grid-template-rows: repeat(5, auto);
-        grid-template-columns: 1fr;
-        width: 70%;
-        margin-left: 15vw;
-        margin-right: 15vw;
+        grid-template-rows: repeat(4, auto);
+        width: 90vw;
+        margin-left: 5vw;
+        margin-right: 5vw;
+        row-gap: 10vw;
     }
 
     div#intro{
+        margin-top:10vw;
         grid-area: intro;
         display: grid;
+        grid-template-rows: 45vw 15vw 1fr;
         grid-template-columns: 1fr;
-        grid-template-rows: 11fr 3fr;
-        height: 35vw;
+        height: 70vw;
+    }
+
+    div#intro img{
+        clip-path: none;
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    div#introbox, div#introtext, div#infotext{
+        grid-row: 1/3;
+        grid-column: 1;
     }
 
     div#introbox{
+        grid-row: 2/span1;
         grid-column: 1;
-        grid-row: 2;
         width: 100%;
         height: auto;
         aspect-ratio: auto;
+        opacity: 1;
+        border-radius: 0;
     }
 
-    div#introtext{
-        grid-column: 1/3;
-        grid-row: ;
+    div#introtext h2{
+        font-size: 7vw;
     }
 
-    div#main{
+    div#introtext, div#infotext{
+        grid-row: 2;
+    }
+
+    div#infotext{
+        grid-row: 3;
+    }
+
+    div#infotext p{
+        color: white;
+        margin-left: 25px;
+        margin-top: -5px;
+        font-size: 3vw;
+    }
+
+    .text p{
+        font-size: 5vw;
+    }
+
+    h4{
+        font-size: 7vw;
+    }
+
+    div#mainContent{
         display: grid;
         grid-template-areas:
-        "paid    paid    cash"
-        "any     air     air"
-        "any     charity flexy"
-        "tuition charity flexy"
-        "well    well    flexy"
-        "stock   peer    match";
-        grid-template-columns: 40% 20% 30%;
-        grid-template-rows: repeat(6, 1fr);
-        gap: 1vw;
-        max-width: 80vw;
+        "paid"
+        "cash" 
+        "air"
+        "any"
+        "flexy" 
+        "charity"
+        "well"
+        "stock" 
+        "tuition"
+        "peer"
+        "match";
+        grid-template-columns: 100%;
+        grid-template-rows: repeat(11, 1fr);
+        row-gap: 3vw;
+        width: inherit;
         height: auto;
+        overflow: hidden;
     }
+    div#paid{
+        width: 100%;
+    }
+
+    div#air div.text{
+        top: 0;
+        left: 0;
+    }
+
+    section#main2{
+        display: grid;
+        grid-area: main2;
+        margin-top: 50px;
+        grid-template-areas: 
+        "title"
+        "about"
+        "generous"
+        "featured"
+        "testimonyContainer"
+        "careers";
+        grid-template-columns: 1fr;
+        row-gap: 10vw;
+        width: inherit;
+        overflow: hidden;
+    }
+    section#main2 h2{
+        grid-area: title;
+        text-align: center;
+        font-size: 9vw;
+    }
+    
+    h3{
+        font-size: 7vw;
+    }
+
+    div#about{
+        grid-area: about;
+    }
+
+    div#about div.text{
+        flex-grow: 1;
+        margin-left: 5px;
+    }
+
+    div#about img{
+        width: 100%;
+    }
+
+    div#generous{
+        display: flex;
+        grid-area: generous;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+    
+    div#generous div.text{
+        grid-column: 2;
+    }
+    div#generous img{
+        grid-column: 1;
+    }
+    
+    div#featured{
+        grid-area: featured;
+        justify-content: center;
+    }
+
+    div#testimonyContainer{
+        display: grid;
+        grid-area:testimonyContainer;
+        justify-content: center;
+    }
+
+    div#testimonyContainer img{
+        width: 100px;
+    }
+    
+    div#careers{
+        display: grid;
+        grid-area: careers;
+        grid-template-columns: 1fr 1fr;
+    }
+
+
 
     footer {
         grid-area: footer;
