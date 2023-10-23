@@ -9,14 +9,52 @@ body{ background-color: #F7F7FF; }
 
 nav{
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    position: sticky;
+    justify-content: end;
+    position: fixed;
     top: 0;
-    background-color:  #141B41;
-    z-index: 1000000;
+    left: 0;
+    align-items: center;
+    background-color: #141B41;
+    color: white;
+    z-index: 10000;
     width: 100vw;
+    height: 5vw;
 }
+
+.navbar ul{
+    margin: 0;
+    padding:0;
+    display: flex;
+}
+
+.navbar li{
+    list-style: none;
+    padding: 1rem;   
+}
+
+ul.showOnMobile{
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    top: 1vw;
+    right: 0;
+    align-items: flex-end;
+    background-color: #141b41;
+    background: rgba(8, 11, 25, .9);
+    height: 100vh;
+    margin-top: -1vw;
+    padding-top: 1vw;
+}
+
+.showOnMobile{
+    display: none;
+}
+
+.showToDropDown{
+    display: none;
+    font-size: 4vw;
+}
+
 
 div.navButton{ padding: 5px; }
 
@@ -27,26 +65,26 @@ a:visited{ color: #8585FF; }
 a:focus{ color: #33adff; }
 
 a:hover{
-    background-color: #80bfff;
-    padding: 10px;
-    border-radius: 5px;
-    size: 100rem;
+    color: #11fcbe;
+    text-decoration: underline;
 }
 
-a:active{ color:#00264d; }
+a:active{ color:#21abaf }
 
 nav a, nav h1{ justify-self: center; }
 
 h1 {
-    background: url(../media/logo.svg) no-repeat;
-    background-size: contain;
-    height: 2vw;
-    width: 2vw;
-    text-indent:-9999px;
+    font-size: 2vw;
+    position: fixed;
+    top: 1vw;
+    left: 1vw;
+    z-index: 100000000000;
+    margin: 0;
+    font-family: 'Gabarito', 'Times New Roman', Times, serif;
 }
 
 h2 {
-    font-family: 'Gabarito';
+    font-family: 'Gabarito', 'Times New Roman', Times, serif;
     font-weight: 400;
     font-size:3vw ;
     margin: 25px;
@@ -58,21 +96,18 @@ h2.whiteTxt{
 }
 
 h3{
-    font-family: 'Gabarito';
-    margin-left: 125px;
-    margin-right: 125px;
+    font-family: 'Gabarito', 'Times New Roman', Times, serif;
 }
 
 h4{
-    font-family: 'Gabarito';
+    font-family: 'Gabarito', 'Times New Roman', Times, serif;
     font-size: 1.5vw;
     font-weight: bold;
     margin-bottom: -1vw;
-    margin-left: 2.5vw;
 }
 
 p, ul {
-    font-family: 'Comfortaa';
+    font-family: 'Comfortaa', 'Times New Roman', Times, serif;
     font-size:1.2vw;
 }
 
@@ -88,8 +123,7 @@ main {
     grid-template-rows: repeat(5, auto);
     grid-template-columns: 1fr;
     width: 70%;
-    margin-left: 15vw;
-    margin-right: 15vw;
+    margin: 10vw 15vw 10vw 15vw;
     overflow-y: hidden;
 }
 
@@ -111,7 +145,7 @@ img#introimg{
 }
 
 div#introbox{
-    display: inline block;
+    display: inline-block;
     grid-column: 2;
     grid-row: 2/ span1;
     background-color: #141B41;
@@ -142,6 +176,11 @@ p#introinfo{
     float: right;
 }
 
+footer{
+    grid-area: footer;
+    margin-left: 5vw;
+}
+
 div#mainContent {
     grid-area: main;
     display: grid;
@@ -159,21 +198,20 @@ div#mainContent {
     width: 70vw;
     height: 51vw;
     overflow-y: hidden;
+}   
+
+div.text{
+    margin-left: 2.5vw;
 }
-
-.relativePos{ position: relative; }
-.absolutePos { position: absolute; }
-
-div#mainContent div, img, h4{ border: 1px solid black;}
 
 div#paid{
     grid-area: paid;
     background-color: #f8faf9;
+    display: flex;
 }
 
 div#paid img{
-    width: 10vw;
-    float: left;
+    width: 16vw;
 }
 
 div#cash{
@@ -186,15 +224,17 @@ div#air{
     background-color: #f8faf9;
 }
 
-div#air div.text{
-    position:absolute;
-    left: 100px;
-    top:0px;   
+div#air img{
+    float: right;
+    height: 100%;
 }
 
-div#air img{
-    width: 40%;
-    float: right;
+div#air .text{
+    margin-top: 7vw;
+}
+
+div#air div.text{
+   margin-left: 0;
 }
 
 div#any{
@@ -203,7 +243,8 @@ div#any{
 }
 
 div#any img{
-    width: 70%;
+    width: 100%;
+    clip-path: polygon(0 0, 100% 0, 100% 77%, 0 77%);
 }
 
 div#flexy{
@@ -233,16 +274,30 @@ div#stock{
     grid-area: stock;
     background-color: #1591d1;
 }
+
+div#stock h4, div#match h4{
+    margin-top: 0;
+}
+div#stock p, div#match p{
+    margin-bottom: 0;
+}
+
+div#stock .text{
+    margin-top: 3vw;
+}
+
+
 div#well{
     grid-area: well;
-    background-color: #f8faf9;
+    background-color: #F6E0A2 ;
 }
 
 div#well img {
     float: left;
-    height: 50%;
+    height: 100%;
     width: auto;
 }
+
 
 div#match{
     grid-area: match;
@@ -252,6 +307,19 @@ div#match{
 div#peer{
     grid-area: peer;
     background-color: #f8faf9;
+}
+
+div#peer img{
+    width: 100%;
+    margin: auto;
+}
+
+div#peer h4{
+    margin: 0;
+}
+
+section div.text p{
+    font-size: 1.5vw;
 }
 
 section#main2
@@ -264,9 +332,7 @@ section#main2
     "title"
     "about"
     "generous"
-    "featured"
-    "testimonyContainer"
-    "careers";
+    "featured";
     overflow-y:hidden;
     row-gap: 10vw;
     width: 70vw;
@@ -282,11 +348,16 @@ div#about{
     flex-flow: row wrap;
 }
 
+section h3{
+    font-size: 2vw;
+}
+
 div#about div.text{
     width: 50%;
+    margin-left: 0;
 }
 div#about img{
-    width: auto;
+    width: 50%;
 }
 
 div#generous{
@@ -296,10 +367,12 @@ div#generous{
 }
 
 div#generous div.text{
-    grid-column: 2;
+    width: 50%;
+    margin-left: 0;
 }
+
 div#generous img{
-    grid-column: 1;
+    width: 50%  ;
 }
 
 div#featured{
@@ -313,82 +386,53 @@ div#featured h3{
     width: 100%;
     text-align: center;
 }
-div#testimonyContainer{
-    display: grid;
-    grid-area:testimonyContainer;
-    justify-content: center;
-}
-div#careers{
-    display: grid;
-    grid-area: careers;
-    grid-template-columns: 1fr 1fr;
+
+div#featured img{
+    width: 350px;
 }
 
-footer {
-    grid-area: footer;
-    display: grid;
-    background-color: #d8dcf3;
-    width: 100vw;
-    grid-template-areas: 
-    "aboutCompany community customerService services footerLinks"
-    "line line line line line "
-    "terms terms terms terms terms";
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 1fr 1px 5vw;
-    overflow-y: hidden;
+.textContainer{
+    position: relative;
 }
 
-footer p{
-    float: right;
-    font-family: 'Gabarito';
-}
-footer div#about{
-    grid-area: aboutCompany;
-}
-footer div#community{
-    grid-area: community;
-}
-footer div#customerService{
-    grid-area: customerService;
-}
-footer div#services{
-    grid-area: services;
-}
-footer div#footerLinks{
-    grid-area: footerLinks;
-}
-footer hr{
-    grid-area:line;
-    width: 100%;
-    color: gray;
-}
-
-footer a:hover{
-    background-color: transparent;
-    padding: 0;
-    border-radius: 0;
-    size: 0;
-    text-decoration: underline;
-}
-
-footer div#terms{
-    grid-area: terms;
-}
-
-div#terms{
-    transform: translate(-520px);
+.priceTag{
+    position: absolute;
+    top: 1vw;
+    left: 1vw; 
+    font-size: 3vw;
 }
 
 @media screen and (max-width: 780px){
     nav{
         display: flex;
-        justify-content: space-around;
-        align-items: center;
-        position: sticky;
+        justify-content: end;
+        align-items: end;
+        position: fixed;
         top: 0;
         background-color:  #141B41;
         z-index: 1000000;
         width: 100vw;
+        height: 10vw;
+    }
+
+    h1{
+        font-size: 5vw;
+    }
+
+    ul.showOnMobile li{
+        font-size: 4vw;
+    }
+
+    .showOnWide{
+        display: none;
+    }
+
+    .showToDropDown{
+        display: block;
+        right: 0;
+    }
+    .closeDropdown{
+        font-size: 4vw;
     }
 
     main{
@@ -454,6 +498,10 @@ div#terms{
         font-size: 3vw;
     }
 
+    footer{
+        grid-area: footer;
+    }
+
     .text p{
         font-size: 5vw;
     }
@@ -477,19 +525,51 @@ div#terms{
         "peer"
         "match";
         grid-template-columns: 100%;
-        grid-template-rows: repeat(11, 1fr);
+        grid-template-rows: repeat(11, auto);
         row-gap: 3vw;
         width: inherit;
         height: auto;
         overflow: hidden;
     }
+
+    div.text{
+        margin-top: -2vw;
+        margin-bottom: 5vw;
+    }
+
     div#paid{
+        width: 100%;
+        display: flex;
+        flex-flow: column;
+    }
+
+    div#paid img{
         width: 100%;
     }
 
-    div#air div.text{
-        top: 0;
-        left: 0;
+    div#air{
+        display: flex;
+        flex-direction: column;
+    }
+    div#air img{
+        width: 100%;
+    }
+    div#air p, div#air h4{
+        margin-left: 2.5vw;
+    }
+
+    div#peer .text{
+        margin-top: 3vw;
+    }
+
+    div#any img{
+        clip-path: none;
+        margin-bottom: 0;
+        transform: translate(0, .9vw);
+    }
+
+    div#well h4{
+        margin-top: 10px;
     }
 
     section#main2{
@@ -500,9 +580,7 @@ div#terms{
         "title"
         "about"
         "generous"
-        "featured"
-        "testimonyContainer"
-        "careers";
+        "featured";
         grid-template-columns: 1fr;
         row-gap: 10vw;
         width: inherit;
@@ -516,6 +594,7 @@ div#terms{
     
     h3{
         font-size: 7vw;
+        margin: auto;
     }
 
     div#about{
@@ -530,54 +609,30 @@ div#terms{
     div#about img{
         width: 100%;
     }
-
+    .priceTag{
+        font-size: 5vw;
+    }
     div#generous{
-        display: flex;
         grid-area: generous;
-        justify-content: space-between;
-        flex-direction: column;
     }
-    
+
     div#generous div.text{
-        grid-column: 2;
+        flex-grow: 1;
+        margin-left: 5px;
     }
+
     div#generous img{
-        grid-column: 1;
-    }
-    
-    div#featured{
-        grid-area: featured;
-        justify-content: center;
+        width: 100%;
     }
 
-    div#testimonyContainer{
-        display: grid;
-        grid-area:testimonyContainer;
-        justify-content: center;
+    footer p{
+        font-size: 2vw;
     }
 
-    div#testimonyContainer img{
-        width: 100px;
+    section#main2 div.text p{
+        font-size: 5vw;
     }
-    
-    div#careers{
-        display: grid;
-        grid-area: careers;
-        grid-template-columns: 1fr 1fr;
-    }
-
-
-
-    footer {
-        grid-area: footer;
-        display: grid;
-        grid-template-areas: 
-        "about"
-        "community"
-        "customerService"
-        "services"
-        "careers"
-        "social"
-        "terms";
+    section#main2 h3{
+        font-size: 7vw;
     }
 }

@@ -3,30 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>fugu | Live </title>
+    <title>fugu | Live fugu or don't live at all</title>
     <link rel="stylesheet" href="css/stylesheets.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&family=Gabarito:wght@700&display=swap" rel="stylesheet">
-    <link rel="apple-touch-icon" sizes="180x180" href="media/favicon_io/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="media/favicon_io/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="media/favicon_io/favicon-16x16.png">
-    <link rel="manifest" href="media/favicon_io/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="media/redketchup/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="media/redketchup/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="media/redketchup/favicon-16x16.png">
+    <link rel="manifest" href="media/redketchup/site.webmanifest">
     <script src="https://kit.fontawesome.com/c895a503c9.js" crossorigin="anonymous"></script>
+    <script>
+        function showSidebar(){
+            const sidebar = document.querySelector(".showOnMobile");
+            sidebar.style.display = "flex";
+        }
+        function hideSidebar(){
+            const sidebar = document.querySelector(".showOnMobile");
+            sidebar.style.display = "none";
+            document.querySelector(".showToDropDown").style.display = "block";
+        }
+    </script>
 
 </head>
 <body>
-    <nav>
-        <h1 id="logo">intel</h1>
-        <a href="#main">Our Mission</a>
-        <a href="#main2">About us</a>
-        <a href="#main2">How we give back</a>
-        <a href="#footer">Featured Products</a>
-        <a href="">Customers Say...</a>
-        <a href="#footer">Work With Us!</a>
-        <a href=""><i class="fa-solid fa-user"></i> Sign in</a> 
-        <a href="">Register</a>
-        <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+    <h1 id="logo" class="whiteTxt">fugu</h1>
+    <nav class="navbar">
+        <ul>
+            <li class="showOnWide"><a href="#intro">Our Mission</a></li>
+            <li class="showOnWide"><a href="#main2">About us</a></li>
+            <li class="showOnWide"><a href="#generous">How we give back</a></li>
+            <li class="showOnWide"><a href="#featured">Featured Products</a></li>
+            <li class="showOnWide"><a href=""><i class="fa-solid fa-user"></i> Sign in</a> </li>
+            <li class="showOnWide"><a href="">Register</a></li>
+            <li class="showOnWide"><a class="icon" href=""><i class="fa-solid fa-cart-shopping"></i></a></li>
+            <li class="showToDropDown"><a class="icon" onclick=showSidebar()><i class="fa-solid fa-bars"></i></a></li>
+        </ul>
+        <ul class="showOnMobile">
+            <li class="closeDropdown"><a class="icon" onclick=hideSidebar()><i class="fa-solid fa-bars"></i></a></li>
+            <li><a href="#intro">Our Mission</a></li>
+            <li><a href="#main2">About us</a></li>
+            <li><a href="#cheekyJumpspot">How we give back</a></li>
+            <li><a href="#featured">Featured Products</a></li>
+            <li><a href=""><i class="fa-solid fa-user"></i> Sign in</a> </li>
+            <li><a href="">Register</a></li>
+            <li><a class="icon"><i class="fa-solid fa-cart-shopping"></i></a></li>
+        </ul>
     </nav>
     <main>
         <header>
@@ -40,77 +62,77 @@
             </div>
         </header>
         <div id="mainContent">
-            <div id="paid" class="relativePos">
+            <div id="paid">
                 <img src="media/umbrella.svg" alt="Umbrella on a sand mound with the sun peaking over the umbrella">
-                <div class="text" class="absolutePos">
-                    <h4>Weight Loss</h4>
-                    <p>40 pounds after 4 weeks<br> 80 pounds after 7 weeks</p>
+                <div class="text">
+                    <h4>Exude Competence</h4>
+                    <p>Your boss will notice and give you additional vacation days</p>
                 </div>
             </div>
-            <div id="cash" class="whiteTxt" class="relativePos">
-                <div class="text" class="absolutePos">
+            <div id="cash" class="whiteTxt">
+                <div class="text">
                     <h4>Increased Productivity</h4>
                     <p>up to <strong>5x</strong> the energy</p>
                 </div>
             </div>
-            <div id="air" class="relativePos">
+            <div id="air">
                 <img src="media/airplane.svg" alt="Blue Airplane">
-                <div class="text" class="absolutePos">
-                    <h4>Power</h4>
-                    <p>your family will fear you</p>
+                <div class="text">
+                    <h4>Flight</h4>
+                    <p>potentially develop the ability to fly</p>
                 </div>
             </div>
-            <div id="any" class="whiteTxt" class="relativePos">
-                <div class="text" class="absolutePos">
-                    <h4>Avaliable anywhere</h4>
-                    <p>2000 brands carry and support our product</p>
+            <div id="any" class="whiteTxt">
+                <div class="text">
+                    <h4>Avaliable from anywhere</h4>
+                    <p>We can ship to your home, we already know where it is</p>
                 </div>
                 <img src="media/man.svg" alt="A man staring at the computer on their desk">
             </div>
-            <div id="flexy" class="relativePos">
-                <div class="text" class="absolutePos">
+            <div id="flexy">
+                <div class="text">
                     <h4>3 flexible <br>sizes</h4>
-                    <ul>
-                        <li>On-the-go</li>
-                        <li>Medium</li>
-                        <li>Life Changing</li>
-                    </ul>
+                    <p>
+                        On-the-go<br>
+                        Medium<br>
+                        Life Changing
+                    </p>
                 </div>
             </div>
-            <div id="charity" class="whiteTxt" class="relativePos">
-                <div class="text" class="absolutePos">
+            <div id="charity" class="whiteTxt">
+                <div class="text">
                     <h4>Philantrophy</h4>
-                    <p>we donate <strong>10%</strong> of our <br>profit every year</p>
+                    <p>we donate <strong>10%</strong> of our profits every year to select charities</p>
                 </div>
             </div>
-            <div id="tuition" class="whiteTxt" class="relativePos">
+            <div id="tuition" class="whiteTxt">
                 <img src="media/graduate.svg" alt="A minimalist design of a person wearing a graduation cap">
-                <div class="text" class="absolutePos">
-                    <h4>Shop</h4>
-                    <p>BUY OUR PRODUCTS</p>
+                <div class="text">
+                    <h4>Get Smarter</h4>
+                    <p>You could gain IQ</p>
                 </div>
             </div>
-            <div id="stock" class="whiteTxt" class="relativePos">
-                <div class="text" class="absolutePos">
-                    <p>I COUDLNT THINK OF ANYTHING</p>
+            <div id="stock" class="whiteTxt">
+                <div class="text">
+                    <p>Feel happier at least</p>
                     <h4>2x per year</h4>
                 </div>
             </div>
-            <div id="match" class="whiteTxt" class="relativePos">
-                <div class="text" class="absolutePos">
+            <div id="match" class="whiteTxt">
+                <div class="text">
                     <p>9/10</p>
                     <h4>Doctors recemmend</h4>
                 </div>
             </div>
-            <div id="well" class="relativePos">
+            <div id="well">
                 <img src="media/woman.svg" alt="A person with yellow over the ear headphones looks happily to the left">
-                <div class="text" class="absolutePos">
-                    <h4>Significant improvements to your life</h4>
+                <div class="text">
+                    <h4>Feel and Live better</h4>
                 </div>
             </div>
-            <div id="peer" class="relativePos">
-                <p>&#128170;</p>
-                <div class="text" class="absolutePos">
+            <div id="peer">
+                <img src="media/muscularMan.jpeg" alt="grayscale image of muscularman on a gym bench">
+                <div class="text">
                     <h4>You'll feel stronger</h4>
                 </div>
             </div>
@@ -120,13 +142,13 @@
             <div id="about">
                 <div class="text">
                     <h3>We love creating for you...</h3>
-                    <p>
+                    <p id="cheekyJumpspot">
                         and there's nothing else we would rather be doing! Ever since Bon Cladius Chamberlain Julius Dantes III 
                         started the company back in 1859, generations of our best scientists have been perfecting the formula to
-                        all the things that make life worth living: better skin, ..., feelings of superiority over your peers.
+                        all the things that make life worth living: better skin, less toe pain, and feelings of superiority over your peers.
                     </p>
                 </div>
-                <img src="media/graduate.svg" alt="A minimalist design of a person wearing a graduation cap">
+                <img src="media/company.png" alt="man addresses group of peers at a table">
             </div>
             <div id="generous">
                 <div class="text">
@@ -138,99 +160,33 @@
                     functioning humans again.
                 </p>
                 </div>
+                <img src="media/cryingBaby.png" alt="cryingbaby">
             </div>
             <div id="featured">
                 <h3>Featured Products</h3>
-                    <img src="https://placehold.co/350.png" alt="">
-                    <img src="https://placehold.co/350.png" alt="">
-                    <img src="https://placehold.co/350.png" alt="">
-            </div>
-            <div id="testimonyContainer">
-                <h3>They &#40;your friends&#41; love us</h3>
-                    <img class="mySlides" src="https://placehold.co/350.png" alt="">
-                    <img class="mySlides" src="https://placehold.co/350.png" alt="">
-                    <img class="mySlides" src="https://placehold.co/350.png" alt="">
-                    <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-                    <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
-            </div>
-            <div id="careers">
-                <div class="text">
-                <h3>and you'll love working with us!</h3>
+                <div class="textContainer" >
+                    <img src="media/mantis.png" alt="a praying mantis on a wireframe surface">
+                    <p class="priceTag">
+                        $300
+                    </p>
+                </div>
+                <div class="textContainer" >
+                    <img src="media/cheese.png" alt="square slabs of cheese on a net">
+                    <p class="priceTag">
+                        $1500
+                    </p>
+                </div>
+                <div class="textContainer" >
+                    <img src="media/banana.png" alt="three bananas on a white table">
+                    <p class="priceTag">
+                        $14
+                    </p>
                 </div>
             </div>
     </section>
 </main>
     <footer>
-        <div id="aboutCompany">
-            <ul>
-                <h5>About Our Company</h5>
-                <li><a href="">Advertise</a></li>
-                <li><a href="">Careers</a></li>
-                <li><a href="">Human Resources</a></li>
-                <li><a href="">News</a></li>
-                <li><a href="">Vendors and Suppliers</a></li>
-                <li><a href="">Subsidiaries Of fugu Corp</a></li>
-            </ul>
-        </div>
-        <div id="community">
-            <ul>
-                <h5>Community</h5>
-                <li><a href="">Our Rewards Program</a></li>
-                <li><a href="">Our Locations</a></li>
-                <li><a href="">Sustainability</a></li>
-                <li><a href="">Special Events</a></li>
-            </ul>
-        </div>
-        <div id="customerService">
-            <ul>
-                <h5>Customer Service</h5>
-                <li><a href="">Help</a></li>
-                <li><a href="">FAQ</a></li>
-                <li><a href="">Contact Us</a></li>
-                <li><a href="">Feedback</a></li>
-            </ul>
-        </div>
-        <div id="services">
-            <ul>
-                <h5>Other Services</h5>
-                <li><a href="">Gasoline</a></li>
-                <li><a href="">Grocery</a></li>
-                <li><a href="">Human Cloning</a></li>
-                <li><a href="">Optical</a></li>
-            </ul>
-        </div>
-        <div id="footerLinks">
-            <ul>
-                <h5>Connect with Us</h5>
-                <li><a><i class="fa-brands fa-square-instagram"></i></a></li>
-                <li><a><i class="fa-brands fa-facebook"></i></a></li>
-                <li><a><i class="fa-brands fa-square-x-twitter"></i></a></li>
-                <li><a><i class="fa-brands fa-youtube"></i></a></li>
-            </ul>
-        </div>
-        <hr>
-        <div id="terms">
             <p>All Contents &#0169; fugu Co. All Rights Reserved<br><a href="">Accessibility Statement</a> If you are using a screen reader and having difficulty with this website, please call your mother.</p>
-        </div>
     </footer>
 </body>
-<script>
-    var slideIndex = 1;
-showDivs(slideIndex);
-
-function plusDivs(n) {
-  showDivs(slideIndex += n);
-}
-
-function showDivs(n) {
-  var i;
-  var x = document.getElementsByClassName("mySlides");
-  if (n > x.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = x.length}
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";  
-  }
-  x[slideIndex-1].style.display = "block";  
-}
-</script>
 </html>
