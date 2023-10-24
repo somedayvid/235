@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Web Apps-4-HW</title>
+	<style>
+		body{border:1px solid gray;}
+	</style>
+</head>
+<body>
+<h1>My Favorites</h1>
+<h2>My Favorite Colors</h2>
+
+<ol id="colorsList">
+
+</ol>
+
+<h2>My Favorite Foods</h2>
+
+<ol id="foodsList">
+
+</ol>
+
+<h2>My Favorite Links</h2>
+
+<ol id="linksList">
+	
+</ol>
+
+<script>
+"use strict";
+let colors = ["red","salmon", "purple", "papaya", "orange"];
+let foods = ["applesauce", "french fries", "noodles", "broccoli"]; // add some foods
+
+const colorsList = document.querySelector("#colorsList");
+
+for(let i = 0; i < colors.length; i++){
+    const listItem = document.createElement("li");
+    const listText = document.createTextNode(colors[i]);
+    listItem.appendChild(listText);
+    document.querySelector("#colorsList").appendChild(listItem);    
+}
+
+for(let food of foods){
+    const listItem = document.createElement("li");
+    const listText = document.createTextNode(food);
+    listItem.appendChild(listText);
+    document.querySelector("#foodsList").appendChild(listItem);    
+}
+
+// Optional - can you figure out how to pull both the key AND the value 
+// from the `links` object literal?
+let links = {
+        "Yale Art": "https://www.art.yale.edu/",
+        "Taco": "http://taco.com/",
+        "Peronsa 5 UI": "https://p5ui.tumblr.com/",
+        "Big Mode": "https://bigmode.com/",
+        "Tofugu": "https://www.tofugu.com/"
+	};
+
+    for(const key in links){
+        const listItem = document.createElement("li");
+        const anchorItem = document.createElement("a");
+        anchorItem.href = links[key];
+        anchorItem.innerHTML = key;
+
+        listItem.appendChild(anchorItem);
+
+        document.querySelector("#linksList").appendChild(listItem);
+}
+</script>
+</body>
+</html>
