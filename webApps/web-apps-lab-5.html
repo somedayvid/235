@@ -38,7 +38,25 @@
 </div>
 
 <script>
-/* Write your code here! */
+const infoBox = document.querySelector("#info");
+const buttons = document.querySelectorAll("input")
+const legend = document.querySelector("legend");
+const submit = document.querySelector("#colorButton");
+
+let changeText = (e) => { infoBox.innerHTML = 'You have selected "' + e.target.value + '"!'; };
+let changeColor = (e) => { legend.style.color = e.target.value; };
+let finalize = () => { infoBox.innerHTML = 'Your FINAL CHOICE is "' + legend.style.color + '"!'; };
+
+for(let color of buttons){
+	color.addEventListener("click", changeText);
+	color.addEventListener("click", changeColor);
+}
+
+submit.addEventListener("click", finalize);
+
+
+
+
 </script>
 </body>
 </html>
