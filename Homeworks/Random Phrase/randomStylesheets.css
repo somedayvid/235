@@ -1,0 +1,21 @@
+
+
+button {
+    border-radius: 5px;
+    background-color: transparent;
+    border: 2px solid #f44336;
+    transition: background-color 1s, color 2s;
+}
+
+button:hover{
+    background-color:  #f44336;
+    color: white;
+}
+
+main{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    width: 100vw;
+    height: 100vh;
+}
