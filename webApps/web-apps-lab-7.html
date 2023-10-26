@@ -22,7 +22,8 @@
          */
         window.onload = function () {
             makeSampleMonsters();
-            showMonsters();
+            showMonsters('#boos', "boos");
+            showMonsters('#goombas', "goomba");
         }
 
         /**
@@ -32,11 +33,17 @@
         function makeSampleMonsters() {
             let monster;
 
-            monster = makeGoomba("John", 20, 30, 100);
+            monster = makeGoomba("John", 20, 30, 100, "goomba");
             monsters.push(monster);
-            monster = makeGoomba("Fred", 30, 100, 150);
+            monster = makeGoomba("Fred", 30, 100, 150, "goomba");
             monsters.push(monster);
-            monster = makeGoomba("Alice", 40, 150, 200);
+            monster = makeGoomba("Alice", 40, 150, 200, "goomba");
+            monsters.push(monster);
+            monster = makeBoos("Qiqi", 15, 120, 300, "boos");
+            monsters.push(monster);
+            monster = makeBoos("Bakuba", 17, 300000000, 200, "boos");
+            monsters.push(monster);
+            monster = makeBoos("CHIKAKU", 17294390824930, 300000004320948238094230, 20043209432984023, "boos");
             monsters.push(monster);
         }
 
@@ -44,10 +51,11 @@
          * Function that shows our monsters (just Goombas for now)
          * 
          */
-        function showMonsters() {
-            let goombaList = document.querySelector("#goombas");
+        function showMonsters(id, type) {
+            let list = document.querySelector(id);
 
             for (let i = 0; i < monsters.length; i++) {
+                if(monsters[i].type === type){
                 let liStr = "";
                 let li = document.createElement("li");
 
@@ -57,7 +65,8 @@
                     }
                 }
                 li.innerHTML = liStr;
-                goombaList.appendChild(li);
+                list.appendChild(li);
+                }
             }
         }
 
@@ -71,6 +80,7 @@
                 hp: 100,
                 speed: 10,
                 score: 100,
+                type: "normal",
                 status: function () {
                     console.log("name: " + this.name + ", hp: " + this.hp + ", speed: " + this.speed + ", score: " + this.score);
                 }
@@ -81,12 +91,13 @@
          * Create a Goomba.
          * 
          */
-        function makeGoomba(name, hp, speed, score) {
+        function makeGoomba(name, hp, speed, score, type) {
             let goomba = createBaseMonster();
             goomba.name = name;
             goomba.hp = hp;
             goomba.speed = speed;
             goomba.score = score;
+            goomba.type = type;
             goomba.takeDamage = function (dmgVal) {
                 goomba.hp -= dmgVal;
             }
@@ -94,6 +105,22 @@
 
             Object.seal(goomba);
             return goomba;
+        }
+
+        function makeBoos(name, hp, speed, score, type) {
+            let boos = createBaseMonster();
+            boos.name = name;
+            boos.hp = hp;
+            boos.speed = speed;
+            boos.score = score;
+            boos.type = type;
+            boos.takeDamage = function (dmgVal) {
+                goomba.hp -= dmgVal;
+            }
+            boos.powerUp = powerUp;
+
+            Object.seal(boos);
+            return boos;
         }
 
         /**
@@ -113,6 +140,10 @@
     <div id="lineUp">
         <h1>Goombas</h1>
         <ul id="goombas">
+        </ul>
+        <h1>Boos</h1>
+        <ul id="boos">
+
         </ul>
     </div>
 </body>
