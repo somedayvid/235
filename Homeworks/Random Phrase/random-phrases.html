@@ -4,14 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="randomStylesheets.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arsenal:wght@700&family=Lilita+One&display=swap" rel="stylesheet">
     <title>Random Phrases</title>
 </head>
 <body>
     <header>
+        <h1>Char Name</h1>
     </header>
     <main>
-        <button type="button">Generate Quote</button>
+        <button type="button">Take Your Heart</button>
+        <p id="quote">This is where teh quote will go</p>
+        <img src="https://placehold.co/600x400" alt="">
+        <div id="textBack"></div>
     </main>
+    <footer>
+        <div id="text">
+            <p id="me">David Gao 2023</p>
+            <p id="cr">All images are property of Atlas</p>
+        </div>
+    </footer>
+    <script>
+        "use strict";
+        const text = document.querySelector("#quote");
+        const charName = document.querySelector("h1");
+        const img = document.querySelector("img");
+        const button = document.querySelector("button");
+        const footer = document.querySelector("#cr");
+
+        window.onload = function (){
+            getRandomQuote();
+        }
+
+        button.addEventListener("click", getRandomQuote);
+        
+        const charArray =[
+            {   
+                name: "Imposter",
+                quote: "Folks... It appears there may be an imposter among us",
+                img: "amongUs.jpg"
+            },
+            {
+                name:"Yusuke Kitagawa",
+                quote: "A breathtaking sight... Imitations they may be, but together, they make a fine spectacle... Though the flowers of evil may bloom, be it known... Abominations are fated to perish!",
+                img: "yusuke.png"
+            },
+            {
+                name: "Ann Takamaki",
+                quote:"I realized that personal relationships are something to be treasured. That's why I'm not going to run away anymore. I'll face myself head on. This time, it's my turn to help someone",
+                img: "ann.png"
+            },
+            {
+                name: "Ren Amamiya",
+                quote:"Show me your true form!",
+                img: "joker.png"
+            },
+            {
+                name:"Ryuji Sakamoto",
+                quote:"Sure it's a solo sport, but nobody's gonna run 'til they puke if they don't got teammates they wanna inspire. I guess what I really wanna say is, you gotta do stuff for people beyond just yourself if you wanna succeed.",
+                img: "ryuji.png"
+            },
+            {
+                name:"Makoto Nijima",
+                quote:"This time I'm not seeking anyone's praise, and I'm not trying to show off my intelligence. I simply want to fulfill my own personal goals and dreams",
+                img: "makoto.png"
+            },
+            {
+                name:"Morgana",
+                quote:"Don't call me a cat! I am Morgana!",
+                img: "morgana.png"
+            },
+            {
+                name:"Futaba Sakura",
+                quote:"If I only act for my own's sake, I can't put all my full effort into it anymore. But when I remember my friends... and you... it's like I'm tapping into some kind of unknown power!",
+                img: "futaba.png"
+            },
+            {
+                name:"Haru Okumura",
+                quote:"Before I can really determine who I trust, I first need to know what it means to have others trust in me. So, I'm going to get stronger...strong enough for you and the others to rely on me!",
+                img: "haru.png"
+            },
+            {
+                name:"Goro Akechi",
+                quote:"I will carve my own path for myself… I refuse to accept a reality concocted by someone else, stuck under their control for the rest of my days.",
+                img: "akechi.png"
+            }
+        ];
+    
+        function getRandomQuote(){
+            const rand = Math.floor(Math.random() * charArray.length);
+            text.innerHTML = charArray[rand].quote;
+            charName.innerHTML = charArray[rand].name;
+            img.src = "images/" + charArray[rand].img;
+            if(rand == 0){
+                footer.innerHTML = "Execept this one lol, this one is Innersloth"
+            }
+            else{
+                footer.innerHTML = "All images are property of Atlas"
+            }
+        }            
+    </script>
     
 </body>
 </html>
