@@ -19,6 +19,12 @@
      font-style: italic;
      height:32px;
  }
+
+ #rating{
+    position: relative;
+    z-index: 1;
+    color: lightskyblue;
+ }
  
  .result {
     position: relative;

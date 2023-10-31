@@ -71,9 +71,11 @@
          let url = result.url;
 
          let line = `<div class='result'><img src='${smallURL}' title = '${result.id}' />`;
-         line += `<span><a target='_blank' href='${url}'>View on Giphy</a></span></div>`;
+         line += `<span><a target='_blank' href='${url}'>View on Giphy</a><p id="rating">Rating: ${result.rating}</p></span></div>`;
 
          bigString += line;
+
+
 
          document.querySelector("#content").innerHTML = bigString;
 
