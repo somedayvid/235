@@ -2,31 +2,39 @@
     font-family:verdana,tahoma,sans-serif;
 }
 
- header{
-     background: url(images/cats.jpg);
-     height:195px;
- }
- 
- header h1{
-     margin:0;
-     color:blue;
-     text-align:center;
-     font-size:100px;
-     padding-top: 35px;
- }
- 
- #status{
-     font-style: italic;
-     height:32px;
- }
+header{
+    background: url(images/cats.jpg);
+    height:195px;
+}
 
- #rating{
-    position: relative;
-    z-index: 1;
-    color: lightskyblue;
- }
- 
- .result {
+header h1{
+    margin:0;
+    color:blue;
+    text-align:center;
+    font-size:100px;
+    padding-top: 35px;
+}
+
+#content{
+    width:90%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 50px 10px;
+}
+
+#status{
+    font-style: italic;
+    height:32px;
+}
+
+#rating{
+   position: relative;
+   z-index: 1;
+   color: lightskyblue;
+}
+
+.result {
     position: relative;
     height: 175px;
     width: 100px;
