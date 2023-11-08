@@ -61,6 +61,7 @@
      let results = obj.data
      console.log("results.length = " + results.length);
     //  let bigString = "<p><i>Here are " + results.length + " results for '" + displayTerm + "'</i></p>";
+    let bigString = "";
 
      for(let i=0; i < results.length; i++){
         let result = results[i];
@@ -75,12 +76,12 @@
         let line = `<div class='result'><img src='${smallURL}' title = '${result.id}' />`;
         line += `<span><a target='_blank' href='${url}'>View on Giphy</a><p id="rating">Rating: ${rating}</p></span></div>`;
 
-        let bigString += line;
+         bigString += line;
 
-         document.querySelector("#content").innerHTML = bigString;
+        document.querySelector("#content").innerHTML = bigString;
 
-         document.querySelector("#status").innerHTML = "<b>Success!</b><p><i>Here are " + results.length + " results for '" + displayTerm + "'</i></p>";
-     }
+        document.querySelector("#status").innerHTML = "<b>Success!</b><p><i>Here are " + results.length + " results for '" + displayTerm + "'</i></p>";
+    }
   }
 
  function dataError(e){
