@@ -1,5 +1,6 @@
-window.onload = () => {
-    testing();
+window.onload = (e) => {
+  document.querySelector("#search").onclick = searchButtonClicked
+  testing();
 };
 
 function testing(){
@@ -20,4 +21,8 @@ function testing(){
       .then(response => response.json())
       .then(responseBody => p.innerHTML = responseBody.data.meaning_mnemonic
       );
+}
+
+function searchButtonClicked(){
+  
 }

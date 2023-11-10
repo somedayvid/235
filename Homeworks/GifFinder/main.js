@@ -6,34 +6,34 @@
  
  // 3
  function searchButtonClicked(){
-     console.log("searchButtonClicked() called");
+    console.log("searchButtonClicked() called");
      
-     const GIPHY_URL = "https://api.giphy.com/v1/gifs/search?";
+    const GIPHY_URL = "https://api.giphy.com/v1/gifs/search?";
 
-     let GIPHY_KEY = "5PuWjWVnwpHUQPZK866vd7wQ2qeCeqg7";
+    let GIPHY_KEY = "5PuWjWVnwpHUQPZK866vd7wQ2qeCeqg7";
 
-     let url = GIPHY_URL;
-     url += "api_key=" + GIPHY_KEY;
+    let url = GIPHY_URL;
+    url += "api_key=" + GIPHY_KEY;
 
-     let term = document.querySelector("#searchterm").value;
-     displayTerm = term;
+    let term = document.querySelector("#searchterm").value;
+    displayTerm = term;
 
-     term = term.trim();
+    term = term.trim();
 
-     term = encodeURIComponent(term);
+    term = encodeURIComponent(term);
 
-     if(term.length < 1) return;
+    if(term.length < 1) return;
 
-     url += "&q=" + term;
+    url += "&q=" + term;
 
-     let limit = document.querySelector("#limit").value;
-     url += "&limit=" + limit;
+    let limit = document.querySelector("#limit").value;
+    url += "&limit=" + limit;
 
-     document.querySelector("#status").innerHTML = "<b>Searching for'" + displayTerm + "'</b>";
+    document.querySelector("#status").innerHTML = "<b>Searching for'" + displayTerm + "'</b>";
 
-     console.log(url);
+    console.log(url);
 
-     getData(url);
+    getData(url);
  }
 
  function getData(url){
@@ -74,7 +74,7 @@
         let rating = result.rating.toUpperCase();
 
         let line = `<div class='result'><img src='${smallURL}' title = '${result.id}' />`;
-        line += `<span><a target='_blank' href='${url}'>View on Giphy</a><p id="rating">Rating: ${rating}</p></span></div>`;
+        line += `<span><p id="rating">Rating: ${rating}</p><a target='_blank' href='${url}'>View on Giphy</a></span></div>`;
 
          bigString += line;
 
