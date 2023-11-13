@@ -8,7 +8,23 @@
     <script src="script.js"></script>
 </head>
 <body>
-    <p id="hi">hi</p>
-    <input type="text" type="text" placeholder="Enter a word">
+    <label for="searchterm">Search:</label>
+    <input id="searchterm" type="text" type="text" size="20" placeholder="Enter a word">
+	<button type="button" id="search" class="green">Search</button>
+
+    <label for="type">Choose a type:</label>
+    <select name="type" id="type">
+        <option value="all">All</option>
+        <option value="radical">Radicals</option>
+        <option value="kanji">Kanji</option>
+        <option value="vocabulary">Vocabulary</option>
+    </select>
+    <div id="display">
+        <p id="meaning">meaning</p>
+        <p id="character">character</p>
+        <p id="reading">Readings</p>
+        <p id="onyomi"></p>
+        <p id="kunyomi"></p>
+    </div>
 </body>
 </html>
