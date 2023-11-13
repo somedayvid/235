@@ -1,10 +1,57 @@
 window.onload = (e) => {
   document.querySelector("#search").onclick = searchButtonClicked
+  allVocab();
 };
 
 function searchButtonClicked(){
   let searchBy = document.querySelector("#type").value;
   accessData(searchBy);
+}
+let mainVocabArray = [];
+
+function allVocab(){
+  var apiToken = ' 89abe689-ce3d-4035-acfd-65d442782f72 ';
+  var apiEndpointPath = 'subjects?types=vocabulary';
+  var requestHeaders =
+    new Headers({
+      Authorization: 'Bearer ' + apiToken,
+    });
+  var apiEndpoint =
+    new Request('https://api.wanikani.com/v2/' + apiEndpointPath, {
+      method: 'GET',
+      headers: requestHeaders
+    });
+
+  fetch(apiEndpoint)
+    .then(response => response.json())
+    .then(responseBody => {
+      mainVocabArray = responseBody.data.slice(0);
+      repeating(responseBody.pages.next_url, " 89abe689-ce3d-4035-acfd-65d442782f72 ");
+    }
+  );
+}
+
+function repeating(nextURL){
+  var apiToken = ' 89abe689-ce3d-4035-acfd-65d442782f72 ';
+  if(nextURL != null){
+    var requestHeaders =
+    new Headers({
+      Authorization: 'Bearer ' + apiToken,
+    });
+    var apiEndpoint =
+    new Request(nextURL, {
+      method: 'GET',
+      headers: requestHeaders
+    });
+    fetch(apiEndpoint)
+      .then(response => response.json())
+      .then(responseBody => { 
+        const tempArray = mainVocabArray;
+        mainVocabArray = tempArray.concat(responseBody.data);
+        nextURL = responseBody.pages.next_url;
+        repeating(responseBody.pages.next_url);
+    });
+  }
 }
 
 function accessData(type){
@@ -30,13 +77,16 @@ function accessData(type){
     .then(response => response.json())
     .then(responseBody => {switch(type){
       case "radical":
-        getRadical(responseBody);
+       // getRadical(responseBody);
+       //console.log(responseBody);
         break;
       case "vocabulary":
-        getThings(responseBody, type);
+        //getThings(responseBody, type);
+        //console.log(responseBody);
         break;
       case "kanji":
-        getThings(responseBody, type);
+        //getThings(responseBody, type);
+        console.log(responseBody);
         break;
       case "all": 
         break;
@@ -96,7 +146,7 @@ function getVocab(readings, meaningsString, readingsString){
     }
   }
   reading.innerHTML = readingsString;
-  meaning.innerHTML = meaningsString;       
+  meaning.innerHTML = meaningsString;    
 }
 
 function getKanji(onyomiElement, kunyomiElement, readingsArray, meaningsString){
@@ -133,6 +183,7 @@ function getRadical(responseBody){
     {
       character.innerHTML = responseBody.data[i].data.characters;
       meaning.innerHTML = responseBody.data[i].data.slug;
+      reading.innerHTML = "";
       console.log(responseBody.data[i].data.characters); //problem not showing wtf
     }
   }
