@@ -207,11 +207,6 @@ function accessData(type, difficulty){
 }
 
 function getThings(array, type){
-  let meaningsArray = [];
-  let readingsArray = [];
-  let readingsString = "";
-  let meaningsString = "";
-
   let results = [];
 
   for(let i = 0; i < array.length;i++){
@@ -221,86 +216,100 @@ function getThings(array, type){
       }
     }
   }
-
-  let bigString = "";
-  let line = "";
-  if(type != "radical"){
-    for(let z = 0; z < results.length;z++){
-      meaningsString = "";
-      readingsString = "";
-
-      meaningsArray = results[z].data.meanings;
-      for(let j = 0; j < meaningsArray.length;j++){
-        meaningsString += meaningsArray[j].meaning;
-        if(meaningsArray.length > j + 1){
-          meaningsString += ", ";
-        }
-      }
-
-      if(type == "vocabulary")
-      {
-        readingsArray = results[z].data.readings;
-        for(let j = 0; j < readingsArray.length;j++){
-          readingsString += readingsArray[j].reading;
-          if(readingsArray.length > j + 1){
-            readingsString += ", ";
-          }
-        }
-
-        line = `<div class ='result'>
-                      <p id="meanings">Meanings: ${meaningsString}</p>
-                      <p id="readings">Readings: ${readingsString}</p>
-                      <p id="slug">Kana: ${results[z].data.characters}</p>
-                    </div>`;
-      }
-      else if(type == "kanji")
-      {
-        let OnString = "";
-        let KunString = "";
-
-        readingsArray = results[z].data.readings;
-
-        console.log(readingsArray);
-        for(let h = 0; h < readingsArray.length;h++){
-          if(readingsArray[h].type == "onyomi"){
-            OnString += readingsArray[h].reading;
-            if(readingsArray[h + 1].type == "onyomi"){
-              OnString += ", ";
-            }
-          }
-          else if(readingsArray[h].type == "kunyomi"){
-            KunString += readingsArray[h].reading;
-            if(readingsArray[h + 1] != null && readingsArray[h + 1].type == "kunyomi"){
-              KunString += ", ";
-            }
-          }
-        }
-        line = `<div class ='result'>
-                      <p id="meanings">Meanings: ${meaningsString}</p>
-                      <p id="onyomi">Onyomi: ${OnString}</p>
-                      <p id="kunyomi">Kunyomi: ${KunString}</p>
-                      <p id="slug">Kanji: ${results[z].data.characters}</p>
-                    </div>`;
-      }
-      bigString += line;
-    }
+  if(results.length <= 0){
+    document.querySelector("#display").innerHTML = "No results found sorry";
   }
-  else
-  {
-    for(let i = 0; i < array.length;i++)
-    {
-      if(array[i].data.slug == lowercaseFirstLetter(term))
-      {
-        line = `<div class ='result'>
-                      <p id="identifier">Identifier: ${array[i].data.slug}</p>
-                      <p id="character">Character: ${array[i].data.characters}</p>
-                    </div>`;
+  else getTerm(results, type);
+}
+
+function getTerm(results,type){
+let meaningsArray = [];
+let readingsArray = [];
+let readingsString = "";
+let meaningsString = "";
+let bigString = "";
+let line = "";
+
+if(type != "radical"){
+  for(let z = 0; z < results.length;z++){
+    meaningsString = "";
+    readingsString = "";
+
+    meaningsArray = results[z].data.meanings;
+    for(let j = 0; j < meaningsArray.length;j++){
+      meaningsString += meaningsArray[j].meaning;
+      if(meaningsArray.length > j + 1){
+        meaningsString += ", ";
       }
+    }
+
+    if(type == "vocabulary")
+    {
+      readingsArray = results[z].data.readings;
+      for(let j = 0; j < readingsArray.length;j++){
+        readingsString += readingsArray[j].reading;
+        if(readingsArray.length > j + 1){
+          readingsString += ", ";
+        }
+      }
+
+      line = `<div class ='result'>
+                    <p id="meanings">Meanings: ${meaningsString}</p>
+                    <p id="readings">Readings: ${readingsString}</p>
+                    <p id="slug">Kana: ${results[z].data.characters}</p>
+                    <p id="level">Level: ${results[z].data.level}</p>
+                  </div>`;
+    }
+    else if(type == "kanji")
+    {
+      let OnString = "";
+      let KunString = "";
+
+      readingsArray = results[z].data.readings;
+
+      console.log(readingsArray);
+      for(let h = 0; h < readingsArray.length;h++){
+        if(readingsArray[h].type == "onyomi"){
+          OnString += readingsArray[h].reading;
+          if(readingsArray[h + 1].type == "onyomi"){
+            OnString += ", ";
+          }
+        }
+        else if(readingsArray[h].type == "kunyomi"){
+          KunString += readingsArray[h].reading;
+          if(readingsArray[h + 1] != null && readingsArray[h + 1].type == "kunyomi"){
+            KunString += ", ";
+          }
+        }
+      }
+      line = `<div class ='result'>
+                    <p id="meanings">Meanings: ${meaningsString}</p>
+                    <p id="onyomi">Onyomi: ${OnString}</p>
+                    <p id="kunyomi">Kunyomi: ${KunString}</p>
+                    <p id="slug">Kanji: ${results[z].data.characters}</p>
+                    <p id="level">Level: ${results[z].data.level}</p>
+                  </div>`;
     }
     bigString += line;
   }
-
-document.querySelector("#display").innerHTML = bigString;
+}
+else
+{
+  for(let i = 0; i < results.length;i++)
+  {
+    if(results[i].data.slug == lowercaseFirstLetter(term))
+    {
+      line = `<div class ='result'>
+                    <p id="identifier">Identifier: ${results[i].data.slug}</p>
+                    <p id="character">Character: ${results[i].data.characters}</p>
+                    <p id="level">Level: ${results[i].data.level}</p>
+                  </div>`;
+    }
+  }
+  bigString += line;
+}
+let biggerString = `<p>${results.length} result(s) for "${term}"</p>` + bigString;
+document.querySelector("#display").innerHTML = biggerString;
 }
 
 function capitalizeFirstLetter(string) {
