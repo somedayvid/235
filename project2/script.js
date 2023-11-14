@@ -156,7 +156,6 @@ function repeating(nextURL){
 }
 
 function accessData(type, difficulty){
-
   switch(difficulty){
     case "all":
       minInclusive = 0;
@@ -187,7 +186,6 @@ function accessData(type, difficulty){
       maxInclusive = 60;
       break;
   }
-  
   switch(type){
     case "radical":
       getThings(mainRadicalsArray, type);
