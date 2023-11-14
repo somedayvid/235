@@ -148,35 +148,35 @@ function accessData(type, difficulty){
         break;
     }
 
-  switch(difficulty){
-    case "all":
-      minInclusive = 0;
-      maxInclusive = 60;
-      break;
-    case "pleasant":
-      minInclusive = 0;
-      maxInclusive = 10;
-      break;  
-    case "painful":
-      minInclusive = 11;
-      maxInclusive = 20;
-      break;
-    case "death":
-      minInclusive = 21;
-      maxInclusive = 30;
-      break;
-    case "hell":
-      minInclusive = 31;
-      maxInclusive = 40;
-      break;
-    case "paradise":
-      minInclusive = 41;
-      maxInclusive = 50;
-      break;
-    case "reality":
-      minInclusive = 51;
-      maxInclusive = 60;
-      break;
+  // switch(difficulty){
+  //   case "all":
+  //     minInclusive = 0;
+  //     maxInclusive = 60;
+  //     break;
+  //   case "pleasant":
+  //     minInclusive = 0;
+  //     maxInclusive = 10;
+  //     break;  
+  //   case "painful":
+  //     minInclusive = 11;
+  //     maxInclusive = 20;
+  //     break;
+  //   case "death":
+  //     minInclusive = 21;
+  //     maxInclusive = 30;
+  //     break;
+  //   case "hell":
+  //     minInclusive = 31;
+  //     maxInclusive = 40;
+  //     break;
+  //   case "paradise":
+  //     minInclusive = 41;
+  //     maxInclusive = 50;
+  //     break;
+  //   case "reality":
+  //     minInclusive = 51;
+  //     maxInclusive = 60;
+  //     break;
   }
 }
 
