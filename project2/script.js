@@ -31,7 +31,6 @@ function allRadicals(){
     .then(response => response.json())
     .then(responseBody => {
       mainRadicalsArray = responseBody.data.slice(0);
-      console.log(responseBody);
     }
   );
 }
@@ -178,7 +177,7 @@ function accessData(type, difficulty){
   //     maxInclusive = 60;
   //     break;
   }
-}
+
 
 function getThings(array, type){
   let meaningsArray = [];
@@ -195,10 +194,9 @@ function getThings(array, type){
       }
     }
   }
-  console.log(results);
+
   let bigString = "";
   let line = "";
-
   if(type != "radical"){
     for(let z = 0; z < results.length;z++){
       meaningsString = "";
@@ -259,8 +257,10 @@ function getThings(array, type){
       }
     }
   }
-  else{
-    for(let i = 0; i < array.length;i++){
+  else
+  {
+    for(let i = 0; i < array.length;i++)
+    {
       if(array[i].data.slug == lowercaseFirstLetter(term))
       {
         line = `<div class ='result'>
@@ -268,11 +268,11 @@ function getThings(array, type){
                       <p id="character">Character: ${array[i].data.characters}</p>
                     </div>`;
       }
+    }
   }
-  bigString += line;
+bigString += line;
 
-  document.querySelector("#display").innerHTML = bigString;
-}
+document.querySelector("#display").innerHTML = bigString;
 }
 
 function capitalizeFirstLetter(string) {
