@@ -17,14 +17,27 @@ const storedDifficulty = localStorage.getItem(difficultyKey);
 window.onload = (e) => {
   document.querySelector("#search").onclick = searchButtonClicked;
   const searchWindow = document.querySelector("#searchterm");
+  const typeSelector = documen.querySelector("#type");
+  const difficultySelector = documen.querySelector("#levels");
 
   console.log(term);
   if(storedTerm){
     searchWindow.value = storedTerm;
-    console.log("true");
   }
   else{
     searchWindow.value = "summer";
+  }
+  if(storedType){
+    typeSelector.value = storedType;
+  }
+  else{
+    typeSelector.value = "radical";
+  }
+  if(storedDifficulty){
+    difficultySelector.value = storedDifficulty;
+  }
+  else{
+    difficultySelector.value = "all";
   }
   console.log(searchWindow.value);
   console.log(term);
