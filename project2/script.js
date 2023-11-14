@@ -1,13 +1,84 @@
 window.onload = (e) => {
   document.querySelector("#search").onclick = searchButtonClicked
   allVocab();
+  allKanji();
+  allRadicals();
 };
-
+let mainKanjiArray = [];
+let mainVocabArray = [];
+let mainRadicalsArray = [];
 function searchButtonClicked(){
   let searchBy = document.querySelector("#type").value;
-  accessData(searchBy);
+  let difficulty = document.querySelector("#levels").value;
+  accessData(searchBy, difficulty);
 }
-let mainVocabArray = [];
+
+
+function allRadicals(){
+  var apiToken = ' 89abe689-ce3d-4035-acfd-65d442782f72 ';
+  var apiEndpointPath = 'subjects?types=radical';
+  var requestHeaders =
+    new Headers({
+      Authorization: 'Bearer ' + apiToken,
+    });
+  var apiEndpoint =
+    new Request('https://api.wanikani.com/v2/' + apiEndpointPath, {
+      method: 'GET',
+      headers: requestHeaders
+    });
+
+  fetch(apiEndpoint)
+    .then(response => response.json())
+    .then(responseBody => {
+      mainRadicalsArray = responseBody.data.slice(0);
+      console.log(responseBody);
+    }
+  );
+}
+
+function allKanji(){
+  var apiToken = ' 89abe689-ce3d-4035-acfd-65d442782f72 ';
+  var apiEndpointPath = 'subjects?types=kanji';
+  var requestHeaders =
+    new Headers({
+      Authorization: 'Bearer ' + apiToken,
+    });
+  var apiEndpoint =
+    new Request('https://api.wanikani.com/v2/' + apiEndpointPath, {
+      method: 'GET',
+      headers: requestHeaders
+    });
+
+  fetch(apiEndpoint)
+    .then(response => response.json())
+    .then(responseBody => {
+      mainKanjiArray = responseBody.data.slice(0);
+      repeatingKanji(responseBody.pages.next_url);
+    }
+  );
+}
+function repeatingKanji(nextURL){
+  var apiToken = ' 89abe689-ce3d-4035-acfd-65d442782f72 ';
+  if(nextURL != null){
+    var requestHeaders =
+    new Headers({
+      Authorization: 'Bearer ' + apiToken,
+    });
+    var apiEndpoint =
+    new Request(nextURL, {
+      method: 'GET',
+      headers: requestHeaders
+    });
+    fetch(apiEndpoint)
+      .then(response => response.json())
+      .then(responseBody => { 
+        const tempArray = mainKanjiArray;
+        mainKanjiArray = tempArray.concat(responseBody.data);
+        nextURL = responseBody.pages.next_url;
+        repeating(responseBody.pages.next_url);
+    });
+  }
+}
 
 function allVocab(){
   var apiToken = ' 89abe689-ce3d-4035-acfd-65d442782f72 ';
@@ -26,7 +97,7 @@ function allVocab(){
     .then(response => response.json())
     .then(responseBody => {
       mainVocabArray = responseBody.data.slice(0);
-      repeating(responseBody.pages.next_url, " 89abe689-ce3d-4035-acfd-65d442782f72 ");
+      repeating(responseBody.pages.next_url);
     }
   );
 }
@@ -54,139 +125,154 @@ function repeating(nextURL){
   }
 }
 
-function accessData(type){
-  const character = document.querySelector("#character");
-  const meaning = document.querySelector("#meaning");
-  const reading = document.querySelector("#reading");
-  
+function accessData(type, difficulty){
   term = document.querySelector("#searchterm").value;
 
-  var apiToken = '89abe689-ce3d-4035-acfd-65d442782f72';
-  var apiEndpointPath = 'subjects';
-  var requestHeaders =
-    new Headers({
-      Authorization: 'Bearer ' + apiToken,
-    });
+  const minInclusive = 0;
+  const maxInclusive = 60;
 
-  var apiEndpoint =
-    new Request('https://api.wanikani.com/v2/' + apiEndpointPath + `?types=${type}`, {
-      method: 'GET',
-      headers: requestHeaders
-    });
-  fetch(apiEndpoint)
-    .then(response => response.json())
-    .then(responseBody => {switch(type){
+  switch(type){
       case "radical":
-       // getRadical(responseBody);
-       //console.log(responseBody);
+        getThings(mainRadicalsArray, type);
         break;
       case "vocabulary":
-        //getThings(responseBody, type);
-        //console.log(responseBody);
+        getThings(mainVocabArray, type);
         break;
       case "kanji":
-        //getThings(responseBody, type);
-        console.log(responseBody);
+        getThings(mainKanjiArray, type);
         break;
       case "all": 
         break;
       default:
         console.log("Something went wrong");
         break;
-    }}
-    );
+    }
 
+  switch(difficulty){
+    case "all":
+      minInclusive = 0;
+      maxInclusive = 60;
+      break;
+    case "pleasant":
+      minInclusive = 0;
+      maxInclusive = 10;
+      break;  
+    case "painful":
+      minInclusive = 11;
+      maxInclusive = 20;
+      break;
+    case "death":
+      minInclusive = 21;
+      maxInclusive = 30;
+      break;
+    case "hell":
+      minInclusive = 31;
+      maxInclusive = 40;
+      break;
+    case "paradise":
+      minInclusive = 41;
+      maxInclusive = 50;
+      break;
+    case "reality":
+      minInclusive = 51;
+      maxInclusive = 60;
+      break;
+  }
 }
 
-//still need to get functional for the rest of the 5 thousand vocabulary
-function getThings(responseBody, type){
+function getThings(array, type){
   let meaningsArray = [];
   let readingsArray = [];
   let readingsString = "";
   let meaningsString = "";
-  let OnString = "";
-  let KunString = "";
-  const onyomiEl = document.querySelector("#onyomi");
-  const kunyomiEl = document.querySelector("#kunyomi");
 
-  kunyomiEl.innerHTML = "";
-  onyomiEl.innerHTML = "";  
+  let results = [];
 
-  for(let i = 0; i < responseBody.data.length;i++){
-    for(let k = 0; k < responseBody.data[i].data.meanings.length;k++){
-      if(responseBody.data[i].data.meanings[k].meaning == capitalizeFirstLetter(term)){
-        character.innerHTML = responseBody.data[i].data.characters;
-        meaningsArray = responseBody.data[i].data.meanings;
-        readingsArray = responseBody.data[i].data.readings;
-        meaningsString = "";
-        for(let j = 0; j < meaningsArray.length;j++){
-          meaningsString += meaningsArray[j].meaning
-          if(meaningsArray.length > j + 1){
-            meaningsString += ", "
-          }
+  for(let i = 0; i < array.length;i++){
+    for(let k = 0; k < array[i].data.meanings.length;k++){
+      if(array[i].data.meanings[k].meaning == capitalizeFirstLetter(term)){
+        results.push(array[i]);
+      }
+    }
+  }
+  console.log(results);
+  let bigString = "";
+  let line = "";
+
+  if(type != "radical"){
+    for(let z = 0; z < results.length;z++){
+      meaningsString = "";
+      readingsString = "";
+
+      meaningsArray = results[z].data.meanings;
+      for(let j = 0; j < meaningsArray.length;j++){
+        meaningsString += meaningsArray[j].meaning;
+        if(meaningsArray.length > j + 1){
+          meaningsString += ", ";
         }
       }
-    }
-  }
-  if(type == "vocabulary")
-  {
-    getVocab(readingsArray, meaningsString, readingsString);
-  }
-  if(type == "kanji"){
-    console.log(readingsArray);
-    getKanji(onyomiEl,kunyomiEl, readingsArray, meaningsString);
-  }
-}
 
-function getVocab(readings, meaningsString, readingsString){
-  for(let h = 0; h < readings.length;h++){
-    readingsString += readings[h].reading
-    if(readings.length > h + 1){
-      readingsString += ", "
-    }
-  }
-  reading.innerHTML = readingsString;
-  meaning.innerHTML = meaningsString;    
-}
+      if(type == "vocabulary")
+      {
+        readingsArray = results[z].data.readings;
+        for(let j = 0; j < readingsArray.length;j++){
+          readingsString += readingsArray[j].reading;
+          if(readingsArray.length > j + 1){
+            readingsString += ", ";
+          }
+        }
 
-function getKanji(onyomiElement, kunyomiElement, readingsArray, meaningsString){
-  OnString = "Onyomi: ";
-  KunString = "Kunyomi: ";
-   
-  for(let h = 0; h < readingsArray.length;h++){
-    if(readingsArray[h].type == "onyomi"){
-      OnString += readingsArray[h].reading;
-      if(readingsArray[h + 1].type == "onyomi"){
-        OnString += ", ";
+        line = `<div class ='result'>
+                      <p id="meanings">Meanings: ${meaningsString}</p>
+                      <p id="readings">Readings: ${readingsString}</p>
+                      <p id="slug">Kana: ${results[z].data.characters}</p>
+                    </div>`;
+      }
+      else if(type == "kanji")
+      {
+        let OnString = "";
+        let KunString = "";
+
+        readingsArray = results[z].data.readings;
+
+        console.log(readingsArray);
+        for(let h = 0; h < readingsArray.length;h++){
+          if(readingsArray[h].type == "onyomi"){
+            OnString += readingsArray[h].reading;
+            if(readingsArray[h + 1].type == "onyomi"){
+              OnString += ", ";
+            }
+          }
+          else if(readingsArray[h].type == "kunyomi"){
+            KunString += readingsArray[h].reading;
+            if(readingsArray[h + 1] != null && readingsArray[h + 1].type == "kunyomi"){
+              KunString += ", ";
+            }
+          }
+        }
+        line = `<div class ='result'>
+                      <p id="meanings">Meanings: ${meaningsString}</p>
+                      <p id="onyomi">Onyomi: ${OnString}</p>
+                      <p id="kunyomi">Kunyomi: ${KunString}</p>
+                      <p id="slug">Kanji: ${results[z].data.characters}</p>
+                    </div>`;
       }
     }
-    else if(readingsArray[h].type == "kunyomi"){
-      KunString += readingsArray[h].reading;
-      if(readingsArray[h + 1] != null && readingsArray[h + 1].type == "kunyomi"){
-        KunString += ", ";
+  }
+  else{
+    for(let i = 0; i < array.length;i++){
+      if(array[i].data.slug == lowercaseFirstLetter(term))
+      {
+        line = `<div class ='result'>
+                      <p id="identifier">Identifier: ${array[i].data.slug}</p>
+                      <p id="character">Character: ${array[i].data.characters}</p>
+                    </div>`;
       }
-    }
   }
-  onyomiElement.innerHTML = OnString;
-  kunyomiElement.innerHTML = KunString;
-  meaning.innerHTML = meaningsString;
-}
+  bigString += line;
 
-function getAll(responseBody){
-  console.log(responseBody);
+  document.querySelector("#display").innerHTML = bigString;
 }
-
-function getRadical(responseBody){
-  //console.log(responseBody);
-  for(let i = 0; i < responseBody.data.length;i++){
-    if(responseBody.data[i].data.slug == lowercaseFirstLetter(term))
-    {
-      character.innerHTML = responseBody.data[i].data.characters;
-      meaning.innerHTML = responseBody.data[i].data.slug;
-      reading.innerHTML = "";
-      console.log(responseBody.data[i].data.characters); //problem not showing wtf
-    }
-  }
 }
 
 function capitalizeFirstLetter(string) {
@@ -195,4 +281,11 @@ function capitalizeFirstLetter(string) {
 
 function lowercaseFirstLetter(string){
   return string.charAt(0).toLowerCase() + string.slice(1);
+}
+
+function sortByLevel(data){
+  if(minInclusive <= data.data.level <= maxInclusive){
+    return true;
+  }
+  else return false;
 }
