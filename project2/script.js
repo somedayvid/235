@@ -1,15 +1,46 @@
+let mainKanjiArray = [];
+let mainVocabArray = [];
+let mainRadicalsArray = [];
+let minInclusive = 0;
+let maxInclusive = 60;
+let term = "";
+
+const prefix = "dg8516-";
+const searchTermKey = prefix + "term";
+const wordTypeKey = prefix + "type";
+const difficultyKey = prefix + "difficulty";
+
+const storedTerm = localStorage.getItem(searchTermKey);
+const storedType = localStorage.getItem(wordTypeKey);
+const storedDifficulty = localStorage.getItem(difficultyKey);
+
 window.onload = (e) => {
-  document.querySelector("#search").onclick = searchButtonClicked
+  document.querySelector("#search").onclick = searchButtonClicked;
+  const searchWindow = document.querySelector("#searchterm");
+
+  console.log(term);
+  if(storedTerm){
+    searchWindow.value = storedTerm;
+    console.log("true");
+  }
+  else{
+    searchWindow.value = "summer";
+  }
+  console.log(searchWindow.value);
+  console.log(term);
   allVocab();
   allKanji();
   allRadicals();
 };
-let mainKanjiArray = [];
-let mainVocabArray = [];
-let mainRadicalsArray = [];
+
 function searchButtonClicked(){
   let searchBy = document.querySelector("#type").value;
-  let difficulty = document.querySelector("#levels").value;
+  let difficulty = document.querySelector("#levels").value; 
+  term = document.querySelector("#searchterm").value;
+
+  localStorage.setItem(searchTermKey, document.querySelector("#searchterm").value);
+  localStorage.setItem(wordTypeKey, searchBy);
+  localStorage.setItem(difficultyKey, difficulty);
   accessData(searchBy, difficulty);
 }
 
@@ -125,59 +156,55 @@ function repeating(nextURL){
 }
 
 function accessData(type, difficulty){
-  term = document.querySelector("#searchterm").value;
 
-  const minInclusive = 0;
-  const maxInclusive = 60;
-
-  switch(type){
-      case "radical":
-        getThings(mainRadicalsArray, type);
-        break;
-      case "vocabulary":
-        getThings(mainVocabArray, type);
-        break;
-      case "kanji":
-        getThings(mainKanjiArray, type);
-        break;
-      case "all": 
-        break;
-      default:
-        console.log("Something went wrong");
-        break;
-    }
-
-  // switch(difficulty){
-  //   case "all":
-  //     minInclusive = 0;
-  //     maxInclusive = 60;
-  //     break;
-  //   case "pleasant":
-  //     minInclusive = 0;
-  //     maxInclusive = 10;
-  //     break;  
-  //   case "painful":
-  //     minInclusive = 11;
-  //     maxInclusive = 20;
-  //     break;
-  //   case "death":
-  //     minInclusive = 21;
-  //     maxInclusive = 30;
-  //     break;
-  //   case "hell":
-  //     minInclusive = 31;
-  //     maxInclusive = 40;
-  //     break;
-  //   case "paradise":
-  //     minInclusive = 41;
-  //     maxInclusive = 50;
-  //     break;
-  //   case "reality":
-  //     minInclusive = 51;
-  //     maxInclusive = 60;
-  //     break;
+  switch(difficulty){
+    case "all":
+      minInclusive = 0;
+      maxInclusive = 60;
+      break;
+    case "pleasant":
+      minInclusive = 0;
+      maxInclusive = 10;
+      break;  
+    case "painful":
+      minInclusive = 11;
+      maxInclusive = 20;
+      break;
+    case "death":
+      minInclusive = 21;
+      maxInclusive = 30;
+      break;
+    case "hell":
+      minInclusive = 31;
+      maxInclusive = 40;
+      break;
+    case "paradise":
+      minInclusive = 41;
+      maxInclusive = 50;
+      break;
+    case "reality":
+      minInclusive = 51;
+      maxInclusive = 60;
+      break;
   }
-
+  
+  switch(type){
+    case "radical":
+      getThings(mainRadicalsArray, type);
+      break;
+    case "vocabulary":
+      getThings(mainVocabArray, type);
+      break;
+    case "kanji":
+      getThings(mainKanjiArray, type);
+      break;
+    case "all": 
+      break;
+    default:
+      console.log("Something went wrong");
+      break;
+  }
+}
 
 function getThings(array, type){
   let meaningsArray = [];
@@ -189,7 +216,7 @@ function getThings(array, type){
 
   for(let i = 0; i < array.length;i++){
     for(let k = 0; k < array[i].data.meanings.length;k++){
-      if(array[i].data.meanings[k].meaning == capitalizeFirstLetter(term)){
+      if(array[i].data.meanings[k].meaning == capitalizeFirstLetter(term) && sortByLevel(array[i])){
         results.push(array[i]);
       }
     }
@@ -255,6 +282,7 @@ function getThings(array, type){
                       <p id="slug">Kanji: ${results[z].data.characters}</p>
                     </div>`;
       }
+      bigString += line;
     }
   }
   else
@@ -269,8 +297,8 @@ function getThings(array, type){
                     </div>`;
       }
     }
+    bigString += line;
   }
-bigString += line;
 
 document.querySelector("#display").innerHTML = bigString;
 }
@@ -284,8 +312,14 @@ function lowercaseFirstLetter(string){
 }
 
 function sortByLevel(data){
-  if(minInclusive <= data.data.level <= maxInclusive){
+  if(minInclusive <= data.data.level && data.data.level <= maxInclusive ){
+    console.log(minInclusive);
+    console.log(maxInclusive);
+    console.log(data.data.level);
+    console.log("true");
     return true;
   }
-  else return false;
+  else 
+  console.log("false");
+return false;
 }
