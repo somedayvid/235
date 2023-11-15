@@ -8,26 +8,33 @@
     <script src="script.js"></script>
 </head>
 <body>
-    <h1></h1>
-    <input id="searchterm" type="text" type="text" size="20" placeholder="Enter a word">
-	<button type="button" id="search" class="green">Search</button>
-
-    <label for="type">Choose a type:</label>
-    <select name="type" id="type">
-        <option value="radical">Radicals</option>
-        <option value="kanji">Kanji</option>
-        <option value="vocabulary">Vocabulary</option>
-    </select>
-    <label for="levels">Levels</label>
-    <select name="levels" id="levels">
-        <option value="all">All &#40;0 - 60&#41;</option>
-        <option value="pleasant">Pleasant &#40;0 - 10&#41;</option>
-        <option value="painful">Painful &#40;11 - 20&#41;</option>
-        <option value="death">Death &#40;21 - 30&#41;</option>
-        <option value="hell">Hell &#40;31 - 40&#41;</option>
-        <option value="paradise">Paradise &#40;41 - 50&#41;</option>
-        <option value="reality">Reality &#40;51 - 60&#41;</option>
-    </select>
+    <div id="mainContent">
+        <h1>David's Whatchamacallit</h1>
+        <div class="item">
+            <input id="searchterm" type="text" type="text" size="20" placeholder="Enter a word">
+            <button type="button" id="search" class="green">Search</button>
+        </div>
+        <div class="item">
+            <label for="type">Choose a type:</label>
+            <select name="type" id="type">
+                <option value="radical">Radicals</option>
+                <option value="kanji">Kanji</option>
+                <option value="vocabulary">Vocabulary</option>
+            </select>
+        </div>
+        <div class="item">
+            <label for="levels">Levels</label>
+            <select name="levels" id="levels">
+                <option value="all">All &#40;0 - 60&#41;</option>
+                <option value="pleasant">Pleasant &#40;0 - 10&#41;</option>
+                <option value="painful">Painful &#40;11 - 20&#41;</option>
+                <option value="death">Death &#40;21 - 30&#41;</option>
+                <option value="hell">Hell &#40;31 - 40&#41;</option>
+                <option value="paradise">Paradise &#40;41 - 50&#41;</option>
+                <option value="reality">Reality &#40;51 - 60&#41;</option>
+            </select>
+        </div>
+    </div>
     <div id="display">
         <p id="number"></p>
     </div>

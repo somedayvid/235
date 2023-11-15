@@ -17,8 +17,8 @@ const storedDifficulty = localStorage.getItem(difficultyKey);
 window.onload = (e) => {
   document.querySelector("#search").onclick = searchButtonClicked;
   const searchWindow = document.querySelector("#searchterm");
-  const typeSelector = documen.querySelector("#type");
-  const difficultySelector = documen.querySelector("#levels");
+  const typeSelector = document.querySelector("#type");
+  const difficultySelector = document.querySelector("#levels");
 
   console.log(term);
   if(storedTerm){
