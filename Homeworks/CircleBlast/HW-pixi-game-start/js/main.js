@@ -54,6 +54,7 @@ let score = 0;
 let life = 100;
 let levelNum = 1;
 let paused = true;
+let scoreDisplay = 0;
 
 function setup() {
 	stage = app.stage;
@@ -151,6 +152,7 @@ function createLabelsAndButtons(){
         stroke: 0xFF0000,
         strokeThickness: 4
     });
+    
     //2a make score label
     scoreLabel = new PIXI.Text();
     scoreLabel.style = textStyle;
@@ -169,7 +171,7 @@ function createLabelsAndButtons(){
 
     //3 set up gameOverScene
     //3a make game over text
-    let gameOverText = new PIXI.Text("Game Over! \n         :-0");
+    let gameOverText = new PIXI.Text("Game Over! \n    :-0");
     textStyle = new PIXI.TextStyle({
         fill: 0xFFFFFF,
         fontSize: 64,
@@ -269,6 +271,7 @@ if (paused) return;
                 gameScene.removeChild(b);
                 b.isAlive = false;
                 increaseScoreBy(1);
+                scoreDisplay = score;
             }
 
             if(b.y < -10) b.isAlive = false;
