@@ -1,6 +1,6 @@
 body{
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     position: relative;
 }
 div#mainContent{
@@ -17,6 +17,8 @@ div.item{
 div#display{
     display: flex;
     flex-flow: row wrap;
+    width: 65vw;
+    padding-right: 10vw;
 }
 
 div.result {

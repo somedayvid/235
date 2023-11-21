@@ -20,7 +20,6 @@ window.onload = (e) => {
   const typeSelector = document.querySelector("#type");
   const difficultySelector = document.querySelector("#levels");
 
-  console.log(term);
   if(storedTerm){
     searchWindow.value = storedTerm;
   }
@@ -39,11 +38,10 @@ window.onload = (e) => {
   else{
     difficultySelector.value = "all";
   }
-  console.log(searchWindow.value);
-  console.log(term);
   allVocab();
   allKanji();
   allRadicals();
+  repeating();
 };
 
 function searchButtonClicked(){
@@ -118,54 +116,42 @@ function repeatingKanji(nextURL){
         const tempArray = mainKanjiArray;
         mainKanjiArray = tempArray.concat(responseBody.data);
         nextURL = responseBody.pages.next_url;
-        repeating(responseBody.pages.next_url);
+        repeatingKanji(responseBody.pages.next_url);
     });
   }
 }
 
 function allVocab(){
-  var apiToken = ' 89abe689-ce3d-4035-acfd-65d442782f72 ';
-  var apiEndpointPath = 'subjects?types=vocabulary';
-  var requestHeaders =
-    new Headers({
-      Authorization: 'Bearer ' + apiToken,
-    });
-  var apiEndpoint =
-    new Request('https://api.wanikani.com/v2/' + apiEndpointPath, {
-      method: 'GET',
-      headers: requestHeaders
-    });
-
-  fetch(apiEndpoint)
-    .then(response => response.json())
-    .then(responseBody => {
-      mainVocabArray = responseBody.data.slice(0);
-      repeating(responseBody.pages.next_url);
-    }
-  );
+  
 }
-
-function repeating(nextURL){
-  var apiToken = ' 89abe689-ce3d-4035-acfd-65d442782f72 ';
-  if(nextURL != null){
+let nextURL = 'https://api.wanikani.com/v2/subjects?types=vocabulary';
+function repeating(){
+  
+  do{
+    var apiToken = ' 89abe689-ce3d-4035-acfd-65d442782f72 ';
+    //let nextURL = 'https://api.wanikani.com/v2/' + apiEndpointPath;
     var requestHeaders =
-    new Headers({
-      Authorization: 'Bearer ' + apiToken,
-    });
+      new Headers({
+        Authorization: 'Bearer ' + apiToken,
+      });
     var apiEndpoint =
-    new Request(nextURL, {
-      method: 'GET',
-      headers: requestHeaders
-    });
+      new Request(nextURL, {
+        method: 'GET',
+        headers: requestHeaders
+      });
+  
     fetch(apiEndpoint)
       .then(response => response.json())
-      .then(responseBody => { 
+      .then(responseBody => {
         const tempArray = mainVocabArray;
         mainVocabArray = tempArray.concat(responseBody.data);
         nextURL = responseBody.pages.next_url;
-        repeating(responseBody.pages.next_url);
-    });
+        console.log(mainVocabArray);
+        console.log(nextURL);
+      }
+    )
   }
+  while(nextURL !== null);
 }
 
 function accessData(type, difficulty){
@@ -219,10 +205,11 @@ function accessData(type, difficulty){
 
 function getThings(array, type){
   let results = [];
+  const capitalizedTerm = capitalizeEachWord(term);
 
   for(let i = 0; i < array.length;i++){
     for(let k = 0; k < array[i].data.meanings.length;k++){
-      if(array[i].data.meanings[k].meaning == capitalizeFirstLetter(term) && sortByLevel(array[i])){
+      if(array[i].data.meanings[k].meaning == capitalizedTerm && sortByLevel(array[i])){
         results.push(array[i]);
       }
     }
@@ -323,8 +310,15 @@ let biggerString = `<p>${results.length} result(s) for "${term}"</p>` + bigStrin
 document.querySelector("#display").innerHTML = biggerString;
 }
 
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+function capitalizeEachWord(string) {
+  const sentence = string;
+  const words = sentence.split(" ");
+  const together = words.map(capitalizeFirstLetter);
+  return together.join(" ");
+}
+
+function capitalizeFirstLetter(word){
+  return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
 function lowercaseFirstLetter(string){
@@ -333,13 +327,8 @@ function lowercaseFirstLetter(string){
 
 function sortByLevel(data){
   if(minInclusive <= data.data.level && data.data.level <= maxInclusive ){
-    console.log(minInclusive);
-    console.log(maxInclusive);
-    console.log(data.data.level);
-    console.log("true");
     return true;
   }
   else 
-  console.log("false");
 return false;
 }
