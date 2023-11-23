@@ -1,3 +1,4 @@
+
 let mainKanjiArray = [];
 let mainVocabArray = [];
 let mainRadicalsArray = [];
@@ -9,6 +10,7 @@ new Headers({
   Authorization: 'Bearer ' +  ' 89abe689-ce3d-4035-acfd-65d442782f72 ',
 });
 
+//local storage variables
 const prefix = "dg8516-";
 const searchTermKey = prefix + "term";
 const wordTypeKey = prefix + "type";
@@ -92,7 +94,6 @@ function allKanji(){
     .then(responseBody => {
       mainKanjiArray = responseBody.data.slice(0);
       repeatingKanji(responseBody.pages.next_url);
-      console.log(responseBody);
     }
   );
 }
@@ -204,7 +205,10 @@ function accessData(type, difficulty){
 function getThings(array, type){
   let results = [];
   const capitalizedTerm = capitalizeEachWord(term);
-
+  if(term == ""){
+    document.querySelector("#numresults").innerHTML = `Please input a search term!`;
+  }
+  else{
   //first checks if the user input term will net any results
   for(let i = 0; i < array.length;i++){
     for(let k = 0; k < array[i].data.meanings.length;k++){
@@ -219,8 +223,9 @@ function getThings(array, type){
     console.log(term);
     document.querySelector("#display").innerHTML = "";
   }
-  //if yes! then we call another function, this time with the results we found and pass through the type still
+  //if yes! then we call another function, this time with the results we found and pass through the type again
   else getTerm(results, type);
+}
 }
 
 function getTerm(results,type){
@@ -231,11 +236,14 @@ let meaningsString = "";
 let bigString = "";
 let line = "";
 
+//radicals have different content than vocabulary and kanji so we check the type first
+//vocabulary and kanji both have meanings and readings so we can check for meanings in both first
 if(type != "radical"){
   for(let z = 0; z < results.length;z++){
     meaningsString = "";
     readingsString = "";
 
+    //loops through the meanings data and adds the data to a meanings string
     meaningsArray = results[z].data.meanings;
     for(let j = 0; j < meaningsArray.length;j++){
       meaningsString += meaningsArray[j].meaning;
@@ -244,6 +252,7 @@ if(type != "radical"){
       }
     }
 
+    //if the type specifically is vocabulary then there is only one reading
     if(type == "vocabulary")
     {
       readingsArray = results[z].data.readings;
@@ -261,6 +270,8 @@ if(type != "radical"){
                     <p id="level">Level: ${results[z].data.level}</p>
                   </div>`;
     }
+    //if the type is specifically kanji then there are additional readings 
+    //like onyomi and kunyomi to account for 
     else if(type == "kanji")
     {
       let OnString = "";
@@ -268,18 +279,28 @@ if(type != "radical"){
 
       readingsArray = results[z].data.readings;
 
+      //can get both readings by looping through the arrays 
       for(let h = 0; h < readingsArray.length;h++){
         if(readingsArray[h].type == "onyomi"){
           OnString += readingsArray[h].reading;
+          //checks each reading for if the type is onyomi and the next reading in the array as well
+          //then adds them to the onyomi string
           if(readingsArray[h + 1] !== null && readingsArray[h + 1].type == "onyomi"){
             OnString += ", ";
           }
         }
+        //same process for kunyomi as the onyomi readings
         else if(readingsArray[h].type == "kunyomi"){
           KunString += readingsArray[h].reading;
           if(readingsArray[h + 1] != null && readingsArray[h + 1].type == "kunyomi"){
             KunString += ", ";
           }
+        }
+        if(OnString == ""){
+          OnString = "None";
+        }
+        if(KunString == ""){
+          KunString = "None";
         }
       }
       line = `<div class ='result'>
@@ -293,6 +314,7 @@ if(type != "radical"){
     bigString += line;
   }
 }
+//goes here if the type is a radical
 else
 {
   for(let i = 0; i < results.length;i++)
@@ -313,6 +335,7 @@ document.querySelector("#numresults").innerHTML = `<p>${results.length} result(s
 document.querySelector("#display").innerHTML = bigString;
 }
 
+//three remaining functions are all little sections for possible FAQs for each type in Japanese
 function explainRadicals(){
   document.querySelector("#extraInfo").innerHTML = ` <h2>What are radicals?</h2>
   <p>Radicals technically do not have definitions, but written Japanese characters, aka kanji, are made up of individual radicals and
@@ -326,7 +349,7 @@ function explainRadicals(){
   <h2>How do they decide what definitions radicals have?</h2>
   <p>For simpler and recognizable radicals the definitions tend to just be a cross between something the radical resembles in real life
    and the kanji that it is used in. If the radical's definition is of an abstract concept then the definition is probably made 
-   with graeter emphasis on the kanji characters it appears in. A common technique for memorizing radicals is using mnemonics 
+   with greater emphasis on the kanji characters it appears in. A common technique for memorizing radicals is using mnemonics 
    which tends to be a slightly ridiculous story associated with the radical that contains the definition of the radical itself.
    食's mnenomic courtesy of Wanikani: "You put on your hat and go outside to kick something white. It's a big white goose and you 
    killed it with your kick. That's because you're going to cook and <em>eat</em> it. Yum!" The definition of the radical is in this case
@@ -334,6 +357,7 @@ function explainRadicals(){
   </p>`;
 }
 
+//
 function explainKanji(){
   document.querySelector("#extraInfo").innerHTML = `       <h2>What is kanji?</h2>
   <p>Kanji is Japanese writing system that utilizes Chinese characters to express meaning.</p>
