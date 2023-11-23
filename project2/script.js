@@ -4,6 +4,10 @@ let mainRadicalsArray = [];
 let minInclusive = 0;
 let maxInclusive = 60;
 let term = "";
+const requestHeaders =
+new Headers({
+  Authorization: 'Bearer ' +  ' 89abe689-ce3d-4035-acfd-65d442782f72 ',
+});
 
 const prefix = "dg8516-";
 const searchTermKey = prefix + "term";
@@ -15,11 +19,13 @@ const storedType = localStorage.getItem(wordTypeKey);
 const storedDifficulty = localStorage.getItem(difficultyKey);
 
 window.onload = (e) => {
+  //attaches const to actions the user can take
   document.querySelector("#search").onclick = searchButtonClicked;
   const searchWindow = document.querySelector("#searchterm");
   const typeSelector = document.querySelector("#type");
   const difficultySelector = document.querySelector("#levels");
 
+  //checks and puts stored terms into each interactible item
   if(storedTerm){
     searchWindow.value = storedTerm;
   }
@@ -38,37 +44,35 @@ window.onload = (e) => {
   else{
     difficultySelector.value = "all";
   }
+
+  //gets all api information for japanese writing systems
   allVocab();
   allKanji();
   allRadicals();
-  repeating();
 };
 
+
+//gets the button restrictions and passes them into the data accessor
 function searchButtonClicked(){
   let searchBy = document.querySelector("#type").value;
   let difficulty = document.querySelector("#levels").value; 
   term = document.querySelector("#searchterm").value;
 
+  //changes the locally stored terms and options to the new ones selected
   localStorage.setItem(searchTermKey, document.querySelector("#searchterm").value);
   localStorage.setItem(wordTypeKey, searchBy);
   localStorage.setItem(difficultyKey, difficulty);
   accessData(searchBy, difficulty);
 }
 
-
+//unfortunately was unable to avoid DRY with this one even after working on it for several hours
+//gets all radicals from api
 function allRadicals(){
-  var apiToken = ' 89abe689-ce3d-4035-acfd-65d442782f72 ';
-  var apiEndpointPath = 'subjects?types=radical';
-  var requestHeaders =
-    new Headers({
-      Authorization: 'Bearer ' + apiToken,
-    });
-  var apiEndpoint =
-    new Request('https://api.wanikani.com/v2/' + apiEndpointPath, {
+  const apiEndpoint =
+    new Request('https://api.wanikani.com/v2/subjects?types=radical', {
       method: 'GET',
       headers: requestHeaders
     });
-
   fetch(apiEndpoint)
     .then(response => response.json())
     .then(responseBody => {
@@ -76,36 +80,25 @@ function allRadicals(){
     }
   );
 }
-
+//gets all the kanji from the api
 function allKanji(){
-  var apiToken = ' 89abe689-ce3d-4035-acfd-65d442782f72 ';
-  var apiEndpointPath = 'subjects?types=kanji';
-  var requestHeaders =
-    new Headers({
-      Authorization: 'Bearer ' + apiToken,
-    });
-  var apiEndpoint =
-    new Request('https://api.wanikani.com/v2/' + apiEndpointPath, {
+  const apiEndpoint =
+    new Request('https://api.wanikani.com/v2/subjects?types=kanji', {
       method: 'GET',
       headers: requestHeaders
     });
-
   fetch(apiEndpoint)
     .then(response => response.json())
     .then(responseBody => {
       mainKanjiArray = responseBody.data.slice(0);
       repeatingKanji(responseBody.pages.next_url);
+      console.log(responseBody);
     }
   );
 }
 function repeatingKanji(nextURL){
-  var apiToken = ' 89abe689-ce3d-4035-acfd-65d442782f72 ';
   if(nextURL != null){
-    var requestHeaders =
-    new Headers({
-      Authorization: 'Bearer ' + apiToken,
-    });
-    var apiEndpoint =
+    const apiEndpoint =
     new Request(nextURL, {
       method: 'GET',
       headers: requestHeaders
@@ -116,44 +109,44 @@ function repeatingKanji(nextURL){
         const tempArray = mainKanjiArray;
         mainKanjiArray = tempArray.concat(responseBody.data);
         nextURL = responseBody.pages.next_url;
-        repeatingKanji(responseBody.pages.next_url);
+        repeating(responseBody.pages.next_url);
+    });
+  }
+}
+//gets all the vocabulary from the api
+function allVocab(){
+  const apiEndpoint =
+    new Request('https://api.wanikani.com/v2/subjects?types=vocabulary', {
+      method: 'GET',
+      headers: requestHeaders
+    });
+  fetch(apiEndpoint)
+    .then(response => response.json())
+    .then(responseBody => {
+      mainVocabArray = responseBody.data.slice(0);
+      repeating(responseBody.pages.next_url);
+    }
+  );
+}
+function repeating(nextURL){
+  if(nextURL != null){
+    const apiEndpoint =
+    new Request(nextURL, {
+      method: 'GET',
+      headers: requestHeaders
+    });
+    fetch(apiEndpoint)
+      .then(response => response.json())
+      .then(responseBody => { 
+        const tempArray = mainVocabArray;
+        mainVocabArray = tempArray.concat(responseBody.data);
+        nextURL = responseBody.pages.next_url;
+        repeating(responseBody.pages.next_url);
     });
   }
 }
 
-function allVocab(){
-  
-}
-let nextURL = 'https://api.wanikani.com/v2/subjects?types=vocabulary';
-function repeating(){
-  
-  do{
-    var apiToken = ' 89abe689-ce3d-4035-acfd-65d442782f72 ';
-    //let nextURL = 'https://api.wanikani.com/v2/' + apiEndpointPath;
-    var requestHeaders =
-      new Headers({
-        Authorization: 'Bearer ' + apiToken,
-      });
-    var apiEndpoint =
-      new Request(nextURL, {
-        method: 'GET',
-        headers: requestHeaders
-      });
-  
-    fetch(apiEndpoint)
-      .then(response => response.json())
-      .then(responseBody => {
-        const tempArray = mainVocabArray;
-        mainVocabArray = tempArray.concat(responseBody.data);
-        nextURL = responseBody.pages.next_url;
-        console.log(mainVocabArray);
-        console.log(nextURL);
-      }
-    )
-  }
-  while(nextURL !== null);
-}
-
+//checks the restrictions and sets the difficulty checker here
 function accessData(type, difficulty){
   switch(difficulty){
     case "all":
@@ -185,15 +178,20 @@ function accessData(type, difficulty){
       maxInclusive = 60;
       break;
   }
+  //calls another function and passes in the array information 
+  //from the type of information the user wants
   switch(type){
     case "radical":
       getThings(mainRadicalsArray, type);
+      explainRadicals();
       break;
     case "vocabulary":
       getThings(mainVocabArray, type);
+      explainVocabulary();
       break;
     case "kanji":
       getThings(mainKanjiArray, type);
+      explainKanji();
       break;
     case "all": 
       break;
@@ -207,6 +205,7 @@ function getThings(array, type){
   let results = [];
   const capitalizedTerm = capitalizeEachWord(term);
 
+  //first checks if the user input term will net any results
   for(let i = 0; i < array.length;i++){
     for(let k = 0; k < array[i].data.meanings.length;k++){
       if(array[i].data.meanings[k].meaning == capitalizedTerm && sortByLevel(array[i])){
@@ -214,9 +213,13 @@ function getThings(array, type){
       }
     }
   }
+  //if not then returns nothing and displays that there were no results
   if(results.length <= 0){
-    document.querySelector("#display").innerHTML = "No results found sorry";
+    document.querySelector("#numresults").innerHTML = `No results found for "${term}"`;
+    console.log(term);
+    document.querySelector("#display").innerHTML = "";
   }
+  //if yes! then we call another function, this time with the results we found and pass through the type still
   else getTerm(results, type);
 }
 
@@ -253,8 +256,8 @@ if(type != "radical"){
 
       line = `<div class ='result'>
                     <p id="meanings">Meanings: ${meaningsString}</p>
-                    <p id="readings">Readings: ${readingsString}</p>
-                    <p id="slug">Kana: ${results[z].data.characters}</p>
+                    <p id="readings">Kana: ${readingsString}</p>
+                    <p id="slug">Kanji: ${results[z].data.characters}</p>
                     <p id="level">Level: ${results[z].data.level}</p>
                   </div>`;
     }
@@ -265,11 +268,10 @@ if(type != "radical"){
 
       readingsArray = results[z].data.readings;
 
-      console.log(readingsArray);
       for(let h = 0; h < readingsArray.length;h++){
         if(readingsArray[h].type == "onyomi"){
           OnString += readingsArray[h].reading;
-          if(readingsArray[h + 1].type == "onyomi"){
+          if(readingsArray[h + 1] !== null && readingsArray[h + 1].type == "onyomi"){
             OnString += ", ";
           }
         }
@@ -306,29 +308,65 @@ else
   }
   bigString += line;
 }
-let biggerString = `<p>${results.length} result(s) for "${term}"</p>` + bigString;
-document.querySelector("#display").innerHTML = biggerString;
+
+document.querySelector("#numresults").innerHTML = `<p>${results.length} result(s) for "${term}"</p>`;
+document.querySelector("#display").innerHTML = bigString;
 }
 
-function capitalizeEachWord(string) {
-  const sentence = string;
-  const words = sentence.split(" ");
-  const together = words.map(capitalizeFirstLetter);
-  return together.join(" ");
+function explainRadicals(){
+  document.querySelector("#extraInfo").innerHTML = ` <h2>What are radicals?</h2>
+  <p>Radicals technically do not have definitions, but written Japanese characters, aka kanji, are made up of individual radicals and
+      since kanji is relatively difficult to memorize, radicals, the building blocks of kanji, can clue you into the kanji's definition.
+  </p>
+  <h2>Why are there so few results?</h2>
+  <p>Wanikani has given each radical a unique definition. Overlapping radical definitions would defeat the point of the definitions
+      as they are there to help you memorize what each component of the kanji means to build up to a potential definition and assist 
+      your ability to identify each kanji.
+  </p>
+  <h2>How do they decide what definitions radicals have?</h2>
+  <p>For simpler and recognizable radicals the definitions tend to just be a cross between something the radical resembles in real life
+   and the kanji that it is used in. If the radical's definition is of an abstract concept then the definition is probably made 
+   with graeter emphasis on the kanji characters it appears in. A common technique for memorizing radicals is using mnemonics 
+   which tends to be a slightly ridiculous story associated with the radical that contains the definition of the radical itself.
+   食's mnenomic courtesy of Wanikani: "You put on your hat and go outside to kick something white. It's a big white goose and you 
+   killed it with your kick. That's because you're going to cook and <em>eat</em> it. Yum!" The definition of the radical is in this case
+   is "eat".
+  </p>`;
 }
 
-function capitalizeFirstLetter(word){
-  return word.charAt(0).toUpperCase() + word.slice(1);
+function explainKanji(){
+  document.querySelector("#extraInfo").innerHTML = `       <h2>What is kanji?</h2>
+  <p>Kanji is Japanese writing system that utilizes Chinese characters to express meaning.</p>
+  <h2>Onyomi?</h2>
+  <p>Each kanji has either one or several onyomi and kunyomi pronunciations associated with it. Onyomi is the reading for the Kanji
+   that is derived from the actual Chinese pronunciations of the character in question. For example in Chinese the character 山 is 
+   pronounced like "sān" with a emphasis on the a. In Japanese the onyomi is also pronounced and represented in writing as "san" or 
+   「さん」, though it is not an exact 1:1 match in onyomi and chinese pronunciation for many other kanji.
+  </p>
+  <h2>Kunyomi?</h2>
+  <p>Kunyomi is like the same as onyomi but this time is the original Japanese created reading and pronunciation.
+   山: ya|ma or やま。
+  </p>
+  <h2>When do I use onyomi?</h2>
+  <p>Written down the onyomi and kunyomi readings are not relevant as just the kanji character is used, but when pronounced 
+   or read the different readings are important. Onyomi is usually used when the kanji is placed next to another kanji in a 
+   sentence or phrase. For instance the vocabulary word: 「三人」is composed of the kanji characters that mean: three + people.
+    As they are both kanji, the kanji for three is pronounced as "san" or 「さん」, the same way as in chinese. The kanji for 
+    people then is pronounced as "nin" or 「にん」. 
+  </p>
+  <h2>When do I use kunyomi?</h2>
+  <p>If the kanji is not placed next to other kanji, shown in 「大きい」since 「きい」is not kanji, then the kunyomi pronunciation
+  is used in addition to the other Japanese characters present. Other instances for when the kunyomi is used would be if the 
+  kanji character is by itself or if the vocabulary word is a compound word such as 「青葉」young + leaves then the kunyomi 
+  pronunciations are used as in あお＋ば.
+  </p>`;
 }
 
-function lowercaseFirstLetter(string){
-  return string.charAt(0).toLowerCase() + string.slice(1);
-}
-
-function sortByLevel(data){
-  if(minInclusive <= data.data.level && data.data.level <= maxInclusive ){
-    return true;
-  }
-  else 
-return false;
+function explainVocabulary(){
+  document.querySelector("#extraInfo").innerHTML = `<h2>Vocabulary?</h2>        
+  <p>Japanese vocabulary encompasses pretty much all all the words that you would say in Japanese. From verbs to adverbs, nouns,
+      pronouns, adjectives, etc. Try out some "to" verbs, like "to die", "to fall down" or other words like "lack of filial piety".
+  </p>
+  <h2>Kana</h2>
+  <p>Kana is just the pronunciation of the vocabulary in <a href="https://en.wikipedia.org/wiki/Hiragana">hiragana</a>.</p>`;
 }

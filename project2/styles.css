@@ -1,13 +1,14 @@
 body{
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     position: relative;
+    align-items: center;
+    text-align: center;
 }
 div#mainContent{
     display: flex;
     flex-flow: column nowrap;
     width: 25vw;
-    padding-left: 1vw;
 }
 
 div.item{
@@ -18,7 +19,7 @@ div#display{
     display: flex;
     flex-flow: row wrap;
     width: 65vw;
-    padding-right: 10vw;
+    justify-content: center;
 }
 
 div.result {
@@ -26,4 +27,9 @@ div.result {
     margin-left: 1vw;
     margin-top: 1vw;
     padding: 10px;
+}
+
+div#extraInfo{
+    margin: 0 20vw;
+    text-align: left;
 }
