@@ -1,9 +1,17 @@
+/* font-family: 'Comfortaa', sans-serif;
+font-family: 'M PLUS 1p', sans-serif;
+font-family: 'Raleway', sans-serif; */
+
 body{
+    background-color: #F9F0F1;
     display: flex;
     flex-flow: column nowrap;
     position: relative;
     align-items: center;
     text-align: center;
+    height: 100vh;
+    margin: 0;
+    color: #312F2F;
 }
 div#mainContent{
     display: flex;
@@ -24,6 +32,7 @@ div#display{
 
 div.result {
     border: 1px solid black;
+    border-radius: 10px;
     margin-left: 1vw;
     margin-top: 1vw;
     padding: 10px;
@@ -32,4 +41,38 @@ div.result {
 div#extraInfo{
     margin: 0 20vw;
     text-align: left;
+}
+
+h1, h2{
+    font-family: 'Comfortaa';
+}
+
+p, div#numresults, label, select, button, input{
+    font-family: 'M PLUS 1p';
+}
+
+footer{
+    background-color: #D7263D;
+    width: 100vw;
+    font-weight: 1000;
+}
+
+a:link{
+
+}
+
+a:visited{
+
+}
+
+a:focus{
+
+}
+
+a:hover{
+
+}
+
+a:active{
+
 }
