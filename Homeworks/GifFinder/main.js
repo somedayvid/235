@@ -52,6 +52,7 @@
      console.log(xhr.responseText);
 
      let obj = JSON.parse(xhr.responseText);
+     console.log(obj);
 
      if(!obj.data || obj.data.length == 0){
          document.querySelector("#status").innerHTML = "<b>No results found for'" + displayTerm + "'</b>";
