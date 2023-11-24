@@ -1,16 +1,24 @@
 /* font-family: 'Comfortaa', sans-serif;
 font-family: 'M PLUS 1p', sans-serif;
 font-family: 'Raleway', sans-serif; */
+html{
+    position: relative;
+    min-height: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
 
 body{
-    background-color: #F9F0F1;
+    background-color: white;
     display: flex;
     flex-flow: column nowrap;
     position: relative;
     align-items: center;
     text-align: center;
-    height: 100vh;
+    height: 100%;
     margin: 0;
+    padding: 0;
     color: #312F2F;
 }
 div#mainContent{
@@ -31,11 +39,12 @@ div#display{
 }
 
 div.result {
-    border: 1px solid black;
+    border: 1px solid rgba(31, 47, 47, .4);
     border-radius: 10px;
     margin-left: 1vw;
     margin-top: 1vw;
     padding: 10px;
+    background-color:  #F9F1F2;
 }
 
 div#extraInfo{
@@ -45,16 +54,65 @@ div#extraInfo{
 
 h1, h2{
     font-family: 'Comfortaa';
+    margin: 35px 0 0 0;
 }
 
-p, div#numresults, label, select, button, input{
+p, div#numresults, label, select, button, input, option, footer{
     font-family: 'M PLUS 1p';
+    font-weight: 500;
+}
+
+div.result p{
+    font-weight: 700;
+}
+
+input{
+    text-align: center;
 }
 
 footer{
     background-color: #D7263D;
     width: 100vw;
     font-weight: 1000;
+    color:#F9F0F1;
+    position: relative;
+    bottom: 0;
+    height: 70px;
+    padding-top: 35px;
+    overflow: hidden;
+    margin-top: 90px;
+}
+footer a:link{
+    color: #F9F0F1; 
+}
+
+footer a:visited{
+    color: #F9F0F1  ;
+}
+
+select{
+    border-radius: 10px;
+}
+
+select:hover{
+    background-color: #F5F3F7;
+}
+
+.item {
+    position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+div#test{
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+}
+
+div#title{
+    /* border: 1px solid black; */
+    padding-bottom: 35px;
+    margin-top: 20px;
 }
 
 a:link{
@@ -75,4 +133,21 @@ a:hover{
 
 a:active{
 
+}
+
+button#title{
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+@media screen and (max-width: 780px){
+    div#extraInfo{
+        margin: 0 10vw;
+    }
+    footer{
+        padding-bottom: 20px;
+        padding-top: 20px;
+    }
 }

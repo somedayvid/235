@@ -8,14 +8,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=M+PLUS+1p:wght@300&family=Raleway:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <script src="utilities.js"></script>
     <script src="script.js"></script>
+    <script src="utilities.js"></script>
+    <script src="other.js"></script>
 </head>
 <body>
-    <h1>Lackluster Japanese Dictionary</h1>
+    <button type="button" id="title"><h1>Lackluster Japanese Dictionary</h1></button>
     <div id="mainContent">
         <div class="item">
-            <input id="searchterm" type="text" size="20" placeholder="Enter a word">
+            <input id="searchterm" type="text" size="10" placeholder="Enter a word">
             <button type="button" id="search" class="green">Search</button>
         </div>
         <div class="item">
@@ -43,33 +44,17 @@
         </div>
     </div>
     <div id="display">
+      
         <p id="number">
         
         </p>
     </div>
     <div id="extraInfo">
-        <h2>How does the Japanese Language Work?</h2>
-        <p>In very simplified terms Japanese has three core written language systems: 
-            <a href="https://simple.wikipedia.org/wiki/Katakana" target="_blank" rel="noopener">katakana</a>,
-            <a href="https://simple.wikipedia.org/wiki/Hiragana" target="_blank" rel="noopener">hiragana</a>, and 
-            <a href="https://simple.wikipedia.org/wiki/Kanji" target="_blank" rel="noopener">kanji</a>.
-            Hiragana and katakana have phoentic sounds that are associated with each symbol. Kanji can be represented using hiragana
-            though it is typically represented with symbols, similar to Chinese wherein each symbol has a meaning.
-        </p>
-        <h2>What are levels?</h2>
-        <p>The Wanikani site sorts all their radicals, kanji, and vocabulary into levels, seperated again into blocks of 10.
-            The site is intended as a learning platform of the Japanese writing systems so the levels are there as a sort of
-            indicator as to the user's progress. Learning Japanese, and many other skills, is described as easy at the beginning
-            before the difficulty ramps up and gets really complicated, until everything clicks and the rest feels natural to you.
-            As such the beginning level is labled as "Pleasant" the middle levels are "Painful", "Death", and "Hell", and the 
-            final levels are described as "Paradise" and "Reality". In general as the levels increase the radicals, kanji, and 
-            vocabulary of each level get less commonly used in everyday language and more complex.
-        </p>
+        
     </div>
     <footer>
-        <p>
-            David Gao
-        </p>
+            David Gao | This page utilizes the <a href="https://docs.api.wanikani.com/20170710/#introduction" target="_blank" rel="noopener">WaniKani API</a>. All data
+            belongs to Copyright &copy; Tofugu LLC and the WaniKani team. | <a href="docs.html">Project Documentation</a>
     </footer>
 </body>
 </html>
