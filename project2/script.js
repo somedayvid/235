@@ -26,6 +26,9 @@ window.onload = (e) => {
   const searchWindow = document.querySelector("#searchterm");
   const typeSelector = document.querySelector("#type");
   const difficultySelector = document.querySelector("#levels");
+  showHomeInfo();
+
+  document.querySelector("#title").onclick = showHomeInfo;
 
   //checks and puts stored terms into each interactible item
   if(storedTerm){
@@ -53,12 +56,35 @@ window.onload = (e) => {
   allRadicals();
 };
 
+function showHomeInfo(){
+  document.querySelector("#extraInfo").innerHTML = `<h2>How does the Japanese Language Work?</h2>
+  <p>In very simplified terms Japanese has three core written language systems: 
+      <a href="https://simple.wikipedia.org/wiki/Katakana" target="_blank" rel="noopener">katakana</a>,
+      <a href="https://simple.wikipedia.org/wiki/Hiragana" target="_blank" rel="noopener">hiragana</a>, and 
+      <a href="https://simple.wikipedia.org/wiki/Kanji" target="_blank" rel="noopener">kanji</a>.
+      Hiragana and katakana have phoentic sounds that are associated with each symbol. Kanji can be represented using hiragana
+      though it is typically represented with symbols, similar to Chinese wherein each symbol has a meaning.
+  </p>
+  <h2>What are levels?</h2>
+  <p>The Wanikani site sorts all their radicals, kanji, and vocabulary into levels, seperated again into blocks of 10.
+      The site is intended as a learning platform of the Japanese writing systems so the levels are there as a sort of
+      indicator as to the user's progress. Learning Japanese, and many other skills, is described as easy at the beginning
+      before the difficulty ramps up and gets really complicated, until everything clicks and the rest feels natural to you.
+      As such the beginning level is labled as "Pleasant" the middle levels are "Painful", "Death", and "Hell", and the 
+      final levels are described as "Paradise" and "Reality". In general as the levels increase the radicals, kanji, and 
+      vocabulary of each level get less commonly used in everyday language and more complex.
+  </p>`;
+  document.querySelector("#numresults").innerHTML = "";
+  document.querySelector("#display").innerHTML = "";
+}
 
 //gets the button restrictions and passes them into the data accessor
 function searchButtonClicked(){
   let searchBy = document.querySelector("#type").value;
   let difficulty = document.querySelector("#levels").value; 
   term = document.querySelector("#searchterm").value;
+
+  document.querySelector("#numresults").innerHTML = `Searching for definitions that match "${term}"`;
 
   //changes the locally stored terms and options to the new ones selected
   localStorage.setItem(searchTermKey, document.querySelector("#searchterm").value);
@@ -220,12 +246,11 @@ function getThings(array, type){
   //if not then returns nothing and displays that there were no results
   if(results.length <= 0){
     document.querySelector("#numresults").innerHTML = `No results found for "${term}"`;
-    console.log(term);
     document.querySelector("#display").innerHTML = "";
   }
   //if yes! then we call another function, this time with the results we found and pass through the type again
   else getTerm(results, type);
-}
+  }
 }
 
 function getTerm(results,type){
@@ -296,12 +321,12 @@ if(type != "radical"){
             KunString += ", ";
           }
         }
-        if(OnString == ""){
-          OnString = "None";
-        }
-        if(KunString == ""){
-          KunString = "None";
-        }
+      }
+      if(OnString == ""){
+        OnString = "None";
+      }
+      if(KunString == ""){
+        KunString = "None";
       }
       line = `<div class ='result'>
                     <p id="meanings">Meanings: ${meaningsString}</p>
@@ -337,9 +362,10 @@ document.querySelector("#display").innerHTML = bigString;
 
 //three remaining functions are all little sections for possible FAQs for each type in Japanese
 function explainRadicals(){
-  document.querySelector("#extraInfo").innerHTML = ` <h2>What are radicals?</h2>
+  document.querySelector("#extraInfo").innerHTML = `<h2>What are radicals?</h2>
   <p>Radicals technically do not have definitions, but written Japanese characters, aka kanji, are made up of individual radicals and
       since kanji is relatively difficult to memorize, radicals, the building blocks of kanji, can clue you into the kanji's definition.
+      Radical definitions can be pretty random. Try out words relating to direction, body parts, or adjectives.
   </p>
   <h2>Why are there so few results?</h2>
   <p>Wanikani has given each radical a unique definition. Overlapping radical definitions would defeat the point of the definitions
@@ -359,7 +385,7 @@ function explainRadicals(){
 
 //
 function explainKanji(){
-  document.querySelector("#extraInfo").innerHTML = `       <h2>What is kanji?</h2>
+  document.querySelector("#extraInfo").innerHTML = `<h2>What is kanji?</h2>
   <p>Kanji is Japanese writing system that utilizes Chinese characters to express meaning.</p>
   <h2>Onyomi?</h2>
   <p>Each kanji has either one or several onyomi and kunyomi pronunciations associated with it. Onyomi is the reading for the Kanji
@@ -369,7 +395,7 @@ function explainKanji(){
   </p>
   <h2>Kunyomi?</h2>
   <p>Kunyomi is like the same as onyomi but this time is the original Japanese created reading and pronunciation.
-   山: ya|ma or やま。
+   山: ya|ma or 「やま」。
   </p>
   <h2>When do I use onyomi?</h2>
   <p>Written down the onyomi and kunyomi readings are not relevant as just the kanji character is used, but when pronounced 
@@ -389,8 +415,15 @@ function explainKanji(){
 function explainVocabulary(){
   document.querySelector("#extraInfo").innerHTML = `<h2>Vocabulary?</h2>        
   <p>Japanese vocabulary encompasses pretty much all all the words that you would say in Japanese. From verbs to adverbs, nouns,
-      pronouns, adjectives, etc. Try out some "to" verbs, like "to die", "to fall down" or other words like "lack of filial piety".
+      pronouns, adjectives, etc. Try out some "to" verbs, like "to die", "to fall down" or other common phrases like "lack of 
+      filial piety. (Check out one of the definitions for "national treasure)". 
   </p>
   <h2>Kana</h2>
-  <p>Kana is just the pronunciation of the vocabulary in <a href="https://en.wikipedia.org/wiki/Hiragana">hiragana</a>.</p>`;
+  <p>Kana is just the pronunciation of the vocabulary in <a href="https://en.wikipedia.org/wiki/Hiragana">hiragana</a>.</p>
+  <h2>Kanji?</h2>
+  <p>Kanji are the symbolic characters taken from Chinese scripture which contain meaning. Kanji will often be paired up with 
+    simpler looking characters such as: え、て、る、し、etc, which are hiragana. These hiragana attached to the end of the kanji
+    alters the meaning of the kanji slightly. For instance 「泳」has a kanji definition of "swim". If a 「ぐ」is attached to the 
+    end of the kanji to become 「泳ぐ」, the definition then becomes "to swim" which is also a verb.
+  </p>`;
 }
