@@ -14,21 +14,26 @@ new Headers({
 const prefix = "dg8516-";
 const searchTermKey = prefix + "term";
 const wordTypeKey = prefix + "type";
-const difficultyKey = prefix + "difficulty";
+const searchByKey = prefix + "searchBy";
 
 const storedTerm = localStorage.getItem(searchTermKey);
 const storedType = localStorage.getItem(wordTypeKey);
-const storedDifficulty = localStorage.getItem(difficultyKey);
+const storedSearchBy = localStorage.getItem(searchByKey);
 
-window.onload = (e) => {
-  //attaches const to actions the user can take
-  document.querySelector("#search").onclick = searchButtonClicked;
+window.onload = () => {
   const searchWindow = document.querySelector("#searchterm");
   const typeSelector = document.querySelector("#type");
-  const difficultySelector = document.querySelector("#levels");
-  showHomeInfo();
+  const searchBySelector = document.querySelector("#searchby");
 
+  //attaches const to actions the user can take
+  document.querySelector("#search").onclick = searchButtonClicked;
+
+
+  showHomeInfo();
   document.querySelector("#title").onclick = showHomeInfo;
+  searchWindow.onchange = storeAll;
+  typeSelector.onchange = storeAll;
+  searchBySelector.onchange = storeAll;
 
   //checks and puts stored terms into each interactible item
   if(storedTerm){
@@ -43,11 +48,11 @@ window.onload = (e) => {
   else{
     typeSelector.value = "radical";
   }
-  if(storedDifficulty){
-    difficultySelector.value = storedDifficulty;
+  if(storedSearchBy){
+    searchBySelector.value = storedSearchBy;
   }
   else{
-    difficultySelector.value = "all";
+    searchBySelector.value = "level";
   }
 
   //gets all api information for japanese writing systems
@@ -55,6 +60,12 @@ window.onload = (e) => {
   allKanji();
   allRadicals();
 };
+
+function storeAll(){
+  localStorage.setItem(searchTermKey, document.querySelector("#searchterm").value);
+  localStorage.setItem(wordTypeKey, document.querySelector("#type").value);
+  localStorage.setItem(searchByKey, document.querySelector("#searchby").value);
+}
 
 function showHomeInfo(){
   document.querySelector("#extraInfo").innerHTML = `<h2>How does the Japanese Language Work?</h2>
@@ -76,21 +87,45 @@ function showHomeInfo(){
   </p>`;
   document.querySelector("#numresults").innerHTML = "";
   document.querySelector("#display").innerHTML = "";
-}
+} 
 
 //gets the button restrictions and passes them into the data accessor
 function searchButtonClicked(){
-  let searchBy = document.querySelector("#type").value;
-  let difficulty = document.querySelector("#levels").value; 
+  let searchType = document.querySelector("#type").value;
   term = document.querySelector("#searchterm").value;
-
+  
   document.querySelector("#numresults").innerHTML = `Searching for definitions that match "${term}"`;
 
   //changes the locally stored terms and options to the new ones selected
-  localStorage.setItem(searchTermKey, document.querySelector("#searchterm").value);
-  localStorage.setItem(wordTypeKey, searchBy);
-  localStorage.setItem(difficultyKey, difficulty);
-  accessData(searchBy, difficulty);
+
+  switch(document.querySelector("#searchby").value){
+    case "def":
+      switch(searchType){
+        case "radical":
+          getThings(mainRadicalsArray, searchType);
+          break;
+        case "vocabulary":
+          getThings(mainVocabArray, searchType);
+          break;
+        case "kanji":
+          getThings(mainKanjiArray, searchType);
+          break;
+      }
+      break;
+    case "level":
+      switch(searchType){
+        case "radical":
+          accessByLevel(mainRadicalsArray, searchType);
+          break;
+        case "vocabulary":
+          accessByLevel(mainVocabArray, searchType);
+          break;
+        case "kanji":
+          accessByLevel(mainKanjiArray, searchType);
+          break;
+      }
+      break;
+  }
 }
 
 //unfortunately was unable to avoid DRY with this one even after working on it for several hours
@@ -173,59 +208,246 @@ function repeating(nextURL){
   }
 }
 
-//checks the restrictions and sets the difficulty checker here
-function accessData(type, difficulty){
-  switch(difficulty){
-    case "all":
-      minInclusive = 0;
-      maxInclusive = 60;
-      break;
-    case "pleasant":
-      minInclusive = 0;
-      maxInclusive = 10;
-      break;  
-    case "painful":
-      minInclusive = 11;
-      maxInclusive = 20;
-      break;
-    case "death":
-      minInclusive = 21;
-      maxInclusive = 30;
-      break;
-    case "hell":
-      minInclusive = 31;
-      maxInclusive = 40;
-      break;
-    case "paradise":
-      minInclusive = 41;
-      maxInclusive = 50;
-      break;
-    case "reality":
-      minInclusive = 51;
-      maxInclusive = 60;
-      break;
+// function accessRadicalsByLevel(){
+//   let results = [];
+//   let bigString = "";
+//   for(let i = 0; i < mainRadicalsArray.length; i++){
+//     if(mainRadicalsArray[i].data.level == term.trim()){
+//       results.push(mainRadicalsArray[i]);
+//     }
+//   }
+//   console.log(mainRadicalsArray);
+//   document.querySelector("#numresults").innerHTML = `<p>${results.length} result(s) for "${term}"</p>`;
+//   document.querySelector("#display").innerHTML = getRadicalInfo(results, bigString);
+// }
+
+function accessByLevel(array, type){
+  let results = [];
+  let bigString = "";
+
+  for(let i = 0; i< array.length;i++){
+    if(array[i].data.level == term.trim()){
+      results.push(array[i]);
+    }
   }
-  //calls another function and passes in the array information 
-  //from the type of information the user wants
-  switch(type){
-    case "radical":
-      getThings(mainRadicalsArray, type);
-      explainRadicals();
-      break;
-    case "vocabulary":
-      getThings(mainVocabArray, type);
-      explainVocabulary();
-      break;
-    case "kanji":
-      getThings(mainKanjiArray, type);
-      explainKanji();
-      break;
-    case "all": 
-      break;
-    default:
-      console.log("Something went wrong");
-      break;
-  }
+  console.log("hi");
+  document.querySelector("#numresults").innerHTML = `<p>${results.length} result(s) for level ${term} ${type}</p>`;
+  document.querySelector("#display").innerHTML = getReadings(results, bigString, type);
+}
+
+// function accessKanjiByLevel(){
+//   let results = [];
+//   let bigString = "";
+
+//   for(let i = 0; i < mainKanjiArray.length;i++){
+//       if(mainKanjiArray[i].data.level == term){
+//         results.push(mainKanjiArray[i]);
+//     }
+//   }
+
+//   document.querySelector("#numresults").innerHTML = `<p>${results.length} result(s) for level ${term} 
+//   ${document.querySelector("#type").value}</p>`;
+//   document.querySelector("#display").innerHTML = getKanjiReadings(results, bigString);
+// }
+
+// function accessVocabByLevel(){
+//   let results = [];
+//   let bigString = "";
+
+//   for(let i = 0; i< mainVocabArray.length;i++){
+//     if(mainVocabArray[i].data.level == term.trim()){
+//       results.push(mainVocabArray[i]);
+//     }
+//   }
+//   document.querySelector("#numresults").innerHTML = `<p>${results.length} result(s) for "${term}"</p>`;
+//   document.querySelector("#display").innerHTML = getVocabReadings(results, bigString);
+// }
+function getReadings(results, bigString, type){
+switch(type){
+  case "radical":
+    for(let i = 0; i < results.length;i++)
+    {
+      bigString += displayRadicalResults(results, i);
+    }
+    return bigString;
+  case "kanji":
+    for(let z = 0; z < results.length;z++){
+      let meaningsString = "";
+  
+      //loops through the meanings data and adds the data to a meanings string
+      let meaningsArray = results[z].data.meanings;
+      for(let j = 0; j < meaningsArray.length;j++){
+        meaningsString += meaningsArray[j].meaning;
+        if(meaningsArray.length > j + 1){
+          meaningsString += ", ";
+        }
+      }
+  
+    let readingsArray = results[z].data.readings;
+  
+    let OnString = "";
+    let KunString = "";
+  
+    //can get both readings by looping through the arrays 
+    for(let h = 0; h < readingsArray.length;h++){
+      if(readingsArray[h].type == "onyomi"){
+        OnString += readingsArray[h].reading;
+        //checks each reading for if the type is onyomi and the next reading in the array as well
+        //then adds them to the onyomi string
+        if(h + 1 < readingsArray.length && readingsArray[h + 1].type == "onyomi"){
+          OnString += ", ";
+        }
+      }
+      //same process for kunyomi as the onyomi readings
+      else if(readingsArray[h].type == "kunyomi"){
+        KunString += readingsArray[h].reading;
+        if(h + 1 < readingsArray.length && readingsArray[h + 1].type == "kunyomi"){
+          KunString += ", ";
+        }
+      }
+    }
+    if(OnString == ""){
+      OnString = "None";
+    }
+    if(KunString == ""){
+      KunString = "None";
+    }
+      bigString += displayKanjiResults(results, z, OnString, KunString, meaningsString);
+    }
+    return bigString;
+  case "vocabulary":
+    for(let z = 0; z < results.length;z++){
+      meaningsString = "";
+      readingsString = "";
+  
+      //loops through the meanings data and adds the data to a meanings string
+      meaningsArray = results[z].data.meanings;
+      for(let j = 0; j < meaningsArray.length;j++){
+        meaningsString += meaningsArray[j].meaning;
+        if(meaningsArray.length > j + 1){
+          meaningsString += ", ";
+        }
+      }
+  
+      //if the type specifically is vocabulary then there is only one reading
+        readingsArray = results[z].data.readings;
+        for(let j = 0; j < readingsArray.length;j++){
+          readingsString += readingsArray[j].reading;
+          if(readingsArray.length > j + 1){
+            readingsString += ", ";
+        }
+      }
+      bigString += displayVocabResults(results, z, readingsString, meaningsString);
+    }
+    return bigString;
+}
+}
+// function getRadicalInfo(results, bigString){
+//   for(let i = 0; i < results.length;i++)
+//   {
+//     bigString += displayRadicalResults(results, i);
+//   }
+//   return bigString;
+// }
+// function getKanjiReadings(results, bigString){
+//   for(let z = 0; z < results.length;z++){
+//     let meaningsString = "";
+
+//     //loops through the meanings data and adds the data to a meanings string
+//     let meaningsArray = results[z].data.meanings;
+//     for(let j = 0; j < meaningsArray.length;j++){
+//       meaningsString += meaningsArray[j].meaning;
+//       if(meaningsArray.length > j + 1){
+//         meaningsString += ", ";
+//       }
+//     }
+
+//   let readingsArray = results[z].data.readings;
+
+//   let OnString = "";
+//   let KunString = "";
+
+//   //can get both readings by looping through the arrays 
+//   for(let h = 0; h < readingsArray.length;h++){
+//     if(readingsArray[h].type == "onyomi"){
+//       OnString += readingsArray[h].reading;
+//       //checks each reading for if the type is onyomi and the next reading in the array as well
+//       //then adds them to the onyomi string
+//       if(h + 1 < readingsArray.length && readingsArray[h + 1].type == "onyomi"){
+//         OnString += ", ";
+//       }
+//     }
+//     //same process for kunyomi as the onyomi readings
+//     else if(readingsArray[h].type == "kunyomi"){
+//       KunString += readingsArray[h].reading;
+//       if(h + 1 < readingsArray.length && readingsArray[h + 1].type == "kunyomi"){
+//         KunString += ", ";
+//       }
+//     }
+//   }
+//   if(OnString == ""){
+//     OnString = "None";
+//   }
+//   if(KunString == ""){
+//     KunString = "None";
+//   }
+//     bigString += displayKanjiResults(results, z, OnString, KunString, meaningsString);
+//   }
+//   return bigString;
+// }
+// function getVocabReadings(results, bigString){
+//   for(let z = 0; z < results.length;z++){
+//     meaningsString = "";
+//     readingsString = "";
+
+//     //loops through the meanings data and adds the data to a meanings string
+//     meaningsArray = results[z].data.meanings;
+//     for(let j = 0; j < meaningsArray.length;j++){
+//       meaningsString += meaningsArray[j].meaning;
+//       if(meaningsArray.length > j + 1){
+//         meaningsString += ", ";
+//       }
+//     }
+
+//     //if the type specifically is vocabulary then there is only one reading
+//       readingsArray = results[z].data.readings;
+//       for(let j = 0; j < readingsArray.length;j++){
+//         readingsString += readingsArray[j].reading;
+//         if(readingsArray.length > j + 1){
+//           readingsString += ", ";
+//       }
+//     }
+//     bigString += displayVocabResults(results, z, readingsString, meaningsString);
+//   }
+//   console.log(bigString);
+//   return bigString;
+// }
+
+function displayRadicalResults(resultsArray, index){
+  return `<div class ='result'>
+  <p id="identifier">Identifier: ${resultsArray[index].data.meanings[0].meaning}</p>
+  <p id="character">Character: ${resultsArray[index].data.characters}</p>
+  <p id="level">Level: ${resultsArray[index].data.level}</p>
+  </div>`;
+}
+
+function displayKanjiResults(resultsArray, index, onyomis, kunyomis, meanings){
+  return `<div class ='result'>
+      <p id="meanings">Meanings: ${meanings}</p>
+      <p id="onyomi">Onyomi: ${onyomis}</p>
+      <p id="kunyomi">Kunyomi: ${kunyomis}</p>
+      <p id="slug">Kanji: ${resultsArray[index].data.characters}</p>
+      <p id="level">Level: ${resultsArray[index].data.level}</p>
+    </div>`;
+}
+
+function displayVocabResults(resultsArray, index, readings, meanings){
+  return `<div class ='result'>
+                <p id="meanings">Meanings: ${meanings}</p>
+                <p id="readings">Kana: ${readings}</p>
+                <p id="slug">Kanji: ${resultsArray[index].data.characters}</p>
+                <p id="level">Level: ${resultsArray[index].data.level}</p>
+              </div>`;
 }
 
 function getThings(array, type){
@@ -238,7 +460,7 @@ function getThings(array, type){
   //first checks if the user input term will net any results
   for(let i = 0; i < array.length;i++){
     for(let k = 0; k < array[i].data.meanings.length;k++){
-      if(array[i].data.meanings[k].meaning == capitalizedTerm && sortByLevel(array[i])){
+      if(array[i].data.meanings[k].meaning == capitalizedTerm){
         results.push(array[i]);
       }
     }
@@ -260,6 +482,7 @@ let readingsString = "";
 let meaningsString = "";
 let bigString = "";
 let line = "";
+let epicestString = "";
 
 //radicals have different content than vocabulary and kanji so we check the type first
 //vocabulary and kanji both have meanings and readings so we can check for meanings in both first
@@ -299,45 +522,9 @@ if(type != "radical"){
     //like onyomi and kunyomi to account for 
     else if(type == "kanji")
     {
-      let OnString = "";
-      let KunString = "";
-
-      readingsArray = results[z].data.readings;
-
-      //can get both readings by looping through the arrays 
-      for(let h = 0; h < readingsArray.length;h++){
-        if(readingsArray[h].type == "onyomi"){
-          OnString += readingsArray[h].reading;
-          //checks each reading for if the type is onyomi and the next reading in the array as well
-          //then adds them to the onyomi string
-          if(readingsArray[h + 1] !== null && readingsArray[h + 1].type == "onyomi"){
-            OnString += ", ";
-          }
-        }
-        //same process for kunyomi as the onyomi readings
-        else if(readingsArray[h].type == "kunyomi"){
-          KunString += readingsArray[h].reading;
-          if(readingsArray[h + 1] != null && readingsArray[h + 1].type == "kunyomi"){
-            KunString += ", ";
-          }
-        }
-      }
-      if(OnString == ""){
-        OnString = "None";
-      }
-      if(KunString == ""){
-        KunString = "None";
-      }
-      line = `<div class ='result'>
-                    <p id="meanings">Meanings: ${meaningsString}</p>
-                    <p id="onyomi">Onyomi: ${OnString}</p>
-                    <p id="kunyomi">Kunyomi: ${KunString}</p>
-                    <p id="slug">Kanji: ${results[z].data.characters}</p>
-                    <p id="level">Level: ${results[z].data.level}</p>
-                  </div>`;
-    }
-    bigString += line;
+    epicestString = getKanjiReadings(results, bigString);
   }
+}
 }
 //goes here if the type is a radical
 else
@@ -357,7 +544,7 @@ else
 }
 
 document.querySelector("#numresults").innerHTML = `<p>${results.length} result(s) for "${term}"</p>`;
-document.querySelector("#display").innerHTML = bigString;
+document.querySelector("#display").innerHTML = epicestString;
 }
 
 //three remaining functions are all little sections for possible FAQs for each type in Japanese
@@ -383,7 +570,6 @@ function explainRadicals(){
   </p>`;
 }
 
-//
 function explainKanji(){
   document.querySelector("#extraInfo").innerHTML = `<h2>What is kanji?</h2>
   <p>Kanji is Japanese writing system that utilizes Chinese characters to express meaning.</p>

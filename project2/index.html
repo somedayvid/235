@@ -10,34 +10,30 @@
     <link rel="stylesheet" href="styles.css">
     <script src="script.js"></script>
     <script src="utilities.js"></script>
-    <script src="other.js"></script>
 </head>
 <body>
     <button type="button" id="title"><h1>Lackluster Japanese Dictionary</h1></button>
     <div id="mainContent">
         <div class="item">
-            <input id="searchterm" type="text" size="10" placeholder="Enter a word">
-            <button type="button" id="search" class="green">Search</button>
+            <label for="searchby">Search Using:</label>
+            <select name="searchby" id="searchby">
+                <option value="" selected disabled hidden>Search By</option>
+                <option value="def">Definition</option>
+                <option value="level">Level</option>
+            </select>
         </div>
         <div class="item">
             <label for="type">Choose a type:</label>
             <select name="type" id="type">
+                <option value="" selected disabled hidden>Choose a type</option>
                 <option value="radical">Radicals</option>
                 <option value="kanji">Kanji</option>
                 <option value="vocabulary">Vocabulary</option>
             </select>
         </div>
         <div class="item">
-            <label for="levels">Levels</label>
-            <select name="levels" id="levels">
-                <option value="all">All &#40;0 - 60&#41;</option>
-                <option value="pleasant">Pleasant &#40;0 - 10&#41;</option>
-                <option value="painful">Painful &#40;11 - 20&#41;</option>
-                <option value="death">Death &#40;21 - 30&#41;</option>
-                <option value="hell">Hell &#40;31 - 40&#41;</option>
-                <option value="paradise">Paradise &#40;41 - 50&#41;</option>
-                <option value="reality">Reality &#40;51 - 60&#41;</option>
-            </select>
+            <input id="searchterm" type="text" size="15" placeholder="Enter your search term">
+            <button type="button" id="search" class="green">Search</button>
         </div>
         <div id="numresults">
 
