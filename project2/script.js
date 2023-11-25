@@ -34,6 +34,7 @@ window.onload = () => {
   searchWindow.onchange = storeAll;
   typeSelector.onchange = storeAll;
   searchBySelector.onchange = storeAll;
+  typeSelector.onchange = displayExplanation;
 
   //checks and puts stored terms into each interactible item
   if(storedTerm){
@@ -109,7 +110,6 @@ function searchButtonClicked(){
   else{
   resultsInfo.innerHTML = `Searching for definitions that match "${term}"`;
 
-  displayExplanation(searchType);
   switch(searchBy){
     case "def":
       switch(searchType){
@@ -332,8 +332,9 @@ function displayResultsAsString(type, resultsArray, index ,meanings = "", readin
   }
 }
 
-function displayExplanation(type){
-switch(type){
+function displayExplanation(){
+  console.log(document.querySelector("#type").value);
+switch(document.querySelector("#type").value){
   case "radical":
     explainRadicals();
     break;
