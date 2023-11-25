@@ -91,40 +91,52 @@ function showHomeInfo(){
 
 //gets the button restrictions and passes them into the data accessor
 function searchButtonClicked(){
-  let searchType = document.querySelector("#type").value;
+  const searchType = document.querySelector("#type").value;
+  const searchBy = document.querySelector("#searchby").value;
+  const resultsInfo = document.querySelector("#numresults");
   term = document.querySelector("#searchterm").value;
+
+  document.querySelector("#display").innerHTML = "";
   
-  document.querySelector("#numresults").innerHTML = `Searching for definitions that match "${term}"`;
+  if(term == ""){
+    if(searchBy == "level"){
+      resultsInfo.innerHTML = `Please input a number between 1 and 60(inclusive)!`;
+    }
+    else if(searchBy == "def"){
+      resultsInfo.innerHTML = `Please input a word into the search bar!`;
+    }
+  }
+  else{
+  resultsInfo.innerHTML = `Searching for definitions that match "${term}"`;
 
-  //changes the locally stored terms and options to the new ones selected
-
-  switch(document.querySelector("#searchby").value){
+  switch(searchBy){
     case "def":
       switch(searchType){
         case "radical":
-          getThings(mainRadicalsArray, searchType);
+          accessByDef(searchType, mainRadicalsArray);
           break;
         case "vocabulary":
-          getThings(mainVocabArray, searchType);
+          accessByDef(searchType, mainVocabArray);
           break;
         case "kanji":
-          getThings(mainKanjiArray, searchType);
+          accessByDef(searchType, mainKanjiArray);
           break;
       }
       break;
     case "level":
       switch(searchType){
         case "radical":
-          accessByLevel(mainRadicalsArray, searchType);
+          accessByLevel(searchType, mainRadicalsArray);
           break;
         case "vocabulary":
-          accessByLevel(mainVocabArray, searchType);
+          accessByLevel(searchType, mainVocabArray);
           break;
         case "kanji":
-          accessByLevel(mainKanjiArray, searchType);
+          accessByLevel(searchType, mainKanjiArray);
           break;
       }
       break;
+    }
   }
 }
 
@@ -208,7 +220,7 @@ function repeating(nextURL){
   }
 }
 
-function accessByLevel(array, type){
+function accessByLevel(type, array){
   let results = [];
   let bigString = "";
 
@@ -217,12 +229,14 @@ function accessByLevel(array, type){
       results.push(array[i]);
     }
   }
-  console.log("hi");
-  document.querySelector("#numresults").innerHTML = `<p>${results.length} result(s) for level ${term} ${type}</p>`;
-  document.querySelector("#display").innerHTML = getReadings(results, bigString, type);
+
+  if(hasResults(results)){
+    document.querySelector("#numresults").innerHTML = `<p>${results.length} result(s) for level ${term} ${type}</p>`;
+    document.querySelector("#display").innerHTML = getReadings(type, results, bigString);
+  }
 }
 
-function getReadings(results, bigString, type){
+function getReadings(type, results, bigString){
 switch(type){
   case "radical":
     for(let i = 0; i < results.length;i++)
@@ -329,56 +343,31 @@ function displayResultsAsString(type, resultsArray, index ,meanings = "", readin
   }
 }
 
-// function displayRadicalResults(resultsArray, index){
-//   return `<div class ='result'>
-//   <p id="identifier">Identifier: ${resultsArray[index].data.meanings[0].meaning}</p>
-//   <p id="character">Character: ${resultsArray[index].data.characters}</p>
-//   <p id="level">Level: ${resultsArray[index].data.level}</p>
-//   </div>`;
-// }
-
-// function displayKanjiResults(resultsArray, index, onyomis, kunyomis, meanings){
-//   return `<div class ='result'>
-//       <p id="meanings">Meanings: ${meanings}</p>
-//       <p id="onyomi">Onyomi: ${onyomis}</p>
-//       <p id="kunyomi">Kunyomi: ${kunyomis}</p>
-//       <p id="slug">Kanji: ${resultsArray[index].data.characters}</p>
-//       <p id="level">Level: ${resultsArray[index].data.level}</p>
-//     </div>`;
-// }
-
-// function displayVocabResults(resultsArray, index, readings, meanings){
-//   return `<div class ='result'>
-//                 <p id="meanings">Meanings: ${meanings}</p>
-//                 <p id="readings">Kana: ${readings}</p>
-//                 <p id="slug">Kanji: ${resultsArray[index].data.characters}</p>
-//                 <p id="level">Level: ${resultsArray[index].data.level}</p>
-//               </div>`;
-// }
-
-function getThings(array, type){
+function accessByDef(type, array){
   let results = [];
-  const capitalizedTerm = capitalizeEachWord(term);
-  if(term == ""){
-    document.querySelector("#numresults").innerHTML = `Please input a search term!`;
-  }
-  else{
+  let bigString = "";
+
   //first checks if the user input term will net any results
   for(let i = 0; i < array.length;i++){
     for(let k = 0; k < array[i].data.meanings.length;k++){
-      if(array[i].data.meanings[k].meaning == capitalizedTerm){
+      if(array[i].data.meanings[k].meaning == capitalizeEachWord(term)){
         results.push(array[i]);
       }
     }
   }
   //if not then returns nothing and displays that there were no results
+  if(hasResults(results)){
+    document.querySelector("#numresults").innerHTML = `<p>${results.length} result(s) for "${term}"</p>`;
+    document.querySelector("#display").innerHTML = getReadings(type, results, bigString);
+  }
+}
+
+function hasResults(results){
   if(results.length <= 0){
     document.querySelector("#numresults").innerHTML = `No results found for "${term}"`;
-    document.querySelector("#display").innerHTML = "";
+    return false;
   }
-  //if yes! then we call another function, this time with the results we found and pass through the type again
-  else getTerm(results, type);
-  }
+  else return true;
 }
 
 function getTerm(results,type){
@@ -428,7 +417,8 @@ if(type != "radical"){
     //like onyomi and kunyomi to account for 
     else if(type == "kanji")
     {
-    epicestString = getKanjiReadings(results, bigString);
+    epicestString = getReadings(results, bigString);
+    console.log(epicestString);
   }
 }
 }
