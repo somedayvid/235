@@ -20,3 +20,13 @@ function capitalizeEachWord(string) {
     else 
   return false;
   }
+
+  function hasResults(results){
+    if(results.length <= 0){
+      document.querySelector("#numresults").innerHTML = `No results found for "${term}"`;
+      return false;
+    }
+    else return true;
+  }
+
+  function doNothing(e){return e};

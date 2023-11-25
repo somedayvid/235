@@ -2,9 +2,9 @@
 let mainKanjiArray = [];
 let mainVocabArray = [];
 let mainRadicalsArray = [];
-let minInclusive = 0;
-let maxInclusive = 60;
 let term = "";
+let timesToLoop = 0;
+let x;
 const requestHeaders =
 new Headers({
   Authorization: 'Bearer ' +  ' 89abe689-ce3d-4035-acfd-65d442782f72 ',
@@ -56,9 +56,9 @@ window.onload = () => {
   }
 
   //gets all api information for japanese writing systems
-  allVocab();
-  allKanji();
-  allRadicals();
+  getAllWords("radical",'https://api.wanikani.com/v2/subjects?types=radical');
+  getAllWords("kanji", 'https://api.wanikani.com/v2/subjects?types=kanji');
+  getAllWords("vocabulary", 'https://api.wanikani.com/v2/subjects?types=vocabulary');
 };
 
 function storeAll(){
@@ -98,7 +98,7 @@ function searchButtonClicked(){
 
   document.querySelector("#display").innerHTML = "";
   
-  if(term == ""){
+  if(term.trim() == ""){
     if(searchBy == "level"){
       resultsInfo.innerHTML = `Please input a number between 1 and 60(inclusive)!`;
     }
@@ -109,6 +109,7 @@ function searchButtonClicked(){
   else{
   resultsInfo.innerHTML = `Searching for definitions that match "${term}"`;
 
+  displayExplanation(searchType);
   switch(searchBy){
     case "def":
       switch(searchType){
@@ -140,38 +141,27 @@ function searchButtonClicked(){
   }
 }
 
-//unfortunately was unable to avoid DRY with this one even after working on it for several hours
-//gets all radicals from api
-function allRadicals(){
-  const apiEndpoint =
-    new Request('https://api.wanikani.com/v2/subjects?types=radical', {
-      method: 'GET',
-      headers: requestHeaders
-    });
-  fetch(apiEndpoint)
-    .then(response => response.json())
-    .then(responseBody => {
-      mainRadicalsArray = responseBody.data.slice(0);
-    }
-  );
-}
 //gets all the kanji from the api
-function allKanji(){
+function getAllWords(type, initialLink){
+  let tempArray = [];
+
   const apiEndpoint =
-    new Request('https://api.wanikani.com/v2/subjects?types=kanji', {
+    new Request(initialLink, {
       method: 'GET',
       headers: requestHeaders
     });
   fetch(apiEndpoint)
     .then(response => response.json())
     .then(responseBody => {
-      mainKanjiArray = responseBody.data.slice(0);
-      repeatingKanji(responseBody.pages.next_url);
+      tempArray = responseBody.data;
+      if(responseBody.pages.next_url != null){
+        repeatingGetWords(tempArray, type, responseBody.pages.next_url);
+      }
+      else mainRadicalsArray = tempArray;
     }
   );
 }
-function repeatingKanji(nextURL){
-  if(nextURL != null){
+function repeatingGetWords(tempArray, type, nextURL){
     const apiEndpoint =
     new Request(nextURL, {
       method: 'GET',
@@ -180,44 +170,24 @@ function repeatingKanji(nextURL){
     fetch(apiEndpoint)
       .then(response => response.json())
       .then(responseBody => { 
-        const tempArray = mainKanjiArray;
-        mainKanjiArray = tempArray.concat(responseBody.data);
+        const emptyArray = tempArray;
+        tempArray = emptyArray.concat(responseBody.data);
         nextURL = responseBody.pages.next_url;
-        repeating(responseBody.pages.next_url);
-    });
-  }
-}
-//gets all the vocabulary from the api
-function allVocab(){
-  const apiEndpoint =
-    new Request('https://api.wanikani.com/v2/subjects?types=vocabulary', {
-      method: 'GET',
-      headers: requestHeaders
-    });
-  fetch(apiEndpoint)
-    .then(response => response.json())
-    .then(responseBody => {
-      mainVocabArray = responseBody.data.slice(0);
-      repeating(responseBody.pages.next_url);
-    }
+        if(nextURL != null){
+          repeatingGetWords(tempArray, type, responseBody.pages.next_url);
+        }
+        else{
+         switch(type){
+          case "kanji":
+            mainKanjiArray = tempArray.slice(0);
+            break;
+          case "vocabulary":
+            mainVocabArray = tempArray.slice(0);
+            break;
+         }
+        }
+      }
   );
-}
-function repeating(nextURL){
-  if(nextURL != null){
-    const apiEndpoint =
-    new Request(nextURL, {
-      method: 'GET',
-      headers: requestHeaders
-    });
-    fetch(apiEndpoint)
-      .then(response => response.json())
-      .then(responseBody => { 
-        const tempArray = mainVocabArray;
-        mainVocabArray = tempArray.concat(responseBody.data);
-        nextURL = responseBody.pages.next_url;
-        repeating(responseBody.pages.next_url);
-    });
-  }
 }
 
 function accessByLevel(type, array){
@@ -232,6 +202,25 @@ function accessByLevel(type, array){
 
   if(hasResults(results)){
     document.querySelector("#numresults").innerHTML = `<p>${results.length} result(s) for level ${term} ${type}</p>`;
+    document.querySelector("#display").innerHTML = getReadings(type, results, bigString);
+  }
+}
+
+function accessByDef(type, array){
+  let results = [];
+  let bigString = "";
+
+  //first checks if the user input term will net any results
+  for(let i = 0; i < array.length;i++){
+    for(let k = 0; k < array[i].data.meanings.length;k++){
+      if(array[i].data.meanings[k].meaning == capitalizeEachWord(term)){
+        results.push(array[i]);
+      }
+    }
+  }
+  //if not then returns nothing and displays that there were no results
+  if(hasResults(results)){
+    document.querySelector("#numresults").innerHTML = `<p>${results.length} result(s) for "${term}"</p>`;
     document.querySelector("#display").innerHTML = getReadings(type, results, bigString);
   }
 }
@@ -343,104 +332,18 @@ function displayResultsAsString(type, resultsArray, index ,meanings = "", readin
   }
 }
 
-function accessByDef(type, array){
-  let results = [];
-  let bigString = "";
-
-  //first checks if the user input term will net any results
-  for(let i = 0; i < array.length;i++){
-    for(let k = 0; k < array[i].data.meanings.length;k++){
-      if(array[i].data.meanings[k].meaning == capitalizeEachWord(term)){
-        results.push(array[i]);
-      }
-    }
-  }
-  //if not then returns nothing and displays that there were no results
-  if(hasResults(results)){
-    document.querySelector("#numresults").innerHTML = `<p>${results.length} result(s) for "${term}"</p>`;
-    document.querySelector("#display").innerHTML = getReadings(type, results, bigString);
-  }
+function displayExplanation(type){
+switch(type){
+  case "radical":
+    explainRadicals();
+    break;
+  case "kanji":
+    explainKanji();
+    break;
+  case "vocabulary":
+    explainVocabulary();
+    break;
 }
-
-function hasResults(results){
-  if(results.length <= 0){
-    document.querySelector("#numresults").innerHTML = `No results found for "${term}"`;
-    return false;
-  }
-  else return true;
-}
-
-function getTerm(results,type){
-let meaningsArray = [];
-let readingsArray = [];
-let readingsString = "";
-let meaningsString = "";
-let bigString = "";
-let line = "";
-let epicestString = "";
-
-//radicals have different content than vocabulary and kanji so we check the type first
-//vocabulary and kanji both have meanings and readings so we can check for meanings in both first
-if(type != "radical"){
-  for(let z = 0; z < results.length;z++){
-    meaningsString = "";
-    readingsString = "";
-
-    //loops through the meanings data and adds the data to a meanings string
-    meaningsArray = results[z].data.meanings;
-    for(let j = 0; j < meaningsArray.length;j++){
-      meaningsString += meaningsArray[j].meaning;
-      if(meaningsArray.length > j + 1){
-        meaningsString += ", ";
-      }
-    }
-
-    //if the type specifically is vocabulary then there is only one reading
-    if(type == "vocabulary")
-    {
-      readingsArray = results[z].data.readings;
-      for(let j = 0; j < readingsArray.length;j++){
-        readingsString += readingsArray[j].reading;
-        if(readingsArray.length > j + 1){
-          readingsString += ", ";
-        }
-      }
-
-      line = `<div class ='result'>
-                    <p id="meanings">Meanings: ${meaningsString}</p>
-                    <p id="readings">Kana: ${readingsString}</p>
-                    <p id="slug">Kanji: ${results[z].data.characters}</p>
-                    <p id="level">Level: ${results[z].data.level}</p>
-                  </div>`;
-    }
-    //if the type is specifically kanji then there are additional readings 
-    //like onyomi and kunyomi to account for 
-    else if(type == "kanji")
-    {
-    epicestString = getReadings(results, bigString);
-    console.log(epicestString);
-  }
-}
-}
-//goes here if the type is a radical
-else
-{
-  for(let i = 0; i < results.length;i++)
-  {
-    if(results[i].data.slug == lowercaseFirstLetter(term))
-    {
-      line = `<div class ='result'>
-                    <p id="identifier">Identifier: ${results[i].data.slug}</p>
-                    <p id="character">Character: ${results[i].data.characters}</p>
-                    <p id="level">Level: ${results[i].data.level}</p>
-                  </div>`;
-    }
-  }
-  bigString += line;
-}
-
-document.querySelector("#numresults").innerHTML = `<p>${results.length} result(s) for "${term}"</p>`;
-document.querySelector("#display").innerHTML = epicestString;
 }
 
 //three remaining functions are all little sections for possible FAQs for each type in Japanese
