@@ -62,35 +62,14 @@ window.onload = () => {
   getAllWords("vocabulary", 'https://api.wanikani.com/v2/subjects?types=vocabulary');
 };
 
+//is called each time a locally stored value is changed to ensure all changes are accounted for
 function storeAll(){
   localStorage.setItem(searchTermKey, document.querySelector("#searchterm").value);
   localStorage.setItem(wordTypeKey, document.querySelector("#type").value);
   localStorage.setItem(searchByKey, document.querySelector("#searchby").value);
 }
 
-function showHomeInfo(){
-  document.querySelector("#extraInfo").innerHTML = `<h2>How does the Japanese Language Work?</h2>
-  <p>In very simplified terms Japanese has three core written language systems: 
-      <a href="https://simple.wikipedia.org/wiki/Katakana" target="_blank" rel="noopener">katakana</a>,
-      <a href="https://simple.wikipedia.org/wiki/Hiragana" target="_blank" rel="noopener">hiragana</a>, and 
-      <a href="https://simple.wikipedia.org/wiki/Kanji" target="_blank" rel="noopener">kanji</a>.
-      Hiragana and katakana have phoentic sounds that are associated with each symbol. Kanji can be represented using hiragana
-      though it is typically represented with symbols, similar to Chinese wherein each symbol has a meaning.
-  </p>
-  <h2>What are levels?</h2>
-  <p>The Wanikani site sorts all their radicals, kanji, and vocabulary into levels, seperated again into blocks of 10.
-      The site is intended as a learning platform of the Japanese writing systems so the levels are there as a sort of
-      indicator as to the user's progress. Learning Japanese, and many other skills, is described as easy at the beginning
-      before the difficulty ramps up and gets really complicated, until everything clicks and the rest feels natural to you.
-      As such the beginning level is labled as "Pleasant" the middle levels are "Painful", "Death", and "Hell", and the 
-      final levels are described as "Paradise" and "Reality". In general as the levels increase the radicals, kanji, and 
-      vocabulary of each level get less commonly used in everyday language and more complex.
-  </p>`;
-  document.querySelector("#numresults").innerHTML = "";
-  document.querySelector("#display").innerHTML = "";
-} 
-
-//gets the button restrictions and passes them into the data accessor
+//gets the button search options and passes them into the data accessor
 function searchButtonClicked(){
   const searchType = document.querySelector("#type").value;
   const searchBy = document.querySelector("#searchby").value;
@@ -99,6 +78,7 @@ function searchButtonClicked(){
 
   document.querySelector("#display").innerHTML = "";
   
+  //checks if the search term even exists first, and gives user feedback
   if(term.trim() == ""){
     if(searchBy == "level"){
       resultsInfo.innerHTML = `Please input a number between 1 and 60(inclusive)!`;
@@ -108,6 +88,7 @@ function searchButtonClicked(){
     }
   }
   else{
+
   resultsInfo.innerHTML = `Searching for definitions that match "${term}"`;
 
   switch(searchBy){
@@ -145,15 +126,16 @@ function searchButtonClicked(){
 function getAllWords(type, initialLink){
   let tempArray = [];
 
-  const apiEndpoint =
-    new Request(initialLink, {
-      method: 'GET',
-      headers: requestHeaders
-    });
-  fetch(apiEndpoint)
+  fetch(new Request(initialLink, {
+    method: 'GET',
+    headers: requestHeaders
+  }))
     .then(response => response.json())
     .then(responseBody => {
+      //grabs initial page of information into temporary array
       tempArray = responseBody.data;
+      //radical information only encompasses one page so it exits early, for the other types,
+      //we have to loop through the rest of the pages
       if(responseBody.pages.next_url != null){
         repeatingGetWords(tempArray, type, responseBody.pages.next_url);
       }
@@ -161,22 +143,24 @@ function getAllWords(type, initialLink){
     }
   );
 }
+
+//recursive method that gathers the rest of all the api data and stores them on the page
 function repeatingGetWords(tempArray, type, nextURL){
-    const apiEndpoint =
-    new Request(nextURL, {
+    fetch(new Request(nextURL, {
       method: 'GET',
-      headers: requestHeaders
-    });
-    fetch(apiEndpoint)
+      headers: requestHeaders}))
       .then(response => response.json())
       .then(responseBody => { 
+        //setting information into a temporary array and getting next page url
         const emptyArray = tempArray;
         tempArray = emptyArray.concat(responseBody.data);
         nextURL = responseBody.pages.next_url;
+        //continues to loop if there is more information to get
         if(nextURL != null){
-          repeatingGetWords(tempArray, type, responseBody.pages.next_url);
+          repeatingGetWords(tempArray, type, nextURL);
         }
         else{
+          //setting them to the array that they belong to
          switch(type){
           case "kanji":
             mainKanjiArray = tempArray.slice(0);
@@ -190,6 +174,7 @@ function repeatingGetWords(tempArray, type, nextURL){
   );
 }
 
+//checks for words that are the user input level, and then gathers them in a great string
 function accessByLevel(type, array){
   let results = [];
   let bigString = "";
@@ -206,6 +191,7 @@ function accessByLevel(type, array){
   }
 }
 
+//checks for words that contain the user input, and then gathers them in a great string
 function accessByDef(type, array){
   let results = [];
   let bigString = "";
@@ -225,6 +211,7 @@ function accessByDef(type, array){
   }
 }
 
+//gets all neccesary readings and information for each type
 function getReadings(type, results, bigString){
 switch(type){
   case "radical":
@@ -269,6 +256,7 @@ switch(type){
         }
       }
     }
+    //some kanji have no readings for onyomi or kunyomi so display none instead
     if(OnString == ""){
       OnString = "None";
     }
@@ -306,6 +294,7 @@ switch(type){
 }
 }
 
+//contains all the ways that each type is represented in a string and returns it to be added to a greater string
 function displayResultsAsString(type, resultsArray, index ,meanings = "", readings ="", onyomis="", kunyomis=""){
   switch(type){
     case "radical":
@@ -332,6 +321,7 @@ function displayResultsAsString(type, resultsArray, index ,meanings = "", readin
   }
 }
 
+//adjusts the explanation present each time the type is changed
 function displayExplanation(){
   console.log(document.querySelector("#type").value);
 switch(document.querySelector("#type").value){
@@ -347,7 +337,31 @@ switch(document.querySelector("#type").value){
 }
 }
 
-//three remaining functions are all little sections for possible FAQs for each type in Japanese
+//four remaining functions are all little sections for possible FAQs for each type in Japanese since I got a lot of 
+//questions about what things do during the feedback inclass portion I thought I should maybe explain some things
+//for people who don't know anything about Japanese
+function showHomeInfo(){
+  document.querySelector("#extraInfo").innerHTML = `<h2>How does the Japanese Language Work?</h2>
+  <p>In very simplified terms Japanese has three core written language systems: 
+      <a href="https://simple.wikipedia.org/wiki/Katakana" target="_blank" rel="noopener">katakana</a>,
+      <a href="https://simple.wikipedia.org/wiki/Hiragana" target="_blank" rel="noopener">hiragana</a>, and 
+      <a href="https://simple.wikipedia.org/wiki/Kanji" target="_blank" rel="noopener">kanji</a>.
+      Hiragana and katakana have phoentic sounds that are associated with each symbol. Kanji can be represented using hiragana
+      though it is typically represented with symbols, similar to Chinese wherein each symbol has a meaning.
+  </p>
+  <h2>What are levels?</h2>
+  <p>The Wanikani site sorts all their radicals, kanji, and vocabulary into levels, seperated again into blocks of 10.
+      The site is intended as a learning platform of the Japanese writing systems so the levels are there as a sort of
+      indicator as to the user's progress. Learning Japanese, and many other skills, is described as easy at the beginning
+      before the difficulty ramps up and gets really complicated, until everything clicks and the rest feels natural to you.
+      As such the beginning level is labled as "Pleasant" the middle levels are "Painful", "Death", and "Hell", and the 
+      final levels are described as "Paradise" and "Reality". In general as the levels increase the radicals, kanji, and 
+      vocabulary of each level get less commonly used in everyday language and more complex.
+  </p>`;
+  document.querySelector("#numresults").innerHTML = "";
+  document.querySelector("#display").innerHTML = "";
+} 
+
 function explainRadicals(){
   document.querySelector("#extraInfo").innerHTML = `<h2>What are radicals?</h2>
   <p>Radicals technically do not have definitions, but written Japanese characters, aka kanji, are made up of individual radicals and
