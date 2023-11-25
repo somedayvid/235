@@ -12,21 +12,19 @@ function capitalizeEachWord(string) {
   function lowercaseFirstLetter(string){
     return string.charAt(0).toLowerCase() + string.slice(1);
   }
-  
-  function sortByLevel(data){
-    if(minInclusive <= data.data.level && data.data.level <= maxInclusive ){
-      return true;
-    }
-    else 
-  return false;
-  }
 
+  //adjusts feedback to user to ensure their search options are configured correctly
   function hasResults(results){
     if(results.length <= 0){
+      if(document.querySelector("#searchby").value == "level" && isNaN(term)){
+        document.querySelector("#numresults").innerHTML = `Please input a NUMBER between 1 and 60(inclusive) in order to search by LEVEL.`;
+      }
+      else if(document.querySelector("#searchby").value == "def" && isNaN(term) == false)
+      document.querySelector("#numresults").innerHTML = `Please input a WORD in order to search by DEFINITION.`;
+      else{
       document.querySelector("#numresults").innerHTML = `No results found for "${term}"`;
+      }
       return false;
     }
     else return true;
   }
-
-  function doNothing(e){return e};
