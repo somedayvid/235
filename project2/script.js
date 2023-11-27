@@ -9,7 +9,7 @@ const requestHeaders =
 new Headers({
   Authorization: 'Bearer ' +  ' 89abe689-ce3d-4035-acfd-65d442782f72 ',
 });
-
+ 
 //local storage variables
 const prefix = "dg8516-";
 const searchTermKey = prefix + "term";
