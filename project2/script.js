@@ -162,9 +162,11 @@ function repeatingGetWords(tempArray, type, nextURL){
          switch(type){
           case "kanji":
             mainKanjiArray = tempArray.slice(0);
+            console.log(mainKanjiArray);
             break;
           case "vocabulary":
             mainVocabArray = tempArray.slice(0);
+            console.log(mainVocabArray);
             break;
          }
         }
@@ -182,7 +184,6 @@ function accessByLevel(type, array){
       results.push(array[i]);
     }
   }
-  console.log(results);
 
   if(hasResults(results)){
     document.querySelector("#numresults").innerHTML = `<p>${results.length} result(s) for level ${term} ${type}</p>`;
