@@ -72,12 +72,8 @@ function searchButtonClicked(){
   const searchType = document.querySelector("#type").value;
   const searchBy = document.querySelector("#searchby").value;
   const resultsInfo = document.querySelector("#numresults");
-  if(term == ""){
-    term = storedTerm;
-  }
-  else{
-    term = document.querySelector("#searchterm").value;
-  }
+  term = document.querySelector("#searchterm").value;
+  console.log(term);
 
   document.querySelector("#display").innerHTML = "";
 
