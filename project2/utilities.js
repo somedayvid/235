@@ -17,10 +17,10 @@ function capitalizeEachWord(string) {
   function hasResults(results){
     if(results.length <= 0){
       if(document.querySelector("#searchby").value == "level" && isNaN(term)){
-        document.querySelector("#numresults").innerHTML = `Please input a NUMBER between 1 and 60(inclusive) in order to search by LEVEL.`;
+        document.querySelector("#numresults").innerHTML = `Please input a NUMBER between 1 and 60(inclusive) in order to search by LEVEL or choose DEFINITION in the search by dropdown.`;
       }
       else if(document.querySelector("#searchby").value == "def" && isNaN(term) == false)
-      document.querySelector("#numresults").innerHTML = `Please input a WORD in order to search by DEFINITION.`;
+      document.querySelector("#numresults").innerHTML = `Please input a WORD in order to search by DEFINITION or choose LEVEL in the search by dropdown.`;
       else{
       document.querySelector("#numresults").innerHTML = `No results found for "${term}"`;
       }
