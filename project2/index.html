@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Placeholder</title>
+    <title>WaniKani Japanese Dictionary</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=M+PLUS+1p:wght@300&family=Raleway:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="script.js"></script>
     <script src="utilities.js"></script>
+    <script src="extraInfo.js"></script>
 </head>
 <body>
-    <button type="button" id="title"><h1>Lackluster Japanese Dictionary</h1></button>
+    <h1 id="title">WaniKani Japanese Dictionary</h1>
+
     <div id="mainContent">
         <div class="item">
             <label for="searchby">Search Using:</label>
@@ -32,22 +34,19 @@
             </select>
         </div>
         <div class="item">
-            <input id="searchterm" type="text" size="15" placeholder="Enter your search term">
-            <button type="button" id="search" class="green">Search</button>
+            <input id="searchterm" type="text" size="20" placeholder="Enter your search term">
+            <button type="button" id="search">Search</button>
         </div>
-        <div id="numresults">
+        <div id="numresults"></div>
+    </div>
 
-        </div>
-    </div>
-    <div id="display">
-      
-        <p id="number">
-        
-        </p>
-    </div>
-    <div id="extraInfo">
-        
-    </div>
+    <div id="display"></div>
+    <div id="extraInfo"></div>
+
+    <a href="#title">
+        <div id="travel">TOP</div>
+    </a>
+
     <footer>
             David Gao | This page utilizes the 
             <a href="https://docs.api.wanikani.com/20170710/#introduction" target="_blank" rel="noopener">WaniKani API</a>.
