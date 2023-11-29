@@ -73,7 +73,6 @@ function searchButtonClicked(){
   const searchBy = document.querySelector("#searchby").value;
   const resultsInfo = document.querySelector("#numresults");
   term = document.querySelector("#searchterm").value;
-  console.log(term);
 
   document.querySelector("#display").innerHTML = "";
 
@@ -183,6 +182,7 @@ function accessByLevel(type, array){
       results.push(array[i]);
     }
   }
+  console.log(results);
 
   if(hasResults(results)){
     document.querySelector("#numresults").innerHTML = `<p>${results.length} result(s) for level ${term} ${type}</p>`;
