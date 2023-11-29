@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Documentation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=M+PLUS+1p:wght@300&family=Raleway:wght@500&display=swap" rel="stylesheet">
@@ -13,14 +13,14 @@
     <a href="index.html">Return to Main</a>
     <h1>Project 2 Documentation</h1>
     <h2>Process</h2>
-    <h3>What the hell do I make?</h3>
+    <h3>What do I make?</h3>
     <p>As with any creative project deciding on a topic is often the most difficult part of the entire project.
         I didn't want to use any of the provided APIs because they didn't appeal to me, so I scoured through some of the
         internet services which I utilize and came upon a site that I frequently use for learning Japanese vocabulary called
         WaniKani. I realized that the website had an API and after looking through the documentation a bit and fidgeting with 
         the documentation a little bit I was able to get a response from the API.
     </p>
-    <h3>How the hell do I make this?</h3>
+    <h3>How do I make this?</h3>
     <p>As I had never used an API to get data before &lpar;Save for the GIPHY API assignment &rpar; I had to figure out how to 
         sort through the API data to get the search information that I wanted. The information that the WaniKani API is also
         already in a JSON form so it was easy enough to read the data, the main problem was searching through it. Since I wasn't
@@ -32,20 +32,68 @@
         This didn't impact loading the site either. After that I just had the function create html elements that contained the different
         information that each entry contains to display the information that is important to each entry.
     </p>
-    <h2>Did I meet the requirements? A self reflection</h2>
+    <h3>Endgame</h3>
+    <p>
+        After looking over my website for a bit, I did decide to change up some of my code and substitute a current search feature for 
+        a different one. Originally the search was done by filtering by a level from any of the three types on WaniKani. After testing 
+        the function a little bit I realized that the function was very limited in its design and the amount of results that came back
+        that it made the site look very sparse in terms of use. I decided to change the specific search by level and definition and made
+        the search more broad so that it is possible to search for the types by either level or defintion so the user can search specifically
+        for a word and also search more broadly within an entire level from the WaniKani database. During this time I was also able to 
+        consolidate several seperate functions into one so that I avoid repeating myself. When getting the definition I would loop through
+        and gather and display the same information as for the levels so I was able to use that same function with my new search by level
+        option and also prevent myself from repeating by having the results displayed also go through just one function for both search by
+        methods.
+    </p>
+    <h3>Resources Used</h3>
+    <ul>
+        <li><a href="https://www.w3schools.com/js/default.asp" rel="_blank" target="noopener">W3SCHOOLS THE GOAT</a></li>
+        <li><a href="https://docs.api.wanikani.com/20170710/" rel="_blank" target="noopener">WANIKANI API</a></li>
+    </ul>
+    <h2>Did I meet the requirements?</h2>
     <h3>API &lpar;7.5/10&rpar;</h3>
-    <p></p>
+    <p>In terms of API usage I was not able to completely fulfill the proposal that I had planned as I was going to include some 
+        stats from my own usage of the WaniKani website, but that plan fell through as teh Javascript got more complex to work with
+        and the deadline approached, so I was only able to complete one part of my own proposal. That part of the proposal I was still
+        able to do decently well I'd say as it functions well and is able to do what it is intended to do.</p>
     <h3>Local Storage &lpar;10/10&rpar;</h3>
+    <p>
+        The local storage seems to be functional as it stores the user's choices for searching even after the site is closed and reopened.
+    </p>
     <h3>Controls &lpar;10/10&rpar;</h3>
+    <p>
+        There are three controls and they all function in limiting the search parameters.
+    </p>
     <h3>Error-Free &lpar;10/10&rpar;</h3>
+    <p>I do not believe any errors are being thrown.</p>
     <h3>Code &lpar;10/10&rpar;</h3>
-    <h3>Semantic Structure &lpar;10/10&rpar;</h3>
-    <h3>Valid HTML &lpar;10/10&rpar;</h3>
-    <h3>Valid CSS &lpar;10/10&rpar;</h3>
-    <h3>Visual Design &lpar;10/10&rpar;</h3>
-    <h3>Interaction Design &lpar;10/10&rpar;</h3>
-    <h3>Responsive Design &lpar;10/10&rpar;</h3>
-    <h3>Submission &lpar;10/10&rpar;</h3>
-    <h3>Documentation &lpar;10/10&rpar;</h3>
+    <p>Previously I was unable to stay dry with the functions that were supposed to get all the data from the api, but I figured
+        it out with a couple hours of tinkering and also was able to compress all the rest of my functions, the one that gets 
+        the word's readings and meanings and the display of all the returned information into a couple unique functions. With the 
+        exception of functions in my extraInfo.js, none of my functions should repeat identical code.
+    </p>
+    <h3>Semantic Structure &lpar;4/4&rpar;</h3>
+    <p>Definitely exists and does its thing.</p>
+    <h3>Valid HTML &lpar;4/4&rpar;</h3>
+    <p>Yep</p>
+    <h3>Valid CSS &lpar;4/4&rpar;</h3>
+    <p>Yep</p>
+    <h3>Visual Design &lpar;4/8&rpar;</h3>
+    <p>
+        I don't know how it happened but my site looks suspiciously like the GIPHY HW. I'd say the CSS is decently appealing and 
+        does not destroy the eyes. 
+    </p>
+    <h3>Interaction Design &lpar;6/8&rpar;</h3>
+    <p>So I am not sure, how it would count for this, but whenever I tested the site the search was pretty much instant. There is
+        point within the JS where the note under the search input bar does inform the user that it is searching for what the user 
+        input. Otherwise the note will inform of desired input and inform the user of such. 
+    </p>
+    <h3>Responsive Design &lpar;8/8&rpar;</h3>
+    <p>Flexbox was used to ensure that the layout of information was preserved even at a lower width.</p>
+    <h3>Submission &lpar;8/8&rpar;</h3>
+    <p>Yep!</p>
+    <h3>Documentation &lpar;6/6&rpar;</h3>
+    <p>This is this! I hope this was good enough!</p>
+    <h3>Total: 91.5% Maybe. Hopefully.</h3>
 </body>
 </html>
