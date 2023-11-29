@@ -72,10 +72,15 @@ function searchButtonClicked(){
   const searchType = document.querySelector("#type").value;
   const searchBy = document.querySelector("#searchby").value;
   const resultsInfo = document.querySelector("#numresults");
-  term = document.querySelector("#searchterm").value;
+  if(term == ""){
+    term = storedTerm;
+  }
+  else{
+    term = document.querySelector("#searchterm").value;
+  }
 
   document.querySelector("#display").innerHTML = "";
-  
+
   //checks if the search term even exists first, and gives user feedback
   if(term.trim() == ""){
     if(searchBy == "level"){
