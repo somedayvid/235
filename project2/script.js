@@ -177,10 +177,9 @@ function accessByLevel(type, array){
   let results = [];
   let bigString = "";
 
+  console.log("LEVEL");
   for(let i = 0; i< array.length;i++){
     if(array[i].data.level == term.trim()){
-      console.log(term.trim());
-      console.log(array[i].data.level);
       results.push(array[i]);
     }
   }
@@ -196,6 +195,7 @@ function accessByDef(type, array){
   let results = [];
   let bigString = "";
 
+  console.log("DEF");
   //first checks if the user input term will net any results
   for(let i = 0; i < array.length;i++){
     for(let k = 0; k < array[i].data.meanings.length;k++){
