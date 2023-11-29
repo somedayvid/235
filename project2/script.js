@@ -177,7 +177,6 @@ function accessByLevel(type, array){
   let results = [];
   let bigString = "";
 
-  console.log(array);
   for(let i = 0; i< array.length;i++){
     if(array[i].data.level == term.trim()){
       results.push(array[i]);
