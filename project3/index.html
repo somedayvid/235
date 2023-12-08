@@ -14,22 +14,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <h1>Music MAN</h1>
     <script src="main.js"></script>
-
     <div id="display"></div>
     <div id="info">
+        <div class="item" id="name">
+            
+        </div>
         <div class="item">
+            <p id="intervalnum">0</p>
             <label for="interval">Interval:</label>
-            <input title="interval" type="range" min="1" max="10" value="5" class="slider" step =".5" id="interval">
-            <p id="intervalnum"></p>
+            <input title="interval" type="range" min="0.5" max="5.0" value="1.0" class="slider" step =".25" id="interval">
         </div>
 
         <div class="item">
+            <p id="ratenum">0</p>
             <label for="rate">Speed:</label>
             <input title="rate" type="range" min=".5" max="4.0" value="1.0" class="slider" step=".1" id="rate">
         </div>
         <div class="item">
+            <p id="volumenum">0</p>
             <label for="volume">Volume:</label>
-            <input title="volume" type="range" min=".5" max="4.0" value="1.0" class="slider" step=".1" id="volume">
+            <input title="volume" type="range" min="0.0" max="1.0" value="0.5" class="slider" step=".1" id="volume">
         </div>
         <div class="item">
             <label for="loop">Loop</label>
