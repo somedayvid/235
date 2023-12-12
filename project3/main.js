@@ -19,6 +19,8 @@ window.onload = (e) => {
     const volumenum = document.querySelector("#volumenum");
     const ratenum = document.querySelector("#ratenum");
 
+
+
     setup();
     createMonsters();
 
@@ -32,6 +34,8 @@ window.onload = (e) => {
     speedSlider.oninput = changeMonsterStats;
     volumeSlider.oninput = changeMonsterStats;
     loopSwitch.onclick = changeMonsterStats;
+
+
 
 }
 
@@ -52,14 +56,13 @@ function changeMonsterStats(){
                     monsters[i].volume = Number(this.value);
                     break;
                 case "loop":
-                    console.log(this);
-                    if(this.value == "true"){
+                    console.log(this.checked);
+                    // console.log(monsters[i].loop);
+                    if(this.checked == false){
                         monsters[i].loop = false;
-                        this.value = false;
                     }
-                    else if(this.value == "false"){
+                    else if(this.checked == true){
                         monsters[i].loop = true;
-                        this.value = true;
                     }
                     break;
             }
@@ -97,38 +100,40 @@ function createMonsters(){
         const newItem = document.createElement("div");
         newItem.className = "monster";
         newItem.id = monsters[i].name;
-        newItem.onclick = toggler;
+        newItem.onclick = playing;
         newItem.addEventListener("mouseover", changeBoxDisplayInfo); 
         newItem.addEventListener("mouseover", changeMon); 
         document.querySelector("#display").appendChild(newItem);
     }
 }
 
-function toggler(){
+function playing(){
     let audio;
     for(let i = 0; i< monsters.length;i++){
         if(this.id == monsters[i].name){
             const monster = monsters[i];
-            const item = document.querySelector(`#${monster.name}`);
             audio = monster.sound;
-            if(monster.playing == false){
-                audio.rate(monster.rate);
-                audio.volume(monster.volume);
-                monster.playing = true;
-                audio.play();
-                if(monster.loop){
+            audio.rate(monster.rate);
+            audio.volume(monster.volume);
+            if(monster.loop)
+            {
+                const item = document.querySelector(`#${monster.name}`);
+                if(monster.playing == false){
+                    monster.playing = true;
+                    audio.play();
                     monster.intervalID = setInterval(playSound, monsters[i].interval * 1000, audio);
                     item.style.transform = 'translateY(4px)';
                     item.style.boxShadow = '0 5px #666';
                 }
-            }
-            else if(monster.playing == true){
-                if(monster.loop){
+                else if(monster.playing == true){
                     clearInterval(monster.intervalID);
                     item.style.transform = 'none';
                     item.style.boxShadow = '0 9px #999';
+                    monster.playing = false;
                 }
-                monster.playing = false;
+            }
+            else{
+                audio.play();
             }
         }
     }
@@ -147,7 +152,8 @@ function changeBoxDisplayInfo(){
             intervalSlider.value = monster.interval;
             speedSlider.value = monster.rate;
             volumeSlider.value = monster.volume;
-            loopSwitch.value = monster.loop;
+
+            loopSwitch.checked = monster.loop;
 
             document.querySelector("#intervalnum").innerHTML = intervalSlider.value;
             document.querySelector("#volumenum").innerHTML = volumeSlider.value;
