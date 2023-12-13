@@ -1,8 +1,9 @@
 "use strict";
 
-let drum, twang, guitarC;
+let click, crump, drum, keclunk, knock, phwhip, slump, thrun, thump, thwhip, ting, tink, twaang, wawhee;
+let clicker, crumper, drummer, keclunker, knocker, phwhipper, slumper, thrunner, thumper, thwhipper, tinger, tinker, twaanger, wawheeer;
 let monsters;
-let thumper, boomer, dunner;
+
 let currentMonster;
 
 let sounds;
@@ -19,8 +20,6 @@ window.onload = (e) => {
     const volumenum = document.querySelector("#volumenum");
     const ratenum = document.querySelector("#ratenum");
 
-
-
     setup();
     createMonsters();
 
@@ -34,9 +33,6 @@ window.onload = (e) => {
     speedSlider.oninput = changeMonsterStats;
     volumeSlider.oninput = changeMonsterStats;
     loopSwitch.onclick = changeMonsterStats;
-
-
-
 }
 
 function changeMonsterStats(){
@@ -72,26 +68,92 @@ function changeMonsterStats(){
 
 function setup(){
     sounds = [
+        click = new Howl({
+            src:["Sounds/Click.mp3"],
+            volume: 1.0,
+            rate: 1.0
+        }),
+        crump = new Howl({
+            src:["Sounds/Crump.mp3"],
+            volume: 1.0,
+            rate: 1.0
+        }),
         drum = new Howl({
-            src:["Sounds/DrumBoop.mp3"],
+            src:["Sounds/Drum.mp3"],
             volume: 1.0,
             rate: 1.0
         }),
-        twang = new Howl({
-            src:["Sounds/Twang.mp3"],
+        keclunk = new Howl({
+            src:["Sounds/Keclunk.mp3"],
             volume: 1.0,
             rate: 1.0
         }),
-        guitarC = new Howl({
-            src:["Sounds/GuiterC.wav"],
+        knock = new Howl({
+            src:["Sounds/Knock.mp3"],
+            volume: 1.0,
+            rate: 1.0
+        }),
+        phwhip = new Howl({
+            src:["Sounds/Phwhip.mp3"],
+            volume: 1.0,
+            rate: 1.0
+        }),
+        slump = new Howl({
+            src:["Sounds/Slump.mp3"],
+            volume: 1.0,
+            rate: 1.0
+        }),
+        thrun = new Howl({
+            src:["Sounds/Thrun.mp3"],
+            volume: 1.0,
+            rate: 1.0
+        }),
+        thump = new Howl({
+            src:["Sounds/Thump.mp3"],
+            volume: 1.0,
+            rate: 1.0
+        }),
+        thwhip = new Howl({
+            src:["Sounds/Thwhip.mp3"],
+            volume: 1.0,
+            rate: 1.0
+        }),
+        ting = new Howl({
+            src:["Sounds/Ting.mp3"],
+            volume: 1.0,
+            rate: 1.0
+        }),
+        tink = new Howl({
+            src:["Sounds/Tink.mp3"],
+            volume: 1.0,
+            rate: 1.0
+        }),
+        twaang = new Howl({
+            src:["Sounds/Twaang.mp3"],
+            volume: 1.0,
+            rate: 1.0
+        }),
+        wawhee = new Howl({
+            src:["Sounds/Wawhee.mp3"],
             volume: 1.0,
             rate: 1.0
         })
     ]
     monsters = [
-        thumper = {name: "thumper", interval: 1, intervalID: "",playing: false, loop:true, volume:1.0, rate: 1.0, sound: drum},
-        boomer = {name: "boomer", interval: 1, intervalID:"", playing: false, loop:true, volume:1.0, rate: 1.0, sound: twang},
-        dunner = {name: "dunner", interval: 1, intervalID:"", playing: false, loop:true, volume:1.0, rate: 1.0, sound: guitarC}
+        clicker    = {name: "Clicker",   interval: 1, intervalID:"", playing: false, loop:true, volume:1.0, rate: 1.0, sound: click }, 
+        crumper    = {name: "Crumper",   interval: 1, intervalID:"", playing: false, loop:true, volume:1.0, rate: 1.0, sound: crump}, 
+        drummer    = {name: "Drummer",   interval: 1, intervalID:"", playing: false, loop:true, volume:1.0, rate: 1.0, sound: drum}, 
+        keclunker  = {name: "Keclunker", interval: 1, intervalID:"", playing: false, loop:true, volume:1.0, rate: 1.0, sound: keclunk}, 
+        knocker    = {name: "Knocker",   interval: 1, intervalID:"", playing: false, loop:true, volume:1.0, rate: 1.0, sound: knock}, 
+        phwhipper  = {name: "Phwhipper", interval: 1, intervalID:"", playing: false, loop:true, volume:1.0, rate: 1.0, sound: phwhip}, 
+        slumper    = {name: "Slumper",   interval: 1, intervalID:"", playing: false, loop:true, volume:1.0, rate: 1.0, sound: slump}, 
+        thrunner   = {name: "Thrunner",  interval: 1, intervalID:"", playing: false, loop:true, volume:1.0, rate: 1.0, sound: thrun}, 
+        thumper    = {name: "Thumper",   interval: 1, intervalID:"", playing: false, loop:true, volume:1.0, rate: 1.0, sound: thump},
+        thwhipper  = {name: "Thwipper",  interval: 1, intervalID:"", playing: false, loop:true, volume:1.0, rate: 1.0, sound: thwhip},  
+        tinger     = {name: "Tinger",    interval: 1, intervalID:"", playing: false, loop:true, volume:1.0, rate: 1.0, sound: ting}, 
+        tinker     = {name: "Tinker",    interval: 1, intervalID:"", playing: false, loop:true, volume:1.0, rate: 1.0, sound: tink}, 
+        twaanger   = {name: "Twaanger",  interval: 1, intervalID:"", playing: false, loop:true, volume:1.0, rate: 1.0, sound: twaang}, 
+        wawheeer   = {name: "Wawheer",   interval: 1, intervalID:"", playing: false, loop:true, volume:1.0, rate: 1.0, sound: wawhee}
     ];
 }
 
