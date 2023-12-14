@@ -3,11 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Patua+One&family=Playpen+Sans:wght@300&family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="docstyles.css">
+    <title>Project 3 Documentation</title>
 </head>
 <body>
+    <a id="return" href="index.html">Return to Main</a>
+    <h1>Project 3 Documentation</h1>
     <h1>Untitled Music Thing</h1>
-    <h2>Concept</h2>
+    <h2>Original Concept</h2>
     <p>A little 2d music experience where the user can click on certain objects for them to make sounds at a 
         chosen interval, akin to my singing monsters or other online music creation platforms.
     </p>
@@ -18,8 +24,6 @@
     <p>Music</p>
     <h2>Platform</h2>
     <p>Desktop only</p>
-    <h2>Story</h2>
-    <p>No story make music</p>
     <h2>Gameplay</h2>
     <p>Player will make music using the sounds I provide by setting intervals between beats and length of beats and any other interactions
         I can think of. 
@@ -29,5 +33,58 @@
     <img src="images/mockup2.png" alt="" style="border: 1px solid black;">
     <h2>About Me</h2>
     <p>David Gao / Game Design and Development / Sophomore / Storytelling</p>
+
+    <h2>Process</h2>
+    <h3>What do I make?</h3>
+    <p>I started originally with an idea for a little 2d pixel art dungeon crawler utilizing the pixiJS wrapper but
+        after deliberating a little bit and thinking of other ideas I decided to make a little music site. The primary inspiration for 
+        this site is music creation sites like <a class="intext" href="https://www.beepbox.co/#9n31s0k0l00e03t2ma7g0fj07r1i0o432T1v1u91f10l7q8121d35AbF6B8Q28c0Pb745E179T1v1u72f10u7q00d03A1FhB8Q4154Pd567E178T1v1u60f0q0x10h51d19AbF8B7Q0471Peb9aE2b676T4v1uf0f0q011z6666ji8k8k3jSBKSJJAArriiiiii07JCABrzrrrrrrr00YrkqHrsrrrrjr005zrAqzrjzrrqr1jRjrqGGrrzsrsA099ijrABJJJIAzrrtirqrqjqixzsrAjrqjiqaqqysttAJqjikikrizrHtBJJAzArzrIsRCITKSS099ijrAJS____Qg99habbCAYrDzh00E0b4h400000000h4g000000014h000000004h400000000p16000000" target="_blank" rel="noopener">beepbox</a>
+        or <a class="intext" href="https://www.incredibox.com/" target="_blank" rel="noopener">incredibox</a>. My original mockup looked a lot more like
+        the game My singing monsters, developed by Big Blue Bubble, but I ended up with a design that is more reminiscent of a MPC or music
+        production controller.
+    </p>
+    <h3>How do I make this?</h3>
+    <p>The first thing that I did was grab a couple of test sounds off of the internet as placeholders. With those in place I then tried
+        my best to create a scalable system with my initial test sounds. I decided that the best way to handle that was by using arrays 
+        of objects that contained all the adjustable settings of the howler js wrapper. After that it was just a matter of matching the 
+        correct sound to the correct object in the array and then changing the properties of that sound. 
+    </p>
+    <h3>Endgame</h3>
+    <p>One issue that I noticed when interacting with my site was that having to select sounds by hovering over them and then navigating
+        through the maze of other sounds in the way was tedious, so after fidgeting with the code and thinking a way to make the process 
+        less tedious I decided to add keyboard events to my site. With keyboard events it allows the user to use their keyboard to choose
+        the sounds that they want to edit. Though I didn't add a button to allow the user to play the sound from the keyboard too the 
+        implementation of the keyboard events made it so the sounds could be edited and then even if the user mouses over other buttons 
+        to play the sound they want to it will have no adverse effect because they will end up hovering over the button they wanted to 
+        play in the end.
+    </p>
+    <h3>Resources Used</h3>
+    <ul>
+        <li><a class="intext" href="https://www.w3schools.com/js/default.asp" rel="_blank" target="noopener">W3SCHOOLS THE GOAT</a></li>
+        <li><a class="intext" href="https://stackoverflow.com/" rel="_blank" target="noopener">STACKOVERFLOW PEOPLE ARE SO SMART</a></li>
+    </ul>
+    <h3>ES6 Class &lpar;10/10&rpar;</h3>
+    <p>I do in fact have one : &rpar;</p>
+    <h3>Validation &lpar;10/10&rpar;</h3>
+    <p>CSS and HTML validates!</p>
+    <h3>Error prevention and handling &lpar;10/10&rpar;</h3>
+    <p>No errors throw to my knowledge</p>
+    <h3>Optimized Images &lpar;10/10&rpar;</h3>
+    <p>I don't really utilize images on my site other than the dancing cat gif, but that image is also 76 px by 76px so very small and 
+        probably considered to be optimized.
+    </p>
+    <h3>Proposal On Time &lpar;-1000000/10&rpar;</h3>
+    <p>Was submitted on November 21st, 2023 at 9:21pm which was unfortunately 6 hours after the due date. Does this lose me points? Haha</p>
+    <h3>Prototype available for critique &lpar;20/20&rpar;</h3>
+    <p>Yep, saw a lot of cool projects!</p>
+    <h3>Code Check &lpar;8/10&rpar;</h3>
+    <p>Code is seperated and commented. Well-formatted is a bit subjective but I do repeat myself a little bit in lines 55-72 in my 
+        main.js. 
+    </p>
+    <h3>Console is clear &lpar;10/10&rpar;</h3>
+    <p>Console logs have been cleared out and no significant errors seem to appear.</p>
+    <h3>Either a 98% or -999902% which would be less than ideal...</h3>
+
+
 </body>
 </html>

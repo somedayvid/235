@@ -3,43 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Music Time</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Concert+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Patua+One&family=Playpen+Sans:wght@300&family=Righteous&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <script src="https://pixijs.download/v8.0.0-beta.11/pixi.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-    <h1>Music MAN</h1>
+    <h1>Music Time</h1>
+    <script src="classes.js"></script>
     <script src="main.js"></script>
+
+    <div id="explain">
+        <p>Hello and welcome to Music Time! Click on any button to make sounds play. When changing sound settings please remember to 
+            close the sound first by clicking the button for the corresponding sound into the unpressed position!
+        </p>
+        <div id="partyButton">
+            Party Mode
+        </div>
+        <p>Enabling party mode enables lots of flashing lights. Use at your own risk. Party mode is off by default. To activate
+            first enable the button and then meet the requirement of producing a sick beat.
+        </p>
+
+    </div>
     <div id="display"></div>
     <div id="info">
         <div class="item" id="name">
-            
+            Settings
         </div>
         <div class="item">
-            <p id="intervalnum">0</p>
             <label for="interval">Interval:</label>
             <input title="interval" type="range" min="0.1" max="5.0" value="1.0" class="slider" step =".1" id="interval">
+            <p id="intervalnum">0</p>
         </div>
 
         <div class="item">
-            <p id="ratenum">0</p>
             <label for="rate">Pitch:</label>
             <input title="rate" type="range" min=".5" max="4.0" value="1.0" class="slider" step=".1" id="rate">
+            <p id="ratenum">0</p>
         </div>
         <div class="item">
-            <p id="volumenum">0</p>
             <label for="volume">Volume:</label>
             <input title="volume" type="range" min="0.0" max="1.0" value="0.5" class="slider" step=".1" id="volume">
+            <p id="volumenum" class="numDisplay">0</p>
         </div>
-        <div class="item">
-            <label for="loop">Loop</label>
-                <input title="loop" type="checkbox" id="loop">
-                <span class="slider"></span>
+        <div class="item" id="switch">
+                <label for="loop">Loop
+                    <input title="loop" type="checkbox" id="loop">
+                    <span class="checkboxer"></span>
+                </label>
         </div>
     </div>
+    <footer>David Gao | <a href="docs.html">Documentation</a></footer>
 </body>
 </html>

@@ -1,68 +1,190 @@
+/* font-family: 'Patua One', serif;
+font-family: 'Righteous', sans-serif; */
+
 *{
-    overflow: hidden;
+    overflow-x: hidden;
     margin: 0;
+}
+
+/* make body a flex display so that it just lines down the page */
+body{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    background-color: #FFF1D0;
+    color: #086788;
+    text-align: center;
+}
+
+h1{
+    font-family: 'Patua One', 'Times New Roman', Times, serif;
+    text-align: center;
+    margin-top: 1vw;
+    font-size: 10vw;
+    margin-bottom: 5vw;
+}
+
+#explain{
+    width: 61vw;
+    margin: auto;
+    margin-bottom: 1vw;
 }
 
 #display{
     display: flex;
-    width: 100vw;
+    width: 70vw;
+    margin: 0 15vw;
     justify-content: center;
+    flex-flow: row wrap;
+    padding: 10px 0;
 }
 
-h1{
-    font-family: 'Concert One', sans-serif;
-    text-align: center;
-    margin-top: 1vw;
-}
-
+/* the styling for the monster so that there is space */
 .monster {
     display: inline-block;
-    margin: 10px 10px;
-    height: 5px;
-    padding: 15px 25px;
-    font-size: 24px;
+    margin: 1vw;
+    height: 7vw;
+    width: 7vw;
+    font-size: 1vw;
+    font-family: 'Righteous', 'Times New Roman', Times, serif;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
     outline: none;
-    color: #fff;
-    background-color: #04AA6D;
+    background-color: #06AED5;
     border: none;
-    border-radius: 15px;
-    box-shadow: 0 9px #999;
-}
-
-.monster:hover{
-    background-color: #3e8e41;
-}
-
-.monster:active{
-    background-color: #3e8341;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
+    border-radius: 10px;
+    box-shadow: 0 20px #999;
+    color: white;
 }
 
 #info{
-    width: 60vw;
+    width: 61vw;
+    height: auto;
     margin: auto;
     margin-top: 5vh;
     height: 35vh;
-    background-color: red;
+    background-color: #086788;
     border-radius: 10px;
     margin-bottom: 50px;
     text-align: center;
+    color:white;
 }
 
-#progressBar{
-    width:100%;
-    background-color: grey;
+/* contains the range sliders so that they are arranged correctly */
+div.item{
+    display: grid;
+    grid-template-columns: 1fr 8fr 1fr;
+    margin: 10px;
 }
 
-#myBar{
-    width:1%;
-    height:30px;
-    background-color: green;
+/* centers the loop switch for some reason */
+#switch{
+    position: relative;
+    display: inline-block;
 }
 
-p{
+/* simple button for the party thing */
+#partyButton{
+    background-color: #fff;
+    width: 100px;
+    height: 20px;
+    border-radius: 5px;
+    box-shadow: 0 10px #999;
+    margin: 1vw auto;
+    font-family: 'Righteous', 'Times New Roman', Times, serif;
+}
+
+#partyButton:hover{
+    background-color: red;
+    box-shadow: 0 9px #bbb;
+}
+
+p, label{
+    font-family: 'Playpen Sans', 'Times New Roman', Times, serif;
+}
+
+/* centers the name of the monster  */
+#name{
+    position: relative;
+    display: inline-block;
+    color: #FFF1D0;
+    font-family: 'Righteous', sans-serif; 
+    font-size: 5vw;
+    margin-left: 1vw;
+    margin-bottom: 1vw;
+}
+
+footer{
+    background-color: #DD1C1A;
+    padding-bottom: 5vh;
+    padding-top: 50px;
+    font-family: 'Righteous', 'Times New Roman', Times, serif;
+    text-align: center;
+    color: #FFF1D0;
+    font-size: 2vw;
+}
+
+a:link{
+    color: #FFF1D0;
+}
+
+a:visited{
+    color: #FFF1D0 ;
+}
+
+a:focus{
+    color: #06AED5;
+}
+
+a:hover{
+    color: #086788;
+}   
+
+a:active{
+    color: #086788;
+}
+
+/* changes the background color of the range sliders so it is more visible on the background */
+input{
+    accent-color: #06AED5;
+}
+
+/* just adjusts some sizing and expands width range so it looks better on a smaller screen size */
+@media screen and (max-width:800px){
+    .monster{
+        margin:4vw;
+        width: 20vw;
+        height: 20vw;
+        font-size: 4vw;
+    }
+
+    #explain{
+        width: 90vw;
+        text-align: center;
+    }
+    
+    #display{
+        width: 90vw;
+        margin: 0 5vw;
+    }
+
+    #info{
+        width: 90vw;
+        height: auto;
+        padding: 1vw 0;
+    }
+
+    div#name{
+        font-size: 10vw;
+    }
+
+    div.item{
+        display: grid;
+        grid-template-columns: 2fr 5fr 1fr;
+    }
+
+    footer{
+        font-size: 4vh;
+    }
 }

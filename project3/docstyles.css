@@ -1,0 +1,27 @@
+body{
+    width: 70vw;
+    margin: 0 15vw;
+}
+h1, h2,h3, p, ul{
+    font-family: 'Righteous';
+}
+
+p,a, li{
+    font-family: 'Playpen Sans';
+    font-weight: 600;
+}
+
+a#return{
+    position: sticky;
+    display: block;
+    top: 10px;
+    left: 10px;
+    width: 15vw;
+    font-size: 2vw;
+    margin-left: -15vw;
+}
+
+a:link{
+    text-decoration: none;
+}
+
